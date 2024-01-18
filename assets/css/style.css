@@ -1,0 +1,51 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.jumbotman{
+    padding: 0;
+    background-color: #b3ecfc;
+    padding: 100px 200px;
+}
+.form-search{
+    padding: 20px;
+    border: 0;
+}
+.input-group-text{
+    border: 0;
+}
+button{
+    border: 0;
+    background-color: inherit;
+}
+.bi-search{
+    font-size: 20px;
+}
+.placeholder-bg{
+    margin-top: 20px;
+    padding: 50px 200px;
+}
+.badges{
+    margin-top: 20px;
+}
+.badge{
+    padding: 20px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.title{
+    margin-bottom: 15px;
+}
+.footer{
+    text-align: center;
+}
+.footer a{
+    text-decoration: none;
+    padding: 10px;
+    color: #252525;
+}
+.copyright{
+    margin-top: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
