@@ -12,13 +12,170 @@
   </head>
   <body>
     <!-- ADD NAVBAR HERE (WITH LINKS TO BELOW SECTIONS)-->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">App Name</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse float-right" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">title</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">title</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">title</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <!-- ADD JUMBOTRON HERE -->
 
     <!-- RECIPE SEARCH SECTION-->
-    <section class="recipe-search">
+    <section class="recipe-search container-fluid">
       <h2>Recipe Search</h2>
+      <div class="row">
+        <div class="col-12 jumbotman">
+          <!-- Bootstrap form -->
+          <h3>Search Ingredients here</h3>
+          <form action="" method="post">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control form-search"
+                placeholder="Type ingredients..."
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+              />
+              <span class="input-group-text" id="inputGroup-sizing-default">
+                <button type="submit"><i class="bi bi-search"></i></button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+        <div class="col-xl-12 placeholder-bg">
+          <div class="row">
+            <!-- Badges Placeholder -->
+            <div class="col-xl-12 badges">
+              <div class="row">
+                <div class="col-xl-12 title">
+                  <!-- Common Ingredients Headline -->
+                  <h3>Common Ingredients</h3>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+                <div class="col-xl-2">
+                  <span class="badge text-bg-info">Name of Ingredient</span>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <!--add something later on below-->
+            <section id="recipe-results" class="row"></section>
     </section>
+
+     <!-- Looking for inspirations (Random recipes) -->
+     <div class="col-xl-12 badges">
+      <div class="container">
+      <div class="row">
+        <div class="col-xl-12 title">
+          <!-- Common Ingredients Headline -->
+          <h3>Looking for inspirations (Random recipes)</h3>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+        <div class="col-xl-2">
+          <span class="badge text-bg-info">Name of recipes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
 
     <!-- NUTRITIONAL ANALYSIS SECTION -->
     <section class="nutritional-analysis">
@@ -33,5 +190,21 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="./assets/js/recipeSearch.js"></script>
     <script src="./assets/js/nutionalAnalysis.js"></script>
+
+
+      <!-- footer -->
+
+      <div class="row footer">
+        <div class="col-xl-12">
+          <a href="#">Home</a>
+          <a href="#">Home</a>
+          <a href="#">Home</a>
+          <a href="#">Home</a>
+          <a href="#">Home</a>
+          <a href="#">Home</a>
+        </div>
+        <div class="col-xl-12 copyright">Copyright 2024 App Recipes</div>
+      </div>
+    </div>
   </body>
 </html>
