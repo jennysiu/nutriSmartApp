@@ -14,7 +14,8 @@ const commonIngredients = [
 ];
 
 // Array of favourite recipe IDs taken from localStorage
-const favouriteRecipies = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
+const favouriteRecipies =
+  JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
 // Populate the common ingredients button from the array of ingredients
 function renderCommonIngredients() {
@@ -97,3 +98,12 @@ async function fetchRecipes() {
     console.error("Fetch error:", error);
   }
 }
+
+// fetchRecipes()
+
+// Using the async function
+// fetchRecipes().then(data => {
+// console.log(data);
+// assign data variables here (ouotputs we need)
+// filter data to data variables
+// });
