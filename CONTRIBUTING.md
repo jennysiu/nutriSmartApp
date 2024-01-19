@@ -1,15 +1,15 @@
 # Contributing to this Project
 
-
 ## Naming Conventions
 
 One Word - lowercase.
 
-2+ Words - use the following: 
+2+ Words - use the following:
 
-- CSS IDs - camelCase 
+- CSS IDs - camelCase
 - CSS Classes - kebab-case
 - JS Variables - camelCase
+- JS Functions - camelCase
 - Filenames - camelCase (other than docs)
 - Git Branches - camelCase with the type of branch before eg:
   - feature/createSearchTool
@@ -21,9 +21,9 @@ One Word - lowercase.
 
 ## Code Style
 
-Install Prettier and make the default formatter in your IDE. The config file (.prettierrc) should then format all code consistently on save. 
+Install Prettier and make the default formatter in your IDE. The config file (.prettierrc) should then format all code consistently on save.
 
-NB: Errors in your code will prevent Prettier working. Keep an eye out for code errors in your IDE console (Prettier shows errors in the "output" tab). 
+NB: Errors in your code will prevent Prettier working. Keep an eye out for code errors in your IDE console (Prettier shows errors in the "output" tab).
 
 ## Git Workflow
 
@@ -49,6 +49,7 @@ git checkout feature/createSearchTool
 ```
 
 ...if there is a correction to be made that is blocking the merge you can push your commit as normal:
+
 ```
 git add .
 git commit -m "changed something"
@@ -59,16 +60,19 @@ git push origin feature/createSearchTool
 ## Useful Git Commands
 
 List local branches
+
 ```
 git branch
 ```
 
 List remote branches
+
 ```
 git branch -r
 ```
 
 List local and remote branches
+
 ```
 git branch -a
 ```
