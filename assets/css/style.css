@@ -59,7 +59,6 @@ button{
     font-size: small;
 }
 
-
 .image {
     width: 250px;
     float: left;
@@ -79,10 +78,8 @@ margin: 20px;
 float: left;
 width: fit-content;
 padding: 0.5rem;
-table {
-    border-collapse: collapse;
 }
-}
+
 .nutrition-card__title {
 font-weight: bold;
 font-size: 2rem;
@@ -98,12 +95,8 @@ p {
 }
 .nutrition-card__table {
 width: 100%;
-thead tr {
-    th,
-    td {
-    border: 0;
-    }
 }
+
 th,
 td {
     font-weight: normal;
@@ -113,9 +106,7 @@ td {
     white-space: nowrap;
 }
 td {
-    &:last-child {
-    text-align: right;
-    }
+
 }
 .blank-cell {
     width: 1rem;
@@ -127,19 +118,18 @@ td {
     border-top-width: 5px;
     }
 }
-}
+
 .small-info {
 font-size: 0.7rem;
 }
 
-.performance-facts__table--small {
-@extend .performance-facts__table;
-border-bottom: 1px solid #999;
-margin: 0 0 0.5rem 0;
-thead {
-    tr {
-    border-bottom: 1px solid black;
-    }
+.nutrition-card__table--small {
+    border-bottom: 1px solid #999;
+    margin: 0 0 0.5rem 0;
+    thead {
+        tr {
+        border-bottom: 1px solid black;
+        }
 }
 td {
     &:last-child {
@@ -153,8 +143,7 @@ td {
 }
 }
 
-.performance-facts__table--grid {
-@extend .performance-facts__table;
+.nutrition-card__table--grid {
 margin: 0 0 0.5rem 0;
 td {
     &:last-child {
