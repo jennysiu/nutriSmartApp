@@ -14,8 +14,7 @@ const commonIngredients = [
 ];
 
 // Array of favourite recipe IDs taken from localStorage
-const favouriteRecipies =
-  JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
+const favouriteRecipies = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
 // Populate the common ingredients button from the array of ingredients
 function renderCommonIngredients() {
@@ -45,8 +44,14 @@ $("#searchRecipes").on("click", function () {
     const recipes = data.hits;
 
     for (i = 0; i < recipes.length; i++) {
-      const recipeHeading = $("<p>").text(recipes[i].recipe.label);
-      $("#recipe-results").append(recipeHeading);
+      const recipe = recipes[i].recipe;
+      const recipeHeading = $("<h4>").text(recipe.label);
+      const recipeImg = $("<img>")
+        .attr("src", recipe.images.REGULAR.url)
+        .attr("width", recipe.images.REGULAR.width)
+        .attr("height", recipe.images.REGULAR.height)
+        .attr("alt", recipe.label);
+      $("#recipe-results").append(recipeHeading, recipeImg);
     }
   });
 });
