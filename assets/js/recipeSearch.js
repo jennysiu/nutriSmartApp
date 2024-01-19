@@ -27,12 +27,12 @@ async function fetchRecipes() {
     }
 };
 
-fetchRecipes()
+// fetchRecipes()
 
 // Using the async function
-fetchRecipes().then(data => {
-  console.log(data);
+// fetchRecipes().then(data => {
+  // console.log(data);
   // assign data variables here (ouotputs we need)
   // filter data to data variables
-});
+// });
 
