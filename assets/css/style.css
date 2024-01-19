@@ -1,6 +1,14 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+
+}
+
+h3, h2 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
 }
 .jumbotman{
     padding: 0;
@@ -27,15 +35,19 @@ button{
 }
 .badges{
     margin-top: 20px;
+
 }
 .badge{
     padding: 20px 20px;
     font-size: 16px;
     margin-bottom: 20px;
+    
 }
 .title{
     margin-bottom: 15px;
+    
 }
+
 .footer{
     text-align: center;
 }
@@ -166,4 +178,18 @@ border-bottom: 10px solid black;
 .thin-end {
 border-bottom: 1px solid black;
 }
-  
+.nutritional-analysis-section{
+    padding: 50px 15px;
+}
+
+#custom-analysis-button {
+    font-weight: 700;
+    font-size: 20px;
+
+}
+
+.search-input {
+    width: 200px;
+    border: 1px solid rgb(74, 162, 180);
+}
+
