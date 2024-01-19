@@ -1,11 +1,24 @@
-// replace with own API data
-const RECIPE_SEARCH_API_ID = "f2f4ac30";
-const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
+const RECIPE_SEARCH_API_ID = "3074c0c2";
+const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
 
 let keyword = "chicken"
 
 let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&q=${keyword}`;
 
+
+// Array of common ingredients for populating the buttons
+
+// Array of favourite recipe IDs taken from localStorage
+
+// Populate the common ingredients button from the array of ingredients
+
+// Function to populate the ingredients buttons to the array to search with (in tag)
+
+// Function to fetch a given recipes using search
+
+// Event listener on the recipe search form (submit) to initiate a search
+
+// Event listener on recipe favourite button to add to favourites and localStorage
 
 async function fetchRecipes() {
     try {
@@ -17,7 +30,7 @@ async function fetchRecipes() {
       // once response retrieved, convert to json format
       let data = await response.json();
 
-      // console.log(data);
+      console.log(data);
 
       // return data
       return data;
@@ -27,12 +40,10 @@ async function fetchRecipes() {
     }
 };
 
-fetchRecipes()
 
-// Using the async function
 fetchRecipes().then(data => {
   console.log(data);
-  // assign data variables here (ouotputs we need)
+  // assign data variables here (outputs we need)
   // filter data to data variables
 });
 
