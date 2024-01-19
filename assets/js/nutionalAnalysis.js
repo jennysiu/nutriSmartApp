@@ -1,24 +1,33 @@
+// ! todo: find sugar
+// ! todo: add units to nutrients
+// todo: add vitamins
+// ! todo: add search logic
+// todo: formating for nutritional information
+// todo: app name
+// todo: nav bar links - William
+// todo: add contact links
+// todo: add error handling for user input
+// todo: local storage - save favourite recipes
+
 const NUTRITIONAL_API_ID = "9a70d71a";
 const  NUTRITIONAL_API_KEY = "7fc8d04c2f9d72df3a6d50790e97e17e";
 
-// parameters for fetch
-// let nutritionalParameters = {
-//   "title": "string",
-//   "ingr": ["string"],
-//   "url": "string",
-//   "summary": "string",
-//   "yield": "string",
-//   "time": "string",
-//   "img": "string",
-//   "prep": "string"
-// }
 
-async function fetchNutritionalInfo() {
+// wait for page to fullly load & event listener for analyse button
+document.addEventListener('DOMContentLoaded', (event) => {
+  $('#custom-analysis-button').click(function(event) {
+      event.preventDefault(); // This will prevent the default action of the button
+      // let userIngridients = $(".search-input").val();
+      customAnalysisButton();
+  });
+});
+
+async function fetchNutritionalInfo(userIngridients) {
   try {
     // Define the body of the request
     const nutritionalParameters = {
       // title: "Chicken Paprikash", // Example title
-      ingr: ["500g tofu"], // Example ingredients
+      ingr: [userIngridients], // Example ingredients
       // yield: "string"
       // Additional fields can be added here as needed
     };
@@ -48,17 +57,15 @@ async function fetchNutritionalInfo() {
 
 // fetchNutritionalInfo();
 
-// event listener for analyse button and waits for page to fully load
-document.addEventListener('DOMContentLoaded', (event) => {
-  $('#custom-analysis-button').click(function(event) {
-      event.preventDefault(); // This will prevent the default action of the button
-      customAnalysisButton();
-  });
-});
 
 function customAnalysisButton() {
+  
+  
+  // let userIngridients = $(".search-input").val();
+  let userIngridients = "1 chicken" 
+  
   // Using the async function
-  fetchNutritionalInfo().then(data => {
+  fetchNutritionalInfo(userIngridients).then(data => {
     console.log(data);
     // assign data variables here (ouotputs we need)
     // filter data to data variables
@@ -86,146 +93,63 @@ function customAnalysisButton() {
       .text(healthLabels[i]);
       $(".health-labels").append(healthBadge)
     }
-    
+
     // calories
     let calories = data.calories;
     console.log(calories);
 
+    // *** gives you in quantity and iunits
+    let totalNutrients = data.totalNutrients;
+    console.log(totalNutrients);
+    // total fat
+    let totalFat = totalNutrients.FAT;
+    $("#total-fats .quantity").text(totalFat.quantity + totalFat.unit);
+    // saturated fat
+    $("#saturated-fats .quantity").text(totalNutrients.FASAT.quantity + totalNutrients.FASAT.unit);
+    // cholesterol
+    $("#cholesterol .quantity").text(totalNutrients.CHOLE.quantity + totalNutrients.CHOLE.unit);
+    // sodium
+    $("#sodium .quantity").text(totalNutrients.NA.quantity + totalNutrients.NA.unit);
+    // total carbs
+    $("#total-carbs .quantity").text(totalNutrients.CHOCDF.quantity + totalNutrients.CHOCDF.unit);
+    // fibre
+    $("#fibre .quantity").text(totalNutrients.FIBTG.quantity + totalNutrients.FIBTG.unit);
+    // suagrs 
+    $("#sugar .quantity").text(totalNutrients.SUGAR.quantity + totalNutrients.SUGAR.unit);
+    // protien
+    $("#protein .quantity").text(totalNutrients.PROCNT.quantity + totalNutrients.PROCNT.unit);
+
     // *** gives you % of daily rec
     let totalDailyPercentage = data.totalDaily;
     console.log(totalDailyPercentage);
-
-    // macronutrients - protein
-    let proteinDailyPercentageInfo = totalDailyPercentage.PROCNT;
-    console.log(proteinDailyPercentageInfo)
-
-    // macronutrients - carbohydrates
-
-    // macronutrients - fats
-
-    // *** gives you in quantity
-    let totalNutrients = data.totalNutrients;
-    console.log(totalNutrients);
-
-    // gives you calories from different forms
-    let totalNutrientsKCal = data.totalNutrientsKCal;
-    console.log(totalNutrientsKCal);
+    // total fat
+    $("#total-fats .percentage").text(`${totalDailyPercentage.FAT.quantity.toFixed(1)}%`);
+    // saturated fat
+    $("#saturated-fats .percentage").text(`${totalDailyPercentage.FASAT.quantity.toFixed(1)}%`);
+    // cholesterol
+    $("#cholesterol .percentage").text(`${totalDailyPercentage.CHOLE.quantity.toFixed(1)}%`);
+    // sodium
+    $("#sodium .percentage").text(`${totalDailyPercentage.NA.quantity.toFixed(1)}%`);
+    // total carbs
+    $("#total-carbs .percentage").text(`${totalDailyPercentage.CHOCDF.quantity.toFixed(1)}%`);
+    // fibre
+    $("#fibre .percentage").text(`${totalDailyPercentage.FIBTG.quantity.toFixed(1)}%`);
+    // suagrs
+    $("#sugar .percentage").text(`${totalDailyPercentage.SUGAR.quantity.toFixed(1)}%`);
+    // protien
+    $("#protein .percentage").text(`${totalDailyPercentage.PROCNT.quantity.toFixed(1)}%`);
 
     localStorage.setItem('savedData', JSON.stringify(data));
   })
-  console.log("dinng")
 }
+
 
 $(document).ready(function organiseData() {
   let data = JSON.parse(localStorage.getItem('savedData'));
   console.log(data);
 
-    // diet labels
-    let dietLabels = data.dietLabels;
-    console.log(dietLabels);
-
-    for (let i = 0; i < dietLabels.length; i++) {
-      const dietBadge = $("<span>")
-      .addClass("badge label-badge")
-      .text(dietLabels[i]);
-      $(".diet-labels").append(dietBadge)
-    }
-
-    // health labels
-    // needs to be filtered out
-
-    let healthLabels = data.healthLabels;
-    console.log(healthLabels);
-
-    for (let i = 0; i < healthLabels.length; i++) {
-      const healthBadge = $("<span>")
-      .addClass("badge label-badge")
-      .text(healthLabels[i]);
-      $(".health-labels").append(healthBadge)
-    }
-    
-    // calories
-    let calories = data.calories;
-    console.log(calories);
-
-    // *** gives you in quantity
-    let totalNutrients = data.totalNutrients;
-    console.log(totalNutrients);
-
-    // total fat
-    let totalFat = totalNutrients.FAT;
-    $("#total-fats .quantity").text(totalFat.quantity+totalFat.unit)
-
-    // saturated fat
-    $("#saturated-fats .quantity").text(totalNutrients.FASAT.quantity)
-
-    // cholesterol
-    $("#cholesterol .quantity").text(totalNutrients.CHOLE.quantity)
-
-    // sodium
-    $("#sodium .quantity").text(totalNutrients.NA.quantity)
-
-    // total carbs
-    $("#total-carbs .quantity").text(totalNutrients.CHOCDF.quantity)
-
-    // fibre
-    $("#fibre .quantity").text(totalNutrients.FIBTG.quantity)
-
-    // todo: suagrs - *** WHERE IS SUGAR??
-    $("#sugar .quantity").text(totalNutrients.FAT.quantity)
-
-    // protien
-    $("#protein .quantity").text(totalNutrients.PROCNT.quantity)
-
-    // *** gives you % of daily rec
-    let totalDailyPercentage = data.totalDaily;
-    console.log(totalDailyPercentage);
-
-    // total fat
-    $("#total-fats .percentage").text(totalDailyPercentage.FAT.quantity)
-
-    // saturated fat
-    $("#saturated-fats .percentage").text(totalDailyPercentage.FASAT.quantity)
-
-    // cholesterol
-    $("#cholesterol .percentage").text(totalDailyPercentage.CHOLE.quantity)
-
-    // sodium
-    $("#sodium .percentage").text(totalDailyPercentage.NA.quantity)
-
-    // total carbs
-    $("#total-carbs .percentage").text(totalDailyPercentage.CHOCDF.quantity)
-
-    // fibre
-    $("#fibre .percentage").text(totalDailyPercentage.FIBTG.quantity)
-
-    // todo: suagrs - *** WHERE IS SUGAR??
-    $("#sugar .percentage").text(totalDailyPercentage.FAT.quantity)
-
-    // protien
-    $("#protein .percentage").text(totalDailyPercentage.PROCNT.quantity)
-
+  
 });
 
 // organiseData() 
-
-// // funtion to create for-loop based on array length size
-// function renderNutritionInfoInArray(parent, array) {
-//   for (let i = 0; i < array.length; i++) {
-//     console.log(array)
-//     let nutrientName = $("<span>")
-//     .addClass("nutrient-nutrientName")
-//     .text(array[i].label);
-
-//     let nutrientQuantity = $("<span>")
-//     .addClass("nutrient-quantity")
-//     .text(array[i].quantity);;
-
-//     let unit = $("<span>")
-//     .addClass("nutrient-unit")
-//     .text(array[i].unit);
-
-//     parent.append(nutrientName, nutrientQuantity, unit);
-//   }
-// }
 
