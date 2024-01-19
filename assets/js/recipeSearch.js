@@ -51,6 +51,20 @@ $("#searchRecipes").on("click", function () {
         .attr("width", recipe.images.REGULAR.width)
         .attr("height", recipe.images.REGULAR.height)
         .attr("alt", recipe.label);
+      /*      
+        const recipeCard = $(`
+        <div class="card text-white" style="background: url('${recipe.images.REGULAR.url}') center/cover no-repeat;">
+          <!-- <div class="card-header">${recipe.label}</div> -->
+          <div class="card-body">
+            <h5 class="card-title">
+              <div class="card-header">${recipe.label}</div> -->
+            </h5>
+            <p class="card-text">${recipe.label}</p>
+          </div>
+        </div>
+      `);
+*/
+
       $("#recipe-results").append(recipeHeading, recipeImg);
     }
   });
