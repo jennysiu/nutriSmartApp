@@ -1,28 +1,9 @@
 const RECIPE_SEARCH_API_ID = "3074c0c2";
 const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
 
-// Array of common ingredients for populating the buttons
-const commonIngredients = [
-  "chicken",
-  "pork",
-  "beef",
-  "turkey",
-  "fish",
-  "carrot",
-  "apple",
-  "potato",
-];
-
 // Array of favourite recipe IDs taken from localStorage
 const favouriteRecipies =
   JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
-
-// Populate the common ingredients button from the array of ingredients
-function renderCommonIngredients() {
-  for (i = 0; i < commonIngredients.length; i++) {
-    console.log(i);
-  }
-}
 
 // Function to fetch given recipes using search
 
@@ -42,31 +23,37 @@ $("#searchRecipes").on("click", function () {
     // Array of returned recipes
     const recipes = data.hits;
 
+    // Loop the recipes returned
     for (let i = 0; i < recipes.length; i++) {
       const recipe = recipes[i].recipe;
       const recipeUri = recipe.uri;
-      const recipeImageWidth = recipe.images.REGULAR.width;
+      //      const recipeImageWidth = recipe.images.REGULAR.width;
       const recipeYield = recipe.yield;
+      const recipeIngredients = recipe.ingredients;
 
-      console.log(recipe.ingredients);
-      console.log(recipe.ingredients[0]);
-      console.log(recipe.ingredients[0].food);
-
-      // Get ingredients list
+      // List the ingredients
       const recipeIngredientsList = $("<ul>");
-      for (let j = 0; j < recipe.ingredients.length; j++) {
-        const recipeIngredient = $(`<li>${recipe.ingredients[j].food}</li>`);
-        console.log(`Recipe Ingredient: ${recipe.ingredients[j].food}`);
-        recipeIngredientsList.text(recipeIngredient);
+      for (let j = 0; j < recipeIngredients.length; j++) {
+        const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
+        console.log(`Recipe Ingredient: ${recipeIngredients[j].food}`);
+        recipeIngredientsList.append(recipeIngredient);
       }
 
       const recipeResult = $(`
 
-        <div class="recipeResult" style="cursor:pointer" data-uri="${recipeUri}">
-          <img src="${recipe.images.REGULAR.url}" style="width:${recipeImageWidth}px;height:auto">
-          <h4>${recipe.label}</h4>
-          <div>Ingredients: ${recipeIngredientsList}</div>
-          <a href="#" class="btn btn-secondary btn-sm">Serves ${recipeYield}</a>
+        <div class="recipeResult py-3" style="cursor:pointer" data-uri="${recipeUri}">
+          <div class="row">
+            <div class="col-sm-3">
+              <img src="${
+                recipe.images.REGULAR.url
+              }" style="width:100%;height:auto">
+            </div>
+            <div class="col-sm-9">
+              <h4>${recipe.label}</h4>
+              <div>Ingredients: ${recipeIngredientsList.prop("outerHTML")}</div>
+              <a href="#" class="btn btn-secondary btn-sm">Servings ${recipeYield}</a>
+            </div>
+          </div>
         </div>
 
       `);
@@ -81,9 +68,11 @@ $("#searchRecipes").on("click", function () {
 // API search
 async function fetchRecipes() {
   try {
-    // Get search terms from list use "data-ingredient"
+    // Get search terms from array of search terms
 
-    const tags = "egg+bacon";
+    // Get incredients from text box - this will be changed to pull ingredients from the array
+    const inputText = $("#addIngredient input").val().trim();
+    const tags = inputText.replace(/ |,/g, "+");
 
     // Construct search URL
     const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&tag=${tags}`;
