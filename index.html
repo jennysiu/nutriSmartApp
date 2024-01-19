@@ -58,7 +58,7 @@
         <div class="col-12 jumbotman">
           <!-- Bootstrap form -->
           <h3>Search Ingredients here</h3>
-          <form action="" method="post">
+          <form id="addIngredient" method="post">
             <div class="input-group mb-3">
               <input
                 type="text"
@@ -68,61 +68,18 @@
                 aria-describedby="inputGroup-sizing-default"
               />
               <span class="input-group-text" id="inputGroup-sizing-default">
-                <button type="submit"><i class="bi bi-search"></i></button>
+                <button type="submit"><i class="bi bi-plus"></i></button>
               </span>
             </div>
           </form>
+          <div id="ingredientsToSearch">
+            <!--ingredients added are dynamically added here -->
+          </div>
+          <button id="searchRecipes" type="button" class="btn btn-primary">
+            Find Recipes
+          </button>
         </div>
       </section>
-
-      <section>
-        <div class="row">
-          <div class="col-xl-12 title">
-            <!-- Common Ingredients Headline -->
-            <h3>Common Ingredients</h3>
-          </div>
-
-          <!-- badges for common ingridients -->
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of Ingredient</span>
-          </div>
-        </div>
-      </section>
-
-      <hr />
 
       <section id="recipe-results" class="row">
         <!-- dynamically add recipe results here -->
