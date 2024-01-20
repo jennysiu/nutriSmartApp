@@ -12,4 +12,9 @@ $("#nutritionalNavigation").on("click", function () {
   $("#nutritional-analysis").removeClass("d-none");
 });
 
+// Hide .nutritional-analysis-section on load
+$(function () {
+  $(".nutritional-analysis-section").addClass("d-none");
+});
+
 // todo: hide nutritional-info section & show when analyse is clicked
