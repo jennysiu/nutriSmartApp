@@ -2,19 +2,14 @@
 $("#recipeNavigation").on("click", function () {
   $(".recipe-search-section").removeClass("d-none");
   $(".randomRecipes").removeClass("d-none");
-  $("#nutritional-analysis-containe").addClass("d-none");
+  $("#nutritional-analysis-container").addClass("d-none");
 });
 
 // Event listener for click id nutritionalNavigation and hide .recipe-search-section
 $("#nutritionalNavigation").on("click", function () {
   $(".recipe-search-section").addClass("d-none");
   $(".randomRecipes").addClass("d-none");
-  $("#nutritional-analysis-containe").removeClass("d-none");
-});
-
-// Hide .nutritional-analysis-section on load
-$(function () {
-  $("#nutritional-analysis-containe").addClass("d-none");
+  $("#nutritional-analysis-container").removeClass("d-none");
 });
 
 // todo: hide nutritional-info section & show when analyse is clicked
