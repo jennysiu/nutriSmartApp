@@ -1,9 +1,9 @@
 // ! todo: find sugar
 // ! todo: add units to nutrients
-// todo: add vitamins
+// ! todo: add vitamins
 // ! todo: add search logic
 // todo: formating for nutritional information
-// todo: app name
+// ! todo: app name
 // todo: add contact links
 // todo: add error handling for user input
 // todo: local storage - save favourite recipes
@@ -56,10 +56,8 @@ async function fetchNutritionalInfo(userIngridients) {
 
 // fetchNutritionalInfo();
 
-
 function customAnalysisButton() {
-  
-  
+
   // let userIngridients = $(".search-input").val();
   let userIngridients = "1 chicken" 
   
@@ -138,10 +136,37 @@ function customAnalysisButton() {
     // protien
     $("#protein .percentage").text(`${totalDailyPercentage.PROCNT.quantity.toFixed(1)}%`);
 
+    // vitamins and minerals
+    // loop through object 
+    for (const key in totalDailyPercentage) {
+      if (totalDailyPercentage.hasOwnProperty(key)) {
+        let vitAndMineralsName = totalDailyPercentage[key].label;
+        let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
+        // console.log(vitAndMineralsName);    
+        // console.log(vitAndMineralsQuantity);      
+      
+        // filter out zero quantities
+        if ((vitAndMineralsQuantity > 0)) {
+          // dynamically render vitamins onto nutrition card
+          let tableRow = $("<tr>")
+          .addClass("vitamin-row");
+
+          let tableDataOne = $("<td>")
+          .attr("colespan", "2")
+          .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+
+          let thinLine = $("<tr>")
+          .addClass("thin-end");
+
+          $("#vit-and-minerals-body").append(tableRow);
+          $("#vit-and-minerals-body").append(tableDataOne, thinLine)
+        }
+      }
+    }    
+
     localStorage.setItem('savedData', JSON.stringify(data));
   })
 }
-
 
 $(document).ready(function organiseData() {
   let data = JSON.parse(localStorage.getItem('savedData'));
@@ -153,9 +178,6 @@ $(document).ready(function organiseData() {
   // if quantity is larger than zero, include in display list
   // render display list at bottom of nutritional card
 
-  let vitAndMineralsNamePresent = [];
-  let vitAndMineralsQuantityPresent =[];
-
   // loop through object 
   for (const key in totalDailyPercentage) {
     if (totalDailyPercentage.hasOwnProperty(key)) {
@@ -165,10 +187,7 @@ $(document).ready(function organiseData() {
       // console.log(vitAndMineralsQuantity);      
     
       // filter out zero quantities
-      if (vitAndMineralsQuantity > 0) {
-        vitAndMineralsNamePresent.push(vitAndMineralsName)
-        vitAndMineralsQuantityPresent.push(vitAndMineralsQuantity)
-
+      if ((vitAndMineralsQuantity > 0)) {
         // dynamically render vitamins onto nutrition card
         let tableRow = $("<tr>")
         .addClass("vitamin-row");
@@ -185,6 +204,4 @@ $(document).ready(function organiseData() {
       }
     }
   }
-  console.log(vitAndMineralsQuantityPresent)
-
 });
