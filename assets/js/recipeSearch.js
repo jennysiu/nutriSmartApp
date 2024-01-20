@@ -2,7 +2,8 @@ const RECIPE_SEARCH_API_ID = "3074c0c2";
 const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
 
 // Array of favourite recipe IDs taken from localStorage
-const favouriteRecipies = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
+const favouriteRecipies =
+  JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
 // Array of ingredients to search
 const ingredientsSearch = [];
@@ -12,21 +13,25 @@ const ingredientsSearch = [];
 // Function to display a single recipe
 
 // Event listener on ingredient button to remove it from the array
-$("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) {
-  // Which button did we click
-  // console.log($(e.target).attr("data-ingredient"));
+$("#ingredientsToSearch").on(
+  "click",
+  ".search-recipe-ingredient",
+  function (e) {
+    // Which button did we click
+    // console.log($(e.target).attr("data-ingredient"));
 
-  // remove it from the array of ingredients
-  for (let i = 0; i < ingredientsSearch.length; i++) {
-    const ingredient = ingredientsSearch[i];
-    if (ingredient === $(e.target).attr("data-ingredient")) {
-      // remove this ingredient from search array
-      ingredientsSearch.splice(i, 1);
+    // remove it from the array of ingredients
+    for (let i = 0; i < ingredientsSearch.length; i++) {
+      const ingredient = ingredientsSearch[i];
+      if (ingredient === $(e.target).attr("data-ingredient")) {
+        // remove this ingredient from search array
+        ingredientsSearch.splice(i, 1);
+      }
     }
+    // rerender the buttons
+    renderRecipeSearchIngredients();
   }
-  // rerender the buttons
-  renderRecipeSearchIngredients();
-});
+);
 
 // Event listener on ingredient search form
 $("#addIngredient").on("submit", function (e) {
@@ -84,34 +89,57 @@ $("#searchRecipes").on("click", function () {
   console.log("Recipe Search");
 
   fetchRecipes().then((data) => {
-    // Array of returned recipes
-    const recipes = data.hits;
+    if (data.noResults) {
+      // No data
+      console.log("No recipes found");
 
-    // Empty the results
-    $("#recipe-results").empty();
+      // No recipes found, so briefly show a message
+      const elNoResults = $("<span>")
+        .addClass("invalid-feedback")
+        .addClass("px-3")
+        .text("No recipes found! Please try again.")
+        .insertAfter($("#searchRecipes"))
+        .show();
 
-    // Loop the recipes returned
-    for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i].recipe;
-      const recipeUri = recipe.uri;
-      //      const recipeImageWidth = recipe.images.REGULAR.width;
-      const recipeYield = recipe.yield;
-      const recipeIngredients = recipe.ingredients;
+      setTimeout(function () {
+        elNoResults.hide();
+      }, 3000);
+    } else if (data.error) {
+      // Handle any errors
+      console.error("Error:", data.error);
+    } else {
+      // Work with the data
 
-      // List the ingredients
-      const recipeIngredientsList = $("<ul>");
-      for (let j = 0; j < recipeIngredients.length; j++) {
-        const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
-        // console.log(`Recipe Ingredient: ${recipeIngredients[j].food}`);
-        recipeIngredientsList.append(recipeIngredient);
-      }
+      // Array of returned recipes
+      const recipes = data.hits;
 
-      const recipeResult = $(`
+      // Empty the results
+      $("#recipe-results").empty();
+
+      // Loop the recipes returned
+      for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i].recipe;
+        const recipeUri = recipe.uri;
+        //      const recipeImageWidth = recipe.images.REGULAR.width;
+        const recipeYield = recipe.yield;
+        const recipeIngredients = recipe.ingredients;
+
+        // List the ingredients
+        const recipeIngredientsList = $("<ul>");
+        for (let j = 0; j < recipeIngredients.length; j++) {
+          const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
+          // console.log(`Recipe Ingredient: ${recipeIngredients[j].food}`);
+          recipeIngredientsList.append(recipeIngredient);
+        }
+
+        const recipeResult = $(`
 
         <div class="recipeResult py-3" style="cursor:pointer" data-uri="${recipeUri}">
           <div class="row">
             <div class="col-sm-3">
-              <img src="${recipe.images.REGULAR.url}" style="width:100%;height:auto">
+              <img src="${
+                recipe.images.REGULAR.url
+              }" style="width:100%;height:auto">
             </div>
             <div class="col-sm-9">
               <h4>${recipe.label}</h4>
@@ -123,7 +151,8 @@ $("#searchRecipes").on("click", function () {
 
       `);
 
-      $("#recipe-results").append(recipeResult);
+        $("#recipe-results").append(recipeResult);
+      }
     }
   });
 });
@@ -151,6 +180,12 @@ async function fetchRecipes() {
 
     // once response retrieved, convert to json format
     let data = await response.json();
+
+    // Check for zero results and return and set data.noResults to true
+    // This is so that the calling function can check any were found
+    if (data.count === 0) {
+      return { noResults: true };
+    }
 
     // Convert the JSON data to a string
     const jsonString = JSON.stringify(data);
