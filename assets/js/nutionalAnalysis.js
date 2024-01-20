@@ -160,7 +160,7 @@ $(document).ready(function organiseData() {
   for (const key in totalDailyPercentage) {
     if (totalDailyPercentage.hasOwnProperty(key)) {
       let vitAndMineralsName = totalDailyPercentage[key].label;
-      let vitAndMineralsQuantity = totalDailyPercentage[key].quantity;
+      let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
       // console.log(vitAndMineralsName);    
       // console.log(vitAndMineralsQuantity);      
     
@@ -170,16 +170,18 @@ $(document).ready(function organiseData() {
         vitAndMineralsQuantityPresent.push(vitAndMineralsQuantity)
 
         // dynamically render vitamins onto nutrition card
-        let tableRow = $("<tr")
+        let tableRow = $("<tr>")
+        .addClass("vitamin-row");
 
-        let tableData = $("td")
+        let tableDataOne = $("<td>")
         .attr("colespan", "2")
-        .text(`${vitAndMineralsName}${vitAndMineralsQuantity} %`);
+        .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
 
-        // let tableData = $("td")
-        // .attr("colespan", "2");
+        let thinLine = $("<tr>")
+        .addClass("thin-end");
 
-
+        $("#vit-and-minerals-body").append(tableRow);
+        $("#vit-and-minerals-body").append(tableDataOne, thinLine)
       }
     }
   }
