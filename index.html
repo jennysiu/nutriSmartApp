@@ -69,10 +69,12 @@
               </span>
             </div>
           </form>
-          <div id="ingredientsToSearch">
+          <div id="ingredientsToSearch" class="my-3">
             <!--ingredients added are dynamically added here -->
           </div>
-          <button id="searchRecipes" type="button" class="btn btn-primary">Find Recipes</button>
+          <button id="searchRecipes" type="button" class="d-none btn btn-primary">
+            Find Recipes
+          </button>
         </div>
       </section>
 
@@ -82,7 +84,7 @@
     </section>
 
     <!-- Looking for inspirations (Random recipes) -->
-    <section class="randomRecipes container-fluid">
+    <section class="d-none randomRecipes container-fluid">
       <div class="row">
         <div class="col-xl-12 title">
           <!-- Common Ingredients Headline -->
