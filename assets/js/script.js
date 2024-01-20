@@ -1,18 +1,21 @@
-// Event listener for click id recipeNavigation and hide .nutritional-analysis-section
+// Event listener for click id recipeNavigation and hide #nutritional-analysis
 $("#recipeNavigation").on("click", function () {
   $(".recipe-search-section").removeClass("d-none");
   $(".randomRecipes").removeClass("d-none");
-  $(".nutritional-analysis-section").addClass("d-none");
+  $("#nutritional-analysis").addClass("d-none");
 });
 
 // Event listener for click id nutritionalNavigation and hide .recipe-search-section
 $("#nutritionalNavigation").on("click", function () {
   $(".recipe-search-section").addClass("d-none");
   $(".randomRecipes").addClass("d-none");
-  $(".nutritional-analysis-section").removeClass("d-none");
+  $("#nutritional-analysis").removeClass("d-none");
 });
 
-// Hide .nutritional-analysis-section on load
+// Hide #nutritional-analysis on load
+// ALSO hide recipe search section for nutritional analysis testing
 $(function () {
-  $(".nutritional-analysis-section").addClass("d-none");
+  $(".recipe-search-section").addClass("d-none");
 });
+
+// todo: hide nutritional-info section & show when analyse is clicked

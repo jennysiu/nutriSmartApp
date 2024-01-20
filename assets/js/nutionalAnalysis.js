@@ -4,14 +4,13 @@
 // ! todo: add search logic
 // todo: formating for nutritional information
 // todo: app name
-// todo: nav bar links - William
 // todo: add contact links
 // todo: add error handling for user input
 // todo: local storage - save favourite recipes
+//  todo: filter out some health lables
 
 const NUTRITIONAL_API_ID = "9a70d71a";
 const  NUTRITIONAL_API_KEY = "7fc8d04c2f9d72df3a6d50790e97e17e";
-
 
 // wait for page to fullly load & event listener for analyse button
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -82,7 +81,7 @@ function customAnalysisButton() {
     }
 
     // health labels
-    // needs to be filtered out
+    // todo: needs to be filtered out
 
     let healthLabels = data.healthLabels;
     console.log(healthLabels);
@@ -105,7 +104,7 @@ function customAnalysisButton() {
     let totalFat = totalNutrients.FAT;
     $("#total-fats .quantity").text(totalFat.quantity + totalFat.unit);
     // saturated fat
-    $("#saturated-fats .quantity").text(totalNutrients.FASAT.quantity + totalNutrients.FASAT.unit);
+    $("#saturated-fats .quantity").text(totalNutrients.FASAT.quantity.toFixed(1) + totalNutrients.FASAT.unit);
     // cholesterol
     $("#cholesterol .quantity").text(totalNutrients.CHOLE.quantity + totalNutrients.CHOLE.unit);
     // sodium
@@ -117,7 +116,7 @@ function customAnalysisButton() {
     // suagrs 
     $("#sugar .quantity").text(totalNutrients.SUGAR.quantity + totalNutrients.SUGAR.unit);
     // protien
-    $("#protein .quantity").text(totalNutrients.PROCNT.quantity + totalNutrients.PROCNT.unit);
+    $("#protein .quantity").text(totalNutrients.PROCNT.quantity.toFixed(1) + totalNutrients.PROCNT.unit);
 
     // *** gives you % of daily rec
     let totalDailyPercentage = data.totalDaily;
@@ -147,9 +146,43 @@ function customAnalysisButton() {
 $(document).ready(function organiseData() {
   let data = JSON.parse(localStorage.getItem('savedData'));
   console.log(data);
+  let totalDailyPercentage = data.totalDaily;
+  console.log(totalDailyPercentage);
 
-  
+  // if label name is in list of minerals to show, then add onto list to display
+  // if quantity is larger than zero, include in display list
+  // render display list at bottom of nutritional card
+
+  let vitAndMineralsNamePresent = [];
+  let vitAndMineralsQuantityPresent =[];
+
+  // loop through object 
+  for (const key in totalDailyPercentage) {
+    if (totalDailyPercentage.hasOwnProperty(key)) {
+      let vitAndMineralsName = totalDailyPercentage[key].label;
+      let vitAndMineralsQuantity = totalDailyPercentage[key].quantity;
+      // console.log(vitAndMineralsName);    
+      // console.log(vitAndMineralsQuantity);      
+    
+      // filter out zero quantities
+      if (vitAndMineralsQuantity > 0) {
+        vitAndMineralsNamePresent.push(vitAndMineralsName)
+        vitAndMineralsQuantityPresent.push(vitAndMineralsQuantity)
+
+        // dynamically render vitamins onto nutrition card
+        let tableRow = $("<tr")
+
+        let tableData = $("td")
+        .attr("colespan", "2")
+        .text(`${vitAndMineralsName}${vitAndMineralsQuantity} %`);
+
+        // let tableData = $("td")
+        // .attr("colespan", "2");
+
+
+      }
+    }
+  }
+  console.log(vitAndMineralsQuantityPresent)
+
 });
-
-// organiseData() 
-
