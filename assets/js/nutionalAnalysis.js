@@ -168,40 +168,40 @@ function customAnalysisButton() {
   })
 }
 
-$(document).ready(function organiseData() {
-  let data = JSON.parse(localStorage.getItem('savedData'));
-  console.log(data);
-  let totalDailyPercentage = data.totalDaily;
-  console.log(totalDailyPercentage);
+// $(document).ready(function organiseData() {
+//   let data = JSON.parse(localStorage.getItem('savedData'));
+//   console.log(data);
+//   let totalDailyPercentage = data.totalDaily;
+//   console.log(totalDailyPercentage);
 
-  // if label name is in list of minerals to show, then add onto list to display
-  // if quantity is larger than zero, include in display list
-  // render display list at bottom of nutritional card
+//   // if label name is in list of minerals to show, then add onto list to display
+//   // if quantity is larger than zero, include in display list
+//   // render display list at bottom of nutritional card
 
-  // loop through object 
-  for (const key in totalDailyPercentage) {
-    if (totalDailyPercentage.hasOwnProperty(key)) {
-      let vitAndMineralsName = totalDailyPercentage[key].label;
-      let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
-      // console.log(vitAndMineralsName);    
-      // console.log(vitAndMineralsQuantity);      
+//   // loop through object 
+//   for (const key in totalDailyPercentage) {
+//     if (totalDailyPercentage.hasOwnProperty(key)) {
+//       let vitAndMineralsName = totalDailyPercentage[key].label;
+//       let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
+//       // console.log(vitAndMineralsName);    
+//       // console.log(vitAndMineralsQuantity);      
     
-      // filter out zero quantities
-      if ((vitAndMineralsQuantity > 0)) {
-        // dynamically render vitamins onto nutrition card
-        let tableRow = $("<tr>")
-        .addClass("vitamin-row");
+//       // filter out zero quantities
+//       if ((vitAndMineralsQuantity > 0)) {
+//         // dynamically render vitamins onto nutrition card
+//         let tableRow = $("<tr>")
+//         .addClass("vitamin-row");
 
-        let tableDataOne = $("<td>")
-        .attr("colespan", "2")
-        .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+//         let tableDataOne = $("<td>")
+//         .attr("colespan", "2")
+//         .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
 
-        let thinLine = $("<tr>")
-        .addClass("thin-end");
+//         let thinLine = $("<tr>")
+//         .addClass("thin-end");
 
-        $("#vit-and-minerals-body").append(tableRow);
-        $("#vit-and-minerals-body").append(tableDataOne, thinLine)
-      }
-    }
-  }
-});
+//         $("#vit-and-minerals-body").append(tableRow);
+//         $("#vit-and-minerals-body").append(tableDataOne, thinLine)
+//       }
+//     }
+//   }
+// });
