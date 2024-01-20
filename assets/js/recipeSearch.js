@@ -2,8 +2,7 @@ const RECIPE_SEARCH_API_ID = "3074c0c2";
 const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
 
 // Array of favourite recipe IDs taken from localStorage
-const favouriteRecipies =
-  JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
+const favouriteRecipies = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
 // Array of ingredients to search
 const ingredientsSearch = [];
@@ -13,40 +12,46 @@ const ingredientsSearch = [];
 // Function to display a single recipe
 
 // Event listener on ingredient button to remove it from the array
-$("#ingredientsToSearch").on(
-  "click",
-  ".search-recipe-ingredient",
-  function (e) {
-    // Which button did we click
-    // console.log($(e.target).attr("data-ingredient"));
+$("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) {
+  // Which button did we click
+  // console.log($(e.target).attr("data-ingredient"));
 
-    // remove it from the array of ingredients
-    for (let i = 0; i < ingredientsSearch.length; i++) {
-      const ingredient = ingredientsSearch[i];
-      if (ingredient === $(e.target).attr("data-ingredient")) {
-        // remove this ingredient from search array
-        ingredientsSearch.splice(i, 1);
-      }
+  // remove it from the array of ingredients
+  for (let i = 0; i < ingredientsSearch.length; i++) {
+    const ingredient = ingredientsSearch[i];
+    if (ingredient === $(e.target).attr("data-ingredient")) {
+      // remove this ingredient from search array
+      ingredientsSearch.splice(i, 1);
     }
-    // rerender the buttons
-    renderRecipeSearchIngredients();
   }
-);
+  // rerender the buttons
+  renderRecipeSearchIngredients();
+});
 
 // Event listener on ingredient search form
 $("#addIngredient").on("submit", function (e) {
   e.preventDefault();
-  //  console.log("Add Ingredients");
 
   const inputText = $("#addIngredient input").val().trim();
 
-  // Convert all non word or special characters other than hyphen, with "+"
-  const ingredient = inputText.replace(/[^\w\s-]+/g, "").replace(/\s+/g, "+");
-  // console.log(ingredient);
+  // Nothing to add
+  if (!inputText) {
+    return false;
+  }
+
+  // Convert all non letter
+  const ingredient = inputText
+    .replace(/[^A-Za-z\s]+/g, "")
+    .replace(/\s+/g, "+")
+    .toLowerCase();
+
+  // No valid ingredient
+  if (!ingredient) {
+    return false;
+  }
+
   // Array of searched items
   const ingredients = ingredient.split("+");
-
-  //  console.log(ingredients);
 
   for (i = 0; i < ingredients.length; i++) {
     const ingredient = ingredients[i];
@@ -55,6 +60,7 @@ $("#addIngredient").on("submit", function (e) {
     ingredientsSearch.push(ingredient);
   }
 
+  // Clear the input box
   $("#addIngredient input").val("");
 
   // Show recipe ingredients
@@ -137,9 +143,7 @@ $("#searchRecipes").on("click", function () {
         <div class="recipeResult py-3" style="cursor:pointer" data-uri="${recipeUri}">
           <div class="row">
             <div class="col-sm-3">
-              <img src="${
-                recipe.images.REGULAR.url
-              }" style="width:100%;height:auto">
+              <img src="${recipe.images.REGULAR.url}" style="width:100%;height:auto">
             </div>
             <div class="col-sm-9">
               <h4>${recipe.label}</h4>
