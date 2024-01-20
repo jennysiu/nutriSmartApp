@@ -3,7 +3,7 @@
   "useTabs": false,
   "singleQuote": false,
   "semi": true,
-  "printWidth": 80,
+  "printWidth": 100,
   "overrides": [
     {
       "files": "*.md",
