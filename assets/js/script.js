@@ -12,10 +12,4 @@ $("#nutritionalNavigation").on("click", function () {
   $("#nutritional-analysis").removeClass("d-none");
 });
 
-// Hide #nutritional-analysis on load
-// ALSO hide recipe search section for nutritional analysis testing
-$(function () {
-  $(".recipe-search-section").addClass("d-none");
-});
-
 // todo: hide nutritional-info section & show when analyse is clicked
