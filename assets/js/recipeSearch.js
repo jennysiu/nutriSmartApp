@@ -105,21 +105,24 @@ $("#searchRecipes").on("click", function () {
       }
 
       // List the ingredients
-      const recipeIngredientsList = $("<ul>");
+      const recipeIngredientsList = $("<ul>").addClass("recipe-ingredients-list");
       for (let j = 0; j < recipeIngredients.length; j++) {
         const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
         // console.log(`Recipe Ingredient: ${recipeIngredients[j].food}`);
         recipeIngredientsList.append(recipeIngredient);
       }
 
-      // // Build list with images of ingredients
-      const recipeIngredientsDetail = $("<ul>");
+      // Build list with images of ingredients
+      const recipeIngredientsDetail = $("<ul>").addClass("recipe-ingredients-detail");
       const recipeIngredientsArray = recipe.ingredients;
       for (let i = 0; i < recipeIngredientsArray.length; i++) {
-        const title = recipeIngredientsArray[i].text;
-        const image = $("<img>").attr("src", "https://picsum.photos/200");
-        console.log(image);
-        const li = $("<li>").append(title);
+        const title = $("<h5>").text(recipeIngredientsArray[i].text);
+        const image = $("<img>")
+          .attr("src", recipeIngredientsArray[i].image)
+          .attr("loading", "lazy")
+          .addClass("rounded")
+          .attr("style", "max-width:50px;height:auto");
+        const li = $("<li>").append(image, title);
         recipeIngredientsDetail.append(li);
       }
 
