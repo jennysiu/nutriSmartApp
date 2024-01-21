@@ -3,17 +3,19 @@
   --light-grey: #535353;
 }
 
-/*
-body {
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+
+/* NUTRI INFO */
+
+#nutritional-info {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
 }
-*/
-
-
-/* NUTRI INFO */
-
 
 #custom-analysis-button {
   padding: 1% 4%;

@@ -13,9 +13,13 @@ const allVitAndMinerals = ["CA", "FE", "K", "MG", "NIA", "P", "RIBF", "THIA", "T
 
 function handleUserInputError(errorCode) {
     if (errorCode === 555) {
-    $("#custom-search-input-error").text(` We cannot calculate the nutrition for some ingredients. Please check the ingredient spelling or if you have entered a quantities for the ingredients.`)
+    $("#custom-search-input-error")
+    .class("error-message")
+    .text(` We cannot calculate the nutrition for some ingredients. Please check the ingredient spelling or if you have entered a quantities for the ingredients.`)
     } else {
-      $("#custom-search-input-error").text(`test`)
+      $("#custom-search-input-error")
+      .class("error-message")
+      .text(`An unexpected error has happened. Please try again later.`)
     }
 }
 

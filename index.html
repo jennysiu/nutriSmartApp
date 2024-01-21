@@ -47,6 +47,9 @@
             <li class="nav-item">
               <a id="nutritionalNavigation" class="nav-link">Nutritional Analysis</a>
             </li>
+            <li class="nav-item">
+              <a id="nutritionalNavigation" class="nav-link">Saved Recipes</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -147,51 +150,48 @@
     </section>
 
     <!-- *** NUTRITIONAL ANALYSIS SECTION *** -->
-    <sec-tion class="section d-none" id="nutritional-analysis-container">
-      <div class = container-fluid style="max-width: 1400px">
+    <section class="section d-none jumbotman" id="nutritional-analysis-container">
+      <div class="container-fluid" style="max-width: 1400px">
         <div class="row">
           <h2>Custom Nutritional Analysis</h2>
-            <!-- jumbortron user search box -->
-            <section class="jumbotron-search">
-              <div class="col-12 jumbotman">
-                <!-- bootstrap form -->
+          <!-- jumbortron user search box -->
+          <section class="jumbotron-search">
+            <div class="col-12">
+              <!-- bootstrap form -->
+              <div class="pt-5">
                 <h3>Analyse a custom recipe</h3>
                 <form id="customIngredient" method="post">
                   <div class="input-group mb-3">
                     <input
                       type="text"
-                      spellcheck="true"
-                      class="form-control"
+                      class="form-control form-search"
                       id="custom-search-input"
                       placeholder="Type ingredients..."
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
                     />
-                    
-                    
                   </div>
 
-                  <button type="submit" id="custom-analysis-button">
-                    Analyse
-                  </button>
+                  <button type="submit" id="custom-analysis-button">Analyse</button>
 
                   <p class="error-message" id="custom-search-input-error"></p>
                 </form>
                 <div id="ingredientsToSearch" class="my-3">
                   <!--ingredients added are dynamically added here -->
                 </div>
-                <button id="searchRecipes" type="button" class="d-none btn btn-primary">Analyse</button>
+                <button id="searchRecipes" type="button" class="d-none btn btn-primary">
+                  Analyse
+                </button>
               </div>
-            </section>
-          
-            <section class="row d-none" id="display-user-ingredients">
-              <!-- display what user searched here -->
+            </div>
+          </section>
 
-            </section> 
-            
+          <section class="row d-none" id="display-user-ingredients">
+            <!-- display what user searched here -->
+          </section>
+
           <!-- all nutritional info here -->
           <section class="row d-none" id="nutritional-info">
-
             <!-- nutrition labels -->
             <section class="col-md-6" id="nutrition-labels">
               <!-- diet labels -->
@@ -343,14 +343,14 @@
           </section>
         </div>
       </div>
-    </sec-tion>
+    </section>
 
     <!-- FOOTER HERE -->
     <footer class="row footer">
       <div class="col-xl-12">
-        <a href="#">Grace Emah</a>
-        <a href="#">William Mowlam</a>
-        <a href="#">Jenny Siu</a>
+        <a href="https://github.com/GraceEmah17">Grace Emah</a>
+        <a href="https://github.com/willmowlam">William Mowlam</a>
+        <a href="https://github.com/jennysiu">Jenny Siu</a>
       </div>
       <div class="col-xl-12 copyright">Copyright 2024 App Recipes</div>
     </footer>
