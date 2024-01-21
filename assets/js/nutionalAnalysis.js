@@ -8,15 +8,18 @@
 // todo: add error handling for user input
 // todo: local storage - save favourite recipes
 //  todo: filter out some health lables
+// todo: hide nutritional info before search 
 
 const NUTRITIONAL_API_ID = "9a70d71a";
 const  NUTRITIONAL_API_KEY = "7fc8d04c2f9d72df3a6d50790e97e17e";
+
+const nutriCardNutrients = ["FAT", "FASAT", "CHOLE", "NA", "CHOCDF", "FIBTG", "SIGAR", "PROCNT"];
+const allVitAndMinerals = ["CA", "FE", "K", "MG", "NIA", "P", "RIBF", "THIA", "TOCPHA", "VITA_RAE", "VITB6A", "VITB12", "VITC", "VITD", "VITK1", "ZN"];
 
 // wait for page to fullly load & event listener for analyse button
 document.addEventListener('DOMContentLoaded', (event) => {
   $('#custom-analysis-button').click(function(event) {
       event.preventDefault(); // This will prevent the default action of the button
-      // let userIngridients = $(".search-input").val();
       customAnalysisButton();
   });
 });
@@ -58,10 +61,16 @@ async function fetchNutritionalInfo(userIngridients) {
 
 function customAnalysisButton() {
 
-  // let userIngridients = $(".search-input").val();
-  let userIngridients = "1 chicken" 
-  
-  // Using the async function
+  // clear existing info 
+  $(".diet-labels").empty();
+  $(".health-labels").empty();
+  $("#vit-and-minerals-body").empty();
+
+
+  let userIngridients = $(".search-input").val();
+  // let userIngridients = "1 chicken" 
+
+  // fetch & render info
   fetchNutritionalInfo(userIngridients).then(data => {
     console.log(data);
     // assign data variables here (ouotputs we need)
@@ -91,13 +100,14 @@ function customAnalysisButton() {
       $(".health-labels").append(healthBadge)
     }
 
+    // NURTRITION CARD
     // calories
     let calories = data.calories;
     console.log(calories);
 
-    // *** gives you in quantity and iunits
+    // *** gives you in quantity and units
     let totalNutrients = data.totalNutrients;
-    console.log(totalNutrients);
+    // console.log(totalNutrients);
     // total fat
     let totalFat = totalNutrients.FAT;
     $("#total-fats .quantity").text(totalFat.quantity + totalFat.unit);
@@ -132,40 +142,53 @@ function customAnalysisButton() {
     // fibre
     $("#fibre .percentage").text(`${totalDailyPercentage.FIBTG.quantity.toFixed(1)}%`);
     // suagrs
-    $("#sugar .percentage").text(`${totalDailyPercentage.SUGAR.quantity.toFixed(1)}%`);
+    // $("#sugar .percentage").text(`${totalDailyPercentage.SUGAR.quantity.toFixed(1)}%`);
     // protien
     $("#protein .percentage").text(`${totalDailyPercentage.PROCNT.quantity.toFixed(1)}%`);
 
     // vitamins and minerals
-    // loop through object 
+    let firstColumnEmpty = true;
+    let tableRow = null;
+    // loop through object   
     for (const key in totalDailyPercentage) {
       if (totalDailyPercentage.hasOwnProperty(key)) {
         let vitAndMineralsName = totalDailyPercentage[key].label;
         let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
         // console.log(vitAndMineralsName);    
-        // console.log(vitAndMineralsQuantity);      
-      
-        // filter out zero quantities
-        if ((vitAndMineralsQuantity > 0)) {
-          // dynamically render vitamins onto nutrition card
-          let tableRow = $("<tr>")
-          .addClass("vitamin-row");
-
-          let tableDataOne = $("<td>")
-          .attr("colespan", "2")
-          .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
-
-          let thinLine = $("<tr>")
-          .addClass("thin-end");
-
-          $("#vit-and-minerals-body").append(tableRow);
-          $("#vit-and-minerals-body").append(tableDataOne, thinLine)
+        // console.log(key);      
+  
+        // filter out zero quantities && if the key is a nutrient in the allVitAndMinerals array 
+        // (to avoid duplicate nutrients already added in nutri card)
+       // dynamically render vitamins onto nutrition card      
+        if ((vitAndMineralsQuantity > 0 && allVitAndMinerals.includes(key))) {
+          if(firstColumnEmpty){
+            tableRow = $("<tr>")
+            .addClass("vitamin-row"); 
+  
+            let tableDataOne = $("<td>")
+            .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+  
+            tableRow.append(tableDataOne);
+  
+            firstColumnEmpty = false;
+          } else {
+            let tableDataTwo = $("<td>")
+            .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+  
+            tableRow.append(tableDataTwo);
+  
+            let thinLine = $("<tr>")
+            .addClass("thin-end");
+  
+            $("#vit-and-minerals-body").append(tableRow);
+            $("#vit-and-minerals-body").append(thinLine)
+  
+            firstColumnEmpty = true;
+          }
         }
       }
-    }    
-
-    localStorage.setItem('savedData', JSON.stringify(data));
-  })
+    }
+  });
 }
 
 // $(document).ready(function organiseData() {
@@ -173,34 +196,52 @@ function customAnalysisButton() {
 //   console.log(data);
 //   let totalDailyPercentage = data.totalDaily;
 //   console.log(totalDailyPercentage);
+//   // console.log(totalDailyPercentage);
+//   // console.log(Object.keys(totalDailyPercentage))
 
 //   // if label name is in list of minerals to show, then add onto list to display
 //   // if quantity is larger than zero, include in display list
 //   // render display list at bottom of nutritional card
 
-//   // loop through object 
+
+//   let firstColumnEmpty = true;
+//   let tableRow = null;
+//   // loop through object   
 //   for (const key in totalDailyPercentage) {
 //     if (totalDailyPercentage.hasOwnProperty(key)) {
 //       let vitAndMineralsName = totalDailyPercentage[key].label;
 //       let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
 //       // console.log(vitAndMineralsName);    
-//       // console.log(vitAndMineralsQuantity);      
-    
-//       // filter out zero quantities
-//       if ((vitAndMineralsQuantity > 0)) {
-//         // dynamically render vitamins onto nutrition card
-//         let tableRow = $("<tr>")
-//         .addClass("vitamin-row");
+//       // console.log(key);      
 
-//         let tableDataOne = $("<td>")
-//         .attr("colespan", "2")
-//         .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+//       // filter out zero quantities && if the key is a nutrient in the allVitAndMinerals array 
+//       // (to avoid duplicate nutrients already added in nutri card)
+//      // dynamically render vitamins onto nutrition card      
+//       if ((vitAndMineralsQuantity > 0 && allVitAndMinerals.includes(key))) {
+//         if(firstColumnEmpty){
+//           tableRow = $("<tr>")
+//           .addClass("vitamin-row"); 
 
-//         let thinLine = $("<tr>")
-//         .addClass("thin-end");
+//           let tableDataOne = $("<td>")
+//           .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
 
-//         $("#vit-and-minerals-body").append(tableRow);
-//         $("#vit-and-minerals-body").append(tableDataOne, thinLine)
+//           tableRow.append(tableDataOne);
+
+//           firstColumnEmpty = false;
+//         } else {
+//           let tableDataTwo = $("<td>")
+//           .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+
+//           tableRow.append(tableDataTwo);
+
+//           let thinLine = $("<tr>")
+//           .addClass("thin-end");
+
+//           $("#vit-and-minerals-body").append(tableRow);
+//           $("#vit-and-minerals-body").append(thinLine)
+
+//           firstColumnEmpty = true;
+//         }
 //       }
 //     }
 //   }
