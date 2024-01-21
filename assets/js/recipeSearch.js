@@ -2,21 +2,14 @@ const RECIPE_SEARCH_API_ID = "3074c0c2";
 const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
 
 // Array of favourite recipe IDs taken from localStorage
-const favouriteRecipies = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
+const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
 // Array of ingredients to search
 const ingredientsSearch = [];
 
-// Function to fetch given recipes using search
-
-// Function to display a single recipe
-
 // Event listener on ingredient button to remove it from the array
 $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) {
-  // Which button did we click
-  // console.log($(e.target).attr("data-ingredient"));
-
-  // remove it from the array of ingredients
+  // Remove clicked ingredient from array of ingredients
   for (let i = 0; i < ingredientsSearch.length; i++) {
     const ingredient = ingredientsSearch[i];
     if (ingredient === $(e.target).attr("data-ingredient")) {
@@ -31,17 +24,14 @@ $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) 
 // Event listener on ingredient search form
 $("#addIngredient").on("submit", function (e) {
   e.preventDefault();
-  //  console.log("Add Ingredients");
 
   const inputText = $("#addIngredient input").val().trim();
 
   // Convert all non word or special characters other than hyphen, with "+"
   const ingredient = inputText.replace(/[^\w\s-]+/g, "").replace(/\s+/g, "+");
-  // console.log(ingredient);
+
   // Array of searched items
   const ingredients = ingredient.split("+");
-
-  //  console.log(ingredients);
 
   for (i = 0; i < ingredients.length; i++) {
     const ingredient = ingredients[i];
@@ -94,12 +84,11 @@ $("#searchRecipes").on("click", function () {
     for (let i = 0; i < recipes.length; i++) {
       const recipe = recipes[i].recipe;
       const recipeUri = recipe.uri;
-      //      const recipeImageWidth = recipe.images.REGULAR.width;
       const recipeYield = recipe.yield;
       const recipeIngredients = recipe.ingredients;
       let totalTime = recipe.totalTime;
 
-      // If a prep time exists then create the clock and duration code
+      // If a prep time isn't useful show question mark
       if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
         totalTime = "?";
       }
@@ -108,7 +97,6 @@ $("#searchRecipes").on("click", function () {
       const recipeIngredientsList = $("<ul>").addClass("recipe-ingredients-list");
       for (let j = 0; j < recipeIngredients.length; j++) {
         const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
-        // console.log(`Recipe Ingredient: ${recipeIngredients[j].food}`);
         recipeIngredientsList.append(recipeIngredient);
       }
 
@@ -163,9 +151,7 @@ $("#searchRecipes").on("click", function () {
           </div>
 
         </div> 
-
         
-
         <!-- Hidden view -->
         <div class="recipe-detail-row row d-none">
           <div class="col-sm-6">
@@ -202,7 +188,7 @@ $("#recipe-results").on("click", ".recipe-nutrition-button", function (e) {
   $(button).closest(".recipe-result").find(".recipe-detail-row").removeClass("d-none");
 });
 
-// Event listener on recipe method buttons to open source recipe website in a window
+// Event listener on recipe method buttons to open source recipe website in a named window
 $("#recipe-results").on("click", ".recipe-method-button", function (e) {
   const button = e.target;
 
@@ -219,31 +205,16 @@ $("#recipe-results").on("click", ".recipe-method-button", function (e) {
 async function fetchRecipes() {
   try {
     // Get search terms from array of search terms
-
-    // Get incredients from text box - this will be changed to pull ingredients from the array
-    //const inputText = $("#addIngredient input").val().trim();
-    //const tags = inputText.replace(/ |,/g, "+");
-
     const tags = ingredientsSearch.join("+");
 
     // Construct search URL
     const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&tag=${tags}`;
 
     // await response call
-    //console.log("Requesting:", recipeSearchURL);
     let response = await fetch(recipeSearchURL);
-    //console.log("Response Status:", response.status);
 
     // once response retrieved, convert to json format
     let data = await response.json();
-
-    // Convert the JSON data to a string
-    const jsonString = JSON.stringify(data);
-
-    // Check the length of the string in bytes
-    const byteSize = new Blob([jsonString]).size;
-
-    //console.log(`JSON Data Size: ${byteSize} bytes`);
 
     // return data
     return data;
