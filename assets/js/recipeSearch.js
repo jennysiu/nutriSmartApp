@@ -113,16 +113,19 @@ $("#searchRecipes").on("click", function () {
       }
 
       // Build list with images of ingredients
-      const recipeIngredientsDetail = $("<ul>").addClass("recipe-ingredients-detail");
+      const recipeIngredientsDetail = $("<ul>").addClass("recipe-ingredients-detail list-unstyled");
       const recipeIngredientsArray = recipe.ingredients;
       for (let i = 0; i < recipeIngredientsArray.length; i++) {
-        const title = $("<h5>").text(recipeIngredientsArray[i].text);
+        const title = $("<h5>").text(recipeIngredientsArray[i].text).addClass("p-3");
         const image = $("<img>")
           .attr("src", recipeIngredientsArray[i].image)
           .attr("loading", "lazy")
           .addClass("rounded")
           .attr("style", "max-width:50px;height:auto");
-        const li = $("<li>").append(image, title);
+        const div = $("<div>").addClass("d-flex align-items-center").append(image, title);
+
+        const li = $("<li>").append(div);
+
         recipeIngredientsDetail.append(li);
       }
 
@@ -162,7 +165,7 @@ $("#searchRecipes").on("click", function () {
             ${recipeIngredientsDetail.prop("outerHTML")}
             <button data-url="${recipe.url}" 
                     class="btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
-            <div class="recipe-attribution">by ${recipe.source}</div>
+            <span class="recipe-attribution">by ${recipe.source}</span>
 
           </div>
           <div class="col-sm-6">
