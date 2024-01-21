@@ -170,9 +170,9 @@ $("#searchRecipes").on("click", function () {
 
           </div>
         </div>        
-        <hr style="border: 1px solid #666;">
+        
       </div>
-
+      <hr style="border: 1px solid #999;">
       `);
 
       $("#recipe-results").append(recipeResult);
