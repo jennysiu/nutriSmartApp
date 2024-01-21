@@ -14,4 +14,3 @@ $("#nutritionalNavigation").on("click", function () {
   $("#nutritional-analysis-container").removeClass("d-none");
 });
 
-// todo: hide nutritional-info section & show when analyse is clicked

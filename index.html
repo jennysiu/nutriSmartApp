@@ -147,197 +147,203 @@
     </section>
 
     <!-- *** NUTRITIONAL ANALYSIS SECTION *** -->
-    <section class="section container-fluid d-none" id="nutritional-analysis-container">
-      <h2>Custom Nutritional Analysis</h2>
-      <!-- jumbortron user search box -->
-      <section class="jumbotron-search">
-        <div class="col-12 jumbotman">
-          <!-- bootstrap form -->
-          <h3>Analyse a custom recipe</h3>
-          <form id="addIngredient" method="post">
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control search-input"
-                placeholder="Type ingredients..."
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
-              />
-              <span class="input-group-text" id="inputGroup-sizing-default">
-                <button type="submit" id="custom-analysis-button">
-                  <i class="bi bi-plus"></i>
-                </button>
-              </span>
-            </div>
-          </form>
-          <div id="ingredientsToSearch" class="my-3">
-            <!--ingredients added are dynamically added here -->
-          </div>
-          <button id="searchRecipes" type="button" class="d-none btn btn-primary">Analyse</button>
+    <sec-tion class="section d-none" id="nutritional-analysis-container">
+      <div class = container-fluid style="max-width: 1400px">
+        <div class="row">
+          <h2>Custom Nutritional Analysis</h2>
+            <!-- jumbortron user search box -->
+            <section class="jumbotron-search">
+              <div class="col-12 jumbotman">
+                <!-- bootstrap form -->
+                <h3>Analyse a custom recipe</h3>
+                <form id="customIngredient" method="post">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      spellcheck="true"
+                      class="form-control"
+                      id="custom-search-input"
+                      placeholder="Type ingredients..."
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                    
+                    
+                  </div>
+
+                  <button type="submit" id="custom-analysis-button">
+                    Analyse
+                  </button>
+
+                  <p class="error-message" id="custom-search-input-error"></p>
+                </form>
+                <div id="ingredientsToSearch" class="my-3">
+                  <!--ingredients added are dynamically added here -->
+                </div>
+                <button id="searchRecipes" type="button" class="d-none btn btn-primary">Analyse</button>
+              </div>
+            </section>
+          
+            <section class="row d-none" id="display-user-ingredients">
+              <!-- display what user searched here -->
+
+            </section> 
+            
+          <!-- all nutritional info here -->
+          <section class="row d-none" id="nutritional-info">
+
+            <!-- nutrition labels -->
+            <section class="col-md-6" id="nutrition-labels">
+              <!-- diet labels -->
+              <section class="nutrition-row-section">
+                <h4 class="diet-label-header">Diet Labels</h4>
+                <section class="diet-labels">
+                  <!-- render diet label badges here -->
+                </section>
+              </section>
+
+              <!-- health labels -->
+              <section class="nutrition-row-section">
+                <h4 class="health-label-header">Health Labels</h4>
+                <section class="health-labels">
+                  <!-- render health label badges here -->
+                </section>
+              </section>
+            </section>
+
+            <!-- NUTRITION CARD -->
+            <!-- <img src="https://s.cdpn.io/3/NutritionFacts.gif" class="image" /> -->
+            <!-- table source: https://codepen.io/chriscoyier/pen/ApavyZ -->
+            <section class="col-md-6 nutrition-card" id="nutrition-card">
+              <header class="nutrition-card__header">
+                <h3 class="nutrition-card__title">Nutrition Facts</h3>
+              </header>
+              <table class="nutrition-card__table">
+                <thead>
+                  <tr>
+                    <th colspan="3" class="small-info">Total Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- calories -->
+                  <tr>
+                    <th colspan="3">
+                      <b>Calories</b>
+                      <span id="total-calories"></span>
+                    </th>
+                    <!-- <td>Calories from Fat 130</td> -->
+                  </tr>
+
+                  <!-- % daily value column label -->
+                  <tr class="thick-row">
+                    <td colspan="3" class="small-info">
+                      <b>% Daily Value*</b>
+                    </td>
+                  </tr>
+
+                  <!-- Macronutrients -->
+                  <tr id="total-fats">
+                    <!-- total fat -->
+                    <th colspan="2">
+                      <b>Total Fat</b>
+                      <span class="quantity"></span>
+                    </th>
+                    <td class="percentage">
+                      <b>%</b>
+                    </td>
+                  </tr>
+                  <!-- saturated fat -->
+                  <tr id="saturated-fats">
+                    <td class="blank-cell"></td>
+                    <th>
+                      Saturated Fat
+                      <span class="quantity"></span>
+                    </th>
+                    <td class="percentage">
+                      <b>%</b>
+                    </td>
+                  </tr>
+
+                  <!-- cholesterol -->
+                  <tr id="cholesterol">
+                    <th colspan="2">
+                      <b>Cholesterol</b>
+                      <span class="quantity"></span>
+                    </th>
+                    <td class="percentage">
+                      <b>%</b>
+                    </td>
+                  </tr>
+
+                  <!-- sodium -->
+                  <tr id="sodium">
+                    <th colspan="2">
+                      <b>Sodium</b>
+                      <span class="quantity"></span>
+                    </th>
+                    <td class="percentage">
+                      <b></b>
+                    </td>
+                  </tr>
+
+                  <!-- Carbs -->
+                  <tr id="total-carbs">
+                    <th colspan="2">
+                      <b>Total Carbohydrate</b>
+                      <span class="quantity"></span>
+                    </th>
+                    <td class="percentage">
+                      <b></b>
+                    </td>
+                  </tr>
+
+                  <!-- fibre -->
+                  <tr id="fibre">
+                    <td class="blank-cell"></td>
+                    <th>
+                      Dietary Fiber
+                      <span class="quantity"></span>
+                    </th>
+                    <td class="percentage">
+                      <b></b>
+                    </td>
+                  </tr>
+
+                  <!-- sugar -->
+                  <tr id="sugar">
+                    <td class="blank-cell"></td>
+                    <th>
+                      Sugars
+                      <span class="quantity"></span>
+                    </th>
+                    <td class="percentage">
+                      <b></b>
+                    </td>
+                  </tr>
+
+                  <!-- protein -->
+                  <tr class="thick-end" id="protein">
+                    <th colspan="2">
+                      <b>Protein</b>
+                      <span class="quantity"></span>
+                    </th>
+                    <td class="percentage">
+                      <b></b>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="performance-facts__table--grid vit-and-minerals-table">
+                <tbody id="vit-and-minerals-body">
+                  <!-- dynamically add vitamins here -->
+                </tbody>
+              </table>
+            </section>
+          </section>
         </div>
-      </section>
-
-      <!-- all nutritional info here -->
-      <section class="row" id="nutritional-info">
-        <!-- nutrition labels -->
-        <section class="col-md-6" id="nutrition-labels">
-          <!-- diet labels -->
-          <section class="nutrition-row section">
-            <h5 class="diet-label-header">Diet Labels</h5>
-            <section class="diet-labels">
-              <!-- render diet label badges here -->
-            </section>
-          </section>
-
-          <!-- health labels -->
-          <section class="nutrition-row section">
-            <h5 class="health-label-header">health Labels</h5>
-            <section class="health-labels">
-              <!-- render health label badges here -->
-            </section>
-          </section>
-        </section>
-
-        <!-- NUTRITION CARD -->
-        <!-- <img src="https://s.cdpn.io/3/NutritionFacts.gif" class="image" /> -->
-        <!-- table source: https://codepen.io/chriscoyier/pen/ApavyZ -->
-        <section class="col-md-6 nutrition-card">
-          <header class="nutrition-card__header">
-            <h3 class="nutrition-card__title">Nutrition Facts</h3>
-            <!-- <p>Serving Size 1/2 cup (about 82g)</p>
-            <p>Serving Per Container 8</p> -->
-          </header>
-          <table class="nutrition-card__table">
-            <thead>
-              <tr>
-                <th colspan="3" class="small-info">Total Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- calories -->
-              <tr>
-                <th colspan="3">
-                  <b>Calories</b>
-                  <span id="total-calories"></span>
-                </th>
-                <!-- <td>Calories from Fat 130</td> -->
-              </tr>
-
-              <!-- % daily value column label -->
-              <tr class="thick-row">
-                <td colspan="3" class="small-info">
-                  <b>% Daily Value*</b>
-                </td>
-              </tr>
-
-              <!-- Macronutrients -->
-              <tr id="total-fats">
-                <!-- total fat -->
-                <th colspan="2">
-                  <b>Total Fat</b>
-                  <span class="quantity"></span>
-                </th>
-                <td class="percentage">
-                  <b>%</b>
-                </td>
-              </tr>
-              <!-- saturated fat -->
-              <tr id="saturated-fats">
-                <td class="blank-cell"></td>
-                <th>
-                  Saturated Fat
-                  <span class="quantity"></span>
-                </th>
-                <td class="percentage">
-                  <b>%</b>
-                </td>
-              </tr>
-
-              <!-- cholesterol -->
-              <tr id="cholesterol">
-                <th colspan="2">
-                  <b>Cholesterol</b>
-                  <span class="quantity"></span>
-                </th>
-                <td class="percentage">
-                  <b>%</b>
-                </td>
-              </tr>
-
-              <!-- sodium -->
-              <tr id="sodium">
-                <th colspan="2">
-                  <b>Sodium</b>
-                  <span class="quantity"></span>
-                </th>
-                <td class="percentage">
-                  <b></b>
-                </td>
-              </tr>
-
-              <!-- Carbs -->
-              <tr id="total-carbs">
-                <th colspan="2">
-                  <b>Total Carbohydrate</b>
-                  <span class="quantity"></span>
-                </th>
-                <td class="percentage">
-                  <b></b>
-                </td>
-              </tr>
-
-              <!-- fibre -->
-              <tr id="fibre">
-                <td class="blank-cell"></td>
-                <th>
-                  Dietary Fiber
-                  <span class="quantity"></span>
-                </th>
-                <td class="percentage">
-                  <b></b>
-                </td>
-              </tr>
-
-              <!-- sugar -->
-              <tr id="sugar">
-                <td class="blank-cell"></td>
-                <th>
-                  Sugars
-                  <span class="quantity"></span>
-                </th>
-                <td class="percentage">
-                  <b></b>
-                </td>
-              </tr>
-
-              <!-- protein -->
-              <tr class="thick-end" id="protein">
-                <th colspan="2">
-                  <b>Protein</b>
-                  <span class="quantity"></span>
-                </th>
-                <td class="percentage">
-                  <b></b>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <table class="performance-facts__table--grid vit-and-minerals-table">
-            <tbody id="vit-and-minerals-body">
-              <!-- <tr>
-                <td colspan="2">Vitamin A %</td>
-                <td>Vitamin C 0%</td>
-              </tr>
-              <tr class="thin-end">
-                <td colspan="2">Calcium %</td>
-                <td>Iron %</td>
-              </tr> -->
-            </tbody>
-          </table>
-        </section>
-      </section>
-    </section>
+      </div>
+    </sec-tion>
 
     <!-- FOOTER HERE -->
     <footer class="row footer">

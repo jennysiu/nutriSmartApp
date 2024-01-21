@@ -247,6 +247,8 @@ async function fetchRecipes() {
       return { noResults: true };
     }
 
+    console.log(data)
+
     // return data
     return data;
   } catch (error) {
