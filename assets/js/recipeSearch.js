@@ -7,6 +7,9 @@ const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favourite
 // Array of ingredients to search
 const ingredientsSearch = [];
 
+// Array of recipe data on display so a favourite recipe can be moved into localStorage
+const recipeResultData = [];
+
 // Event listener on ingredient button to remove it from the array
 $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) {
   // Remove clicked ingredient from array of ingredients
@@ -225,6 +228,15 @@ $("#recipe-results").on("click", ".recipe-method-button", function (e) {
 });
 
 // Event listener on recipe favourite button to add to favourites and localStorage
+//   If recipe is to be favourite (data-fav="false")
+//     Lookup clicked recipe in recipeResultData array
+//       Add entire recipe object to favouriteRecipes array
+//       Add entire recipe object to localStorage
+//       Set icon to "bi-heart-fill"
+//   If recipe is not to be a favourite (data-fav="true")
+//     Remove entire recipe object from favouriteRecipes array
+//     Remove entire recipe object from localStorage
+//     Set icon class to "bi-heart"
 
 // API search
 async function fetchRecipes() {
