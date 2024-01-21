@@ -112,23 +112,65 @@ $("#searchRecipes").on("click", function () {
         recipeIngredientsList.append(recipeIngredient);
       }
 
+      // // Build list with images of ingredients
+      const recipeIngredientsDetail = $("<ul>");
+      const recipeIngredientsArray = recipe.ingredients;
+      for (let i = 0; i < recipeIngredientsArray.length; i++) {
+        const title = recipeIngredientsArray[i].text;
+        const image = $("<img>").attr("src", "https://picsum.photos/200");
+        console.log(image);
+        const li = $("<li>").append(title);
+        recipeIngredientsDetail.append(li);
+      }
+
       const recipeResult = $(`
 
-        <div class="recipeResult py-3" style="cursor:pointer" data-uri="${recipeUri}">
+        <div class="recipe-result py-3" style="cursor:pointer" data-uri="${recipeUri}">
           <div class="row">
-            <div class="col-sm-3 d-flex flex-column align-items-start">
-              <img src="${recipe.images.REGULAR.url}" style="width:100%;height:auto">
-              <span class="recipe-meta">
-              <span>Servings ${recipeYield}</span>
-              <span><i class="bi bi-clock"></i> ${totalTime}</span>
+
+            <div class="col-sm-3">
+              <img src="${recipe.images.REGULAR.url}" style="width:100%;height:auto" loading="lazy">
+              <div class="recipe-meta d-flex justify-content-between">
+                <span class="recipe-servings">Servings ${recipeYield}</span>
+                <span class="recipe-time"><i class="bi bi-clock"></i> ${totalTime}</span>
+              </div>
             </div>
+
             <div class="col-sm-9">
               <h4>${recipe.label}</h4>
-              <div>Ingredients: ${recipeIngredientsList.prop("outerHTML")}</div>
-              <a href="#" class="btn btn-secondary btn-sm">Servings ${recipeYield}</a>
-            </div>
+              <button class="recipe-favourite"><i class="bi bi-heart"></i></button>
+              <button class="recipe-favourite"><i class="bi bi-heart-fill"></i></button>
+              <div class="recipe-ingredients">Ingredients: 
+                ${recipeIngredientsList.prop("outerHTML")}
+              </div>
+              <button data-url="${recipe.url}" 
+                      class="btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
+              <button class="btn btn-primary btn-md">Nutrition <i class="bi bi-chevron-down"></i></button>
+          </div>
+
+        </div> 
+
+- - - - - - - - - - - 
+        <!-- Hidden view -->
+        <div class="row">
+          <div class="col-sm-6">
+
+            <h3>Ingredients</h3>
+            ${recipeIngredientsDetail.prop("outerHTML")}
+            <button data-url="${recipe.url}" 
+                    class="btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
+            <div class="recipe-attribution">by ${recipe.source}</div>
+
+          </div>
+          <div class="col-sm-6">
+
+            <h3>Nutrition</h3>
+            <table>TABLE</table>
+
           </div>
         </div>
+
+      </div>
 
       `);
 
