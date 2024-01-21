@@ -135,7 +135,9 @@ $("#searchRecipes").on("click", function () {
           <div class="row">
 
             <div class="col-sm-3">
-              <img src="${recipe.images.REGULAR.url}" style="width:100%;height:auto" loading="lazy">
+              <img class="rounded" src="${
+                recipe.images.REGULAR.url
+              }" style="width:100%;height:auto" loading="lazy">
               <div class="recipe-meta d-flex justify-content-between">
                 <span class="recipe-servings">Servings ${recipeYield}</span>
                 <span class="recipe-time"><i class="bi bi-clock"></i> ${totalTime}</span>
@@ -162,7 +164,8 @@ $("#searchRecipes").on("click", function () {
 
         </div> 
 
-- - - - - - - - - - - 
+        
+
         <!-- Hidden view -->
         <div class="recipe-detail-row row d-none">
           <div class="col-sm-6">
@@ -180,8 +183,8 @@ $("#searchRecipes").on("click", function () {
             <table>TABLE</table>
 
           </div>
-        </div>
-
+        </div>        
+        <hr style="border: 1px solid #666;">
       </div>
 
       `);
