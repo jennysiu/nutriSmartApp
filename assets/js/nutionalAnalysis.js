@@ -23,26 +23,28 @@ function handleUserInputError(errorCode) {
 $(document).ready(function() {
   $('#custom-analysis-button').click(function(event) {
       event.preventDefault(); // This will prevent the default action of the button
+      // clear existing messages
       captureUserInput()
   });
 });
 
 function captureUserInput() {
-  userIngridients = $(".search-input").val();
+  userIngridients = $("#custom-search-input").val();
   // check user has filled in something
   if (userIngridients) {
     // fetchNutriInfo to see if repsonse is valid
     fetchNutritionalInfo(userIngridients).then(response => {
       if (response.success) {
+        $("#custom-search-input").text("")
         customAnalysis(response.data)
       } else {
+        $("#custom-search-input").text("")
         handleUserInputError(response.errorCode)
       }
       });
     } else {
-      $("#custom-search-input-error").text(`No ingredients entered. Please type in the name of ingreidnts and the quantity of each.`)
+      $("#custom-search-input-error").text(`Please type in the name of ingreidnts and the quantity of each.`)
     }
-  // 
 }
 
  //  customAnalysis(userIngridients);
@@ -79,7 +81,12 @@ async function fetchNutritionalInfo(userIngridients) {
 
 // fetchNutritionalInfo();
 
+// render custom analysis
 function customAnalysis(data) {
+  console.log(userIngridients)
+
+  
+  
   // display nutri info sections
   $("#nutritional-info").removeClass("d-none");
 
@@ -87,6 +94,18 @@ function customAnalysis(data) {
   $(".diet-labels").empty();
   $(".health-labels").empty();
   $("#vit-and-minerals-body").empty();
+
+  // display what user searched 
+  $("#display-user-ingredients").removeClass("d-none");
+
+  let displayUserSearchHeader = $("<h5>")
+  .text("Analysing for:")
+  $("#display-user-ingredients").append(displayUserSearchHeader)
+
+  let userSearchedText = $("<p>")
+  .text(`${userIngridients}`);
+
+  $("#display-user-ingredients").append(userSearchedText);
     
   console.log(data);
 
@@ -131,7 +150,7 @@ function customAnalysis(data) {
   // console.log(totalNutrients);
   // total fat
   let totalFat = totalNutrients.FAT;
-  $("#total-fats .quantity").text(totalFat.quantity + totalFat.unit);
+  $("#total-fats .quantity").text(totalFat.quantity.toFixed(1) + totalFat.unit);
   // saturated fat
   $("#saturated-fats .quantity").text(totalNutrients.FASAT.quantity.toFixed(1) + totalNutrients.FASAT.unit);
   // cholesterol
@@ -214,10 +233,44 @@ function customAnalysis(data) {
 // $(document).ready(function organiseData() {
 //   let data = JSON.parse(localStorage.getItem('savedData'));
 //   console.log(data);
-//   let totalDailyPercentage = data.totalDaily;
-//   console.log(totalDailyPercentage);
-//   // console.log(totalDailyPercentage);
-//   // console.log(Object.keys(totalDailyPercentage))
+// //   let totalDailyPercentage = data.totalDaily;
+// //   console.log(totalDailyPercentage);
+// //   // console.log(totalDailyPercentage);
+// //   // console.log(Object.keys(totalDailyPercentage))
+
+//   // display what user searched 
+//   // let userSearchedText = $("<p>")
+//   // .text(userIngridients);
+
+//   // $("#display-user-ingredients").append(userSearchedText);
+
+//   // diet labels
+//   let dietLabels = data.dietLabels;
+//   console.log(dietLabels);
+
+//   for (let i = 0; i < dietLabels.length; i++) {
+//     const dietBadge = $("<span>")
+//     .addClass("badge label-badge")
+//     .text(dietLabels[i]);
+//     $(".diet-labels").append(dietBadge)
+//   }
+
+//   // health labels
+
+//   // health labels to remove from list API list
+//   let unwantedHealthLabels = ["SULPHITE_FREE","SESAME_FREE","SUGAR_CONSCIOUS","SPECIFIC_CARBS","MILK_FREE","FISH_FREE","WHEAT_FREE","MEDITERRANEAN", "DASH", "EGG_FREE","RED_MEAT_FREE","CELERY_FREE","MUSTARD_FREE","LUPINE_FREE","ALCOHOL_FREE","NO_OIL_ADDED","NO_SUGAR_ADDED","FODMAP_FREE" ];
+
+//   let healthLabels = data.healthLabels;
+//   // new array with unwanted health lables filtered out
+//   let healthLabelsToKeep = healthLabels.filter(item => !unwantedHealthLabels.includes(item));
+//   console.log(healthLabelsToKeep)
+
+//   for (let i = 0; i < healthLabelsToKeep.length; i++) {
+//     const healthBadge = $("<span>")
+//     .addClass("badge label-badge")
+//     .text(healthLabelsToKeep[i]);
+//     $(".health-labels").append(healthBadge)
+//   }
   
 // });
 

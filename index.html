@@ -161,19 +161,20 @@
                     <input
                       type="text"
                       spellcheck="true"
-                      class="form-control search-input"
+                      class="form-control"
+                      id="custom-search-input"
                       placeholder="Type ingredients..."
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
                     />
                     
-                    <span class="input-group-text" id="inputGroup-sizing-default">
-                      <button type="submit" id="custom-analysis-button">
-                        <i class="bi bi-plus"></i>
-                      </button>
-                    </span>
                     
                   </div>
+
+                  <button type="submit" id="custom-analysis-button">
+                    Analyse
+                  </button>
+
                   <p class="error-message" id="custom-search-input-error"></p>
                 </form>
                 <div id="ingredientsToSearch" class="my-3">
@@ -183,22 +184,27 @@
               </div>
             </section>
           
+            <section class="row d-none" id="display-user-ingredients">
+              <!-- display what user searched here -->
 
+            </section> 
+            
           <!-- all nutritional info here -->
           <section class="row d-none" id="nutritional-info">
+
             <!-- nutrition labels -->
             <section class="col-md-6" id="nutrition-labels">
               <!-- diet labels -->
-              <section class="nutrition-row section">
-                <h5 class="diet-label-header">Diet Labels</h5>
+              <section class="nutrition-row-section">
+                <h4 class="diet-label-header">Diet Labels</h4>
                 <section class="diet-labels">
                   <!-- render diet label badges here -->
                 </section>
               </section>
 
               <!-- health labels -->
-              <section class="nutrition-row section">
-                <h5 class="health-label-header">health Labels</h5>
+              <section class="nutrition-row-section">
+                <h4 class="health-label-header">Health Labels</h4>
                 <section class="health-labels">
                   <!-- render health label badges here -->
                 </section>
@@ -208,11 +214,9 @@
             <!-- NUTRITION CARD -->
             <!-- <img src="https://s.cdpn.io/3/NutritionFacts.gif" class="image" /> -->
             <!-- table source: https://codepen.io/chriscoyier/pen/ApavyZ -->
-            <section class="col-md-6 nutrition-card">
+            <section class="col-md-6 nutrition-card" id="nutrition-card">
               <header class="nutrition-card__header">
                 <h3 class="nutrition-card__title">Nutrition Facts</h3>
-                <!-- <p>Serving Size 1/2 cup (about 82g)</p>
-                <p>Serving Per Container 8</p> -->
               </header>
               <table class="nutrition-card__table">
                 <thead>
