@@ -150,21 +150,21 @@ $("#searchRecipes").on("click", function () {
                 ${recipeIngredientsList.prop("outerHTML")}
               </div>
               <button data-url="${recipe.url}" 
-                      class="btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
-              <button class="btn btn-primary btn-md">Nutrition <i class="bi bi-chevron-down"></i></button>
+                      class="recipe-method-button btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
+              <button class="recipe-nutrition-button btn btn-primary btn-md">Nutrition <i class="bi bi-chevron-down"></i></button>
           </div>
 
         </div> 
 
 - - - - - - - - - - - 
         <!-- Hidden view -->
-        <div class="row">
+        <div class="row d-none">
           <div class="col-sm-6">
 
             <h3>Ingredients</h3>
             ${recipeIngredientsDetail.prop("outerHTML")}
             <button data-url="${recipe.url}" 
-                    class="btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
+                    class="recipe-method-button btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
             <span class="recipe-attribution">by ${recipe.source}</span>
 
           </div>
@@ -183,6 +183,17 @@ $("#searchRecipes").on("click", function () {
       $("#recipe-results").append(recipeResult);
     }
   });
+});
+
+// Event listener on recipe method buttons to open source recipe website in a window
+$("#recipe-results").on("click", ".recipe-method-button", function (e) {
+  const button = e.target;
+
+  const url = $(button).attr("data-url");
+
+  const winName = "recipeWindow";
+
+  window.open(url, winName);
 });
 
 // Event listener on recipe favourite button to add to favourites and localStorage
