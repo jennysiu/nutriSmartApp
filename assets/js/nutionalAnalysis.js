@@ -198,30 +198,34 @@ function customAnalysisButton() {
 }
 
 $(document).ready(function organiseData() {
-  let data = JSON.parse(localStorage.getItem('savedData'));
-  console.log(data);
-  let totalDailyPercentage = data.totalDaily;
-  console.log(totalDailyPercentage);
-  // console.log(totalDailyPercentage);
-  // console.log(Object.keys(totalDailyPercentage))
+  // Get data from local storage or empty array if none exist
+  let data = JSON.parse(localStorage.getItem('savedData')) || [];
 
-// health labels
-  // todo: needs to be filtered out
-  // health labels to remove from list API list
-  let unwantedHealthLabels = ["SULPHITE_FREE","SESAME_FREE","SUGAR_CONSCIOUS","SPECIFIC_CARBS","MILK_FREE","FISH_FREE","WHEAT_FREE","MEDITERRANEAN", "DASH", "EGG_FREE","RED_MEAT_FREE","CELERY_FREE","MUSTARD_FREE","LUPINE_FREE","ALCOHOL_FREE","NO_OIL_ADDED","NO_SUGAR_ADDED","FODMAP_FREE" ];
-
-  let healthLabels = data.healthLabels;
-  console.log(healthLabels)
-  let healthLabelsToKeep = healthLabels.filter(item => !unwantedHealthLabels.includes(item));
-  console.log(healthLabelsToKeep)
-
-  console.log(healthLabels);
-
-  for (let i = 0; i < healthLabelsToKeep.length; i++) {
-    const healthBadge = $("<span>")
-    .addClass("badge label-badge")
-    .text(healthLabelsToKeep[i]);
-    $(".health-labels").append(healthBadge)
-  }
+  // If localStorage has data then...
+  if (data.length) {
+    console.log(data);
+    let totalDailyPercentage = data.totalDaily;
+    console.log(totalDailyPercentage);
+    // console.log(totalDailyPercentage);
+    // console.log(Object.keys(totalDailyPercentage))
   
+  // health labels
+    // todo: needs to be filtered out
+    // health labels to remove from list API list
+    let unwantedHealthLabels = ["SULPHITE_FREE","SESAME_FREE","SUGAR_CONSCIOUS","SPECIFIC_CARBS","MILK_FREE","FISH_FREE","WHEAT_FREE","MEDITERRANEAN", "DASH", "EGG_FREE","RED_MEAT_FREE","CELERY_FREE","MUSTARD_FREE","LUPINE_FREE","ALCOHOL_FREE","NO_OIL_ADDED","NO_SUGAR_ADDED","FODMAP_FREE" ];
+  
+    let healthLabels = data.healthLabels;
+    console.log(healthLabels)
+    let healthLabelsToKeep = healthLabels.filter(item => !unwantedHealthLabels.includes(item));
+    console.log(healthLabelsToKeep)
+  
+    console.log(healthLabels);
+  
+    for (let i = 0; i < healthLabelsToKeep.length; i++) {
+      const healthBadge = $("<span>")
+      .addClass("badge label-badge")
+      .text(healthLabelsToKeep[i]);
+      $(".health-labels").append(healthBadge)
+    }
+  }
 });
