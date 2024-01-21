@@ -158,7 +158,7 @@ $("#searchRecipes").on("click", function () {
 
 - - - - - - - - - - - 
         <!-- Hidden view -->
-        <div class="row d-none">
+        <div class="recipe-detail-row row d-none">
           <div class="col-sm-6">
 
             <h3>Ingredients</h3>
@@ -183,6 +183,16 @@ $("#searchRecipes").on("click", function () {
       $("#recipe-results").append(recipeResult);
     }
   });
+});
+
+// Event listener on nutrition button to open/close full nutrition info
+$("#recipe-results").on("click", ".recipe-nutrition-button", function (e) {
+  const button = e.target;
+  console.log(e);
+  console.log(button);
+
+  // Show recipe detail row
+  $(button).closest(".recipe-result").find(".recipe-detail-row").removeClass("d-none");
 });
 
 // Event listener on recipe method buttons to open source recipe website in a window
