@@ -149,9 +149,9 @@ $("#searchRecipes").on("click", function () {
               <div class="recipe-ingredients">Ingredients: 
                 ${recipeIngredientsList.prop("outerHTML")}
               </div>
+              <button class="recipe-nutrition-button btn btn-primary btn-md">Nutrition <i class="bi bi-chevron-down"></i></button>
               <button data-url="${recipe.url}" 
                       class="recipe-method-button btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
-              <button class="recipe-nutrition-button btn btn-primary btn-md">Nutrition <i class="bi bi-chevron-down"></i></button>
           </div>
 
         </div> 
@@ -188,8 +188,6 @@ $("#searchRecipes").on("click", function () {
 // Event listener on nutrition button to open/close full nutrition info
 $("#recipe-results").on("click", ".recipe-nutrition-button", function (e) {
   const button = e.target;
-  console.log(e);
-  console.log(button);
 
   // Show recipe detail row
   $(button).closest(".recipe-result").find(".recipe-detail-row").removeClass("d-none");
