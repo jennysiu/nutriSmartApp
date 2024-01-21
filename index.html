@@ -4,22 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NutriSmart</title>
-    <!-- bootrstap link -->
+    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
     />
-    <!-- whats this? -->
+    <!-- Bootstrap Icons -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <!-- google fonts link -->
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap"
       rel="stylesheet"
     />
-    <!-- custom css link -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/nutritionalStylingDraft.css" />
   </head>
@@ -45,9 +45,7 @@
               <a id="recipeNavigation" class="nav-link">Recipe Search</a>
             </li>
             <li class="nav-item">
-              <a id="nutritionalNavigation" class="nav-link"
-                >Nutritional Analysis</a
-              >
+              <a id="nutritionalNavigation" class="nav-link">Nutritional Analysis</a>
             </li>
           </ul>
         </div>
@@ -55,101 +53,101 @@
     </nav>
 
     <!-- *** RECIPE SEARCH SECTION *** -->
-    <!-- todo: change class name to section & add ID name for the mame of section here ( don't wanna chance it now in case it messes up layout for now)-->
-    <section class="recipe-search-section container-fluid">
-      <h2>Recipe Search</h2>
-
-      <!-- jumbortron search box -->
-      <section class="row">
-        <div class="col-12 jumbotman">
-          <!-- bootstrap form -->
-          <h3>Search Ingredients here</h3>
-          <form id="addIngredient" method="post">
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control form-search"
-                placeholder="Type ingredients..."
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
-              />
-              <span class="input-group-text" id="inputGroup-sizing-default">
-                <button type="submit"><i class="bi bi-plus"></i></button>
-              </span>
+    <section id="recipe-search-section" class="jumbotman">
+      <div class="container-fluid" style="max-width: 1400px">
+        <div class="row">
+          <h2>Recipe Search</h2>
+          <!-- jumbotron search box -->
+          <div class="pt-5">
+            <h3>Search ingredients</h3>
+            <form id="addIngredient" method="post">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-search"
+                  placeholder="Type ingredients..."
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
+                />
+                <span class="input-group-text" id="inputGroup-sizing-default">
+                  <button type="submit"><i class="bi bi-plus"></i></button>
+                </span>
+              </div>
+            </form>
+            <div id="ingredientsToSearch" class="my-3">
+              <!--ingredients added are dynamically added here -->
             </div>
-          </form>
-          <div id="ingredientsToSearch" class="my-3">
-            <!--ingredients added are dynamically added here -->
+            <button id="searchRecipes" type="button" class="d-none btn btn-primary">
+              Find Recipes
+            </button>
           </div>
-          <button
-            id="searchRecipes"
-            type="button"
-            class="d-none btn btn-primary"
-          >
-            Find Recipes
-          </button>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="recipe-results" class="row">
-        <!-- dynamically add recipe results here -->
-      </section>
+    <section id="recipe-results-section">
+      <div class="container-fluid" style="max-width: 1400px">
+        <div class="row">
+          <div id="recipe-results">
+            <!-- dynamically add recipe results here -->
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Looking for inspirations (Random recipes) -->
-    <section class="d-none randomRecipes container-fluid">
-      <div class="row">
-        <div class="col-xl-12 title">
-          <!-- Common Ingredients Headline -->
-          <h3>Looking for inspirations (Random recipes)</h3>
-        </div>
+    <section id="random-recipes-section" class="d-none randomRecipes">
+      <div class="container-fluid" style="max-width: 1400px">
+        <div class="row">
+          <div class="col-xl-12 title">
+            <!-- Common Ingredients Headline -->
+            <h3>Looking for inspirations (Random recipes)</h3>
+          </div>
 
-        <!-- inspiration recipe cards here -->
-        <!-- *** maybe better to dynacically add these *** -->
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
-        </div>
-        <div class="col-xl-2">
-          <span class="badge text-bg-info">Name of recipes</span>
+          <!-- inspiration recipe cards here -->
+          <!-- *** maybe better to dynacically add these *** -->
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
+          <div class="col-xl-2">
+            <span class="badge text-bg-info">Name of recipes</span>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- *** NUTRITIONAL ANALYSIS SECTION *** -->
-    <section
-      class="section container-fluid d-none"
-      id="nutritional-analysis-container"
-    >
+    <section class="section container-fluid d-none" id="nutritional-analysis-container">
       <h2>Custom Nutritional Analysis</h2>
       <!-- jumbortron user search box -->
       <section class="jumbotron-search">
@@ -175,13 +173,7 @@
           <div id="ingredientsToSearch" class="my-3">
             <!--ingredients added are dynamically added here -->
           </div>
-          <button
-            id="searchRecipes"
-            type="button"
-            class="d-none btn btn-primary"
-          >
-            Analyse
-          </button>
+          <button id="searchRecipes" type="button" class="d-none btn btn-primary">Analyse</button>
         </div>
       </section>
 
