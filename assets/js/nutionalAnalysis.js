@@ -89,14 +89,20 @@ function customAnalysisButton() {
 
     // health labels
     // todo: needs to be filtered out
+    // health labels to remove from list API list
+    let unwantedHealthLabels = ["SULPHITE_FREE","SESAME_FREE","SUGAR_CONSCIOUS","SPECIFIC_CARBS","MILK_FREE","FISH_FREE","WHEAT_FREE","MEDITERRANEAN", "DASH", "EGG_FREE","RED_MEAT_FREE","CELERY_FREE","MUSTARD_FREE","LUPINE_FREE","ALCOHOL_FREE","NO_OIL_ADDED","NO_SUGAR_ADDED","FODMAP_FREE" ];
 
     let healthLabels = data.healthLabels;
+    console.log(healthLabels)
+    let healthLabelsToKeep = healthLabels.filter(item => !unwantedHealthLabels.includes(item));
+    console.log(healthLabelsToKeep)
+
     console.log(healthLabels);
 
-    for (let i = 0; i < healthLabels.length; i++) {
+    for (let i = 0; i < healthLabelsToKeep.length; i++) {
       const healthBadge = $("<span>")
       .addClass("badge label-badge")
-      .text(healthLabels[i]);
+      .text(healthLabelsToKeep[i]);
       $(".health-labels").append(healthBadge)
     }
 
@@ -114,15 +120,15 @@ function customAnalysisButton() {
     // saturated fat
     $("#saturated-fats .quantity").text(totalNutrients.FASAT.quantity.toFixed(1) + totalNutrients.FASAT.unit);
     // cholesterol
-    $("#cholesterol .quantity").text(totalNutrients.CHOLE.quantity + totalNutrients.CHOLE.unit);
+    $("#cholesterol .quantity").text(totalNutrients.CHOLE.quantity.toFixed(1) + totalNutrients.CHOLE.unit);
     // sodium
-    $("#sodium .quantity").text(totalNutrients.NA.quantity + totalNutrients.NA.unit);
+    $("#sodium .quantity").text(totalNutrients.NA.quantity.toFixed(1) + totalNutrients.NA.unit);
     // total carbs
-    $("#total-carbs .quantity").text(totalNutrients.CHOCDF.quantity + totalNutrients.CHOCDF.unit);
+    $("#total-carbs .quantity").text(totalNutrients.CHOCDF.quantity.toFixed(1) + totalNutrients.CHOCDF.unit);
     // fibre
-    $("#fibre .quantity").text(totalNutrients.FIBTG.quantity + totalNutrients.FIBTG.unit);
+    $("#fibre .quantity").text(totalNutrients.FIBTG.quantity.toFixed(1) + totalNutrients.FIBTG.unit);
     // suagrs 
-    $("#sugar .quantity").text(totalNutrients.SUGAR.quantity + totalNutrients.SUGAR.unit);
+    $("#sugar .quantity").text(totalNutrients.SUGAR.quantity.toFixed(1) + totalNutrients.SUGAR.unit);
     // protien
     $("#protein .quantity").text(totalNutrients.PROCNT.quantity.toFixed(1) + totalNutrients.PROCNT.unit);
 
@@ -191,58 +197,31 @@ function customAnalysisButton() {
   });
 }
 
-// $(document).ready(function organiseData() {
-//   let data = JSON.parse(localStorage.getItem('savedData'));
-//   console.log(data);
-//   let totalDailyPercentage = data.totalDaily;
-//   console.log(totalDailyPercentage);
-//   // console.log(totalDailyPercentage);
-//   // console.log(Object.keys(totalDailyPercentage))
+$(document).ready(function organiseData() {
+  let data = JSON.parse(localStorage.getItem('savedData'));
+  console.log(data);
+  let totalDailyPercentage = data.totalDaily;
+  console.log(totalDailyPercentage);
+  // console.log(totalDailyPercentage);
+  // console.log(Object.keys(totalDailyPercentage))
 
-//   // if label name is in list of minerals to show, then add onto list to display
-//   // if quantity is larger than zero, include in display list
-//   // render display list at bottom of nutritional card
+// health labels
+  // todo: needs to be filtered out
+  // health labels to remove from list API list
+  let unwantedHealthLabels = ["SULPHITE_FREE","SESAME_FREE","SUGAR_CONSCIOUS","SPECIFIC_CARBS","MILK_FREE","FISH_FREE","WHEAT_FREE","MEDITERRANEAN", "DASH", "EGG_FREE","RED_MEAT_FREE","CELERY_FREE","MUSTARD_FREE","LUPINE_FREE","ALCOHOL_FREE","NO_OIL_ADDED","NO_SUGAR_ADDED","FODMAP_FREE" ];
 
+  let healthLabels = data.healthLabels;
+  console.log(healthLabels)
+  let healthLabelsToKeep = healthLabels.filter(item => !unwantedHealthLabels.includes(item));
+  console.log(healthLabelsToKeep)
 
-//   let firstColumnEmpty = true;
-//   let tableRow = null;
-//   // loop through object   
-//   for (const key in totalDailyPercentage) {
-//     if (totalDailyPercentage.hasOwnProperty(key)) {
-//       let vitAndMineralsName = totalDailyPercentage[key].label;
-//       let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
-//       // console.log(vitAndMineralsName);    
-//       // console.log(key);      
+  console.log(healthLabels);
 
-//       // filter out zero quantities && if the key is a nutrient in the allVitAndMinerals array 
-//       // (to avoid duplicate nutrients already added in nutri card)
-//      // dynamically render vitamins onto nutrition card      
-//       if ((vitAndMineralsQuantity > 0 && allVitAndMinerals.includes(key))) {
-//         if(firstColumnEmpty){
-//           tableRow = $("<tr>")
-//           .addClass("vitamin-row"); 
-
-//           let tableDataOne = $("<td>")
-//           .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
-
-//           tableRow.append(tableDataOne);
-
-//           firstColumnEmpty = false;
-//         } else {
-//           let tableDataTwo = $("<td>")
-//           .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
-
-//           tableRow.append(tableDataTwo);
-
-//           let thinLine = $("<tr>")
-//           .addClass("thin-end");
-
-//           $("#vit-and-minerals-body").append(tableRow);
-//           $("#vit-and-minerals-body").append(thinLine)
-
-//           firstColumnEmpty = true;
-//         }
-//       }
-//     }
-//   }
-// });
+  for (let i = 0; i < healthLabelsToKeep.length; i++) {
+    const healthBadge = $("<span>")
+    .addClass("badge label-badge")
+    .text(healthLabelsToKeep[i]);
+    $(".health-labels").append(healthBadge)
+  }
+  
+});
