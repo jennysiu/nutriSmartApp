@@ -40,6 +40,7 @@ $("#addIngredient").on("submit", function (e) {
     ingredientsSearch.push(ingredient);
   }
 
+  // Clear the input box
   $("#addIngredient input").val("");
 
   // Show recipe ingredients
@@ -74,50 +75,73 @@ $("#searchRecipes").on("click", function () {
   console.log("Recipe Search");
 
   fetchRecipes().then((data) => {
-    // Array of returned recipes
-    const recipes = data.hits;
+    if (data.noResults) {
+      // No data
+      console.log("No recipes found");
 
-    // Empty the results
-    $("#recipe-results").empty();
+      // No recipes found, so briefly show a message
+      const elNoResults = $("<span>")
+        .addClass("invalid-feedback")
+        .addClass("px-3")
+        .text("No recipes found! Please try again.")
+        .insertAfter($("#searchRecipes"))
+        .show();
 
-    // Loop the recipes returned
-    for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i].recipe;
-      const recipeUri = recipe.uri;
-      const recipeYield = recipe.yield;
-      const recipeIngredients = recipe.ingredients;
-      let totalTime = recipe.totalTime;
+      setTimeout(function () {
+        elNoResults.hide();
+      }, 3000);
+    } else if (data.error) {
+      // Handle any errors
+      console.error("Error:", data.error);
+    } else {
+      // Work with the data
 
-      // If a prep time isn't useful show question mark
-      if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
-        totalTime = "?";
-      }
+      // Array of returned recipes
+      const recipes = data.hits;
 
-      // List the ingredients
-      const recipeIngredientsList = $("<ul>").addClass("recipe-ingredients-list");
-      for (let j = 0; j < recipeIngredients.length; j++) {
-        const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
-        recipeIngredientsList.append(recipeIngredient);
-      }
+      // Empty the results
+      $("#recipe-results").empty();
 
-      // Build list with images of ingredients
-      const recipeIngredientsDetail = $("<ul>").addClass("recipe-ingredients-detail list-unstyled");
-      const recipeIngredientsArray = recipe.ingredients;
-      for (let i = 0; i < recipeIngredientsArray.length; i++) {
-        const title = $("<h5>").text(recipeIngredientsArray[i].text).addClass("p-3");
-        const image = $("<img>")
-          .attr("src", recipeIngredientsArray[i].image)
-          .attr("loading", "lazy")
-          .addClass("rounded")
-          .attr("style", "max-width:50px;height:auto");
-        const div = $("<div>").addClass("d-flex align-items-center").append(image, title);
+      // Loop the recipes returned
+      for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i].recipe;
+        const recipeUri = recipe.uri;
+        const recipeYield = recipe.yield;
+        const recipeIngredients = recipe.ingredients;
+        let totalTime = recipe.totalTime;
 
-        const li = $("<li>").append(div);
+        // If a prep time isn't useful show question mark
+        if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
+          totalTime = "?";
+        }
 
-        recipeIngredientsDetail.append(li);
-      }
+        // List the ingredients
+        const recipeIngredientsList = $("<ul>").addClass("recipe-ingredients-list");
+        for (let j = 0; j < recipeIngredients.length; j++) {
+          const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
+          recipeIngredientsList.append(recipeIngredient);
+        }
 
-      const recipeResult = $(`
+        // Build list with images of ingredients
+        const recipeIngredientsDetail = $("<ul>").addClass(
+          "recipe-ingredients-detail list-unstyled"
+        );
+        const recipeIngredientsArray = recipe.ingredients;
+        for (let i = 0; i < recipeIngredientsArray.length; i++) {
+          const title = $("<h5>").text(recipeIngredientsArray[i].text).addClass("p-3");
+          const image = $("<img>")
+            .attr("src", recipeIngredientsArray[i].image)
+            .attr("loading", "lazy")
+            .addClass("rounded")
+            .attr("style", "max-width:50px;height:auto");
+          const div = $("<div>").addClass("d-flex align-items-center").append(image, title);
+
+          const li = $("<li>").append(div);
+
+          recipeIngredientsDetail.append(li);
+        }
+
+        const recipeResult = $(`
 
         <div class="recipe-result py-3" style="cursor:pointer" data-uri="${recipeUri}">
           <div class="row">
@@ -175,7 +199,8 @@ $("#searchRecipes").on("click", function () {
       <hr style="border: 1px solid #999;">
       `);
 
-      $("#recipe-results").append(recipeResult);
+        $("#recipe-results").append(recipeResult);
+      }
     }
   });
 });
@@ -215,6 +240,12 @@ async function fetchRecipes() {
 
     // once response retrieved, convert to json format
     let data = await response.json();
+
+    // Check for zero results and return and set data.noResults to true
+    // This is so that the calling function can check any were found
+    if (data.count === 0) {
+      return { noResults: true };
+    }
 
     // return data
     return data;
