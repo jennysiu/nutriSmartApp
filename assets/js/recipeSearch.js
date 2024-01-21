@@ -142,16 +142,22 @@ $("#searchRecipes").on("click", function () {
               </div>
             </div>
 
-            <div class="col-sm-9">
-              <h4>${recipe.label}</h4>
-              <button class="recipe-favourite"><i class="bi bi-heart"></i></button>
-              <button class="recipe-favourite"><i class="bi bi-heart-fill"></i></button>
+            <div class="col-sm-9 d-flex flex-column">
+              <div class="d-flex justify-content-between">
+                <h3>${recipe.label}</h3>
+                <button class="recipe-favourite"><i class="bi bi-heart-fill"></i></button>
+              </div>
               <div class="recipe-ingredients">Ingredients: 
                 ${recipeIngredientsList.prop("outerHTML")}
               </div>
-              <button class="recipe-nutrition-button btn btn-primary btn-md">Nutrition <i class="bi bi-chevron-down"></i></button>
-              <button data-url="${recipe.url}" 
-                      class="recipe-method-button btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
+              <div class="mt-auto recipe-button-container pb-3">
+                <button class="recipe-nutrition-button btn btn-primary btn-md">Nutrition 
+                  <i class="bi bi-chevron-down"></i></button>
+                <button data-url="${
+                  recipe.url
+                }" class="recipe-method-button btn btn-secondary btn-md">Method 
+                  <i class="bi bi-box-arrow-up-right"></i></button>                        
+              </div>
           </div>
 
         </div> 
