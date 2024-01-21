@@ -31,17 +31,27 @@ $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) 
 // Event listener on ingredient search form
 $("#addIngredient").on("submit", function (e) {
   e.preventDefault();
-  //  console.log("Add Ingredients");
 
   const inputText = $("#addIngredient input").val().trim();
 
-  // Convert all non word or special characters other than hyphen, with "+"
-  const ingredient = inputText.replace(/[^\w\s-]+/g, "").replace(/\s+/g, "+");
-  // console.log(ingredient);
+  // Nothing to add
+  if (!inputText) {
+    return false;
+  }
+
+  // Convert all non letter
+  const ingredient = inputText
+    .replace(/[^A-Za-z\s]+/g, "")
+    .replace(/\s+/g, "+")
+    .toLowerCase();
+
+  // No valid ingredient
+  if (!ingredient) {
+    return false;
+  }
+
   // Array of searched items
   const ingredients = ingredient.split("+");
-
-  //  console.log(ingredients);
 
   for (i = 0; i < ingredients.length; i++) {
     const ingredient = ingredients[i];
@@ -50,6 +60,7 @@ $("#addIngredient").on("submit", function (e) {
     ingredientsSearch.push(ingredient);
   }
 
+  // Clear the input box
   $("#addIngredient input").val("");
 
   // Show recipe ingredients
@@ -84,29 +95,50 @@ $("#searchRecipes").on("click", function () {
   console.log("Recipe Search");
 
   fetchRecipes().then((data) => {
-    // Array of returned recipes
-    const recipes = data.hits;
+    if (data.noResults) {
+      // No data
+      console.log("No recipes found");
 
-    // Empty the results
-    $("#recipe-results").empty();
+      // No recipes found, so briefly show a message
+      const elNoResults = $("<span>")
+        .addClass("invalid-feedback")
+        .addClass("px-3")
+        .text("No recipes found! Please try again.")
+        .insertAfter($("#searchRecipes"))
+        .show();
 
-    // Loop the recipes returned
-    for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i].recipe;
-      const recipeUri = recipe.uri;
-      //      const recipeImageWidth = recipe.images.REGULAR.width;
-      const recipeYield = recipe.yield;
-      const recipeIngredients = recipe.ingredients;
+      setTimeout(function () {
+        elNoResults.hide();
+      }, 3000);
+    } else if (data.error) {
+      // Handle any errors
+      console.error("Error:", data.error);
+    } else {
+      // Work with the data
 
-      // List the ingredients
-      const recipeIngredientsList = $("<ul>");
-      for (let j = 0; j < recipeIngredients.length; j++) {
-        const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
-        // console.log(`Recipe Ingredient: ${recipeIngredients[j].food}`);
-        recipeIngredientsList.append(recipeIngredient);
-      }
+      // Array of returned recipes
+      const recipes = data.hits;
 
-      const recipeResult = $(`
+      // Empty the results
+      $("#recipe-results").empty();
+
+      // Loop the recipes returned
+      for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i].recipe;
+        const recipeUri = recipe.uri;
+        //      const recipeImageWidth = recipe.images.REGULAR.width;
+        const recipeYield = recipe.yield;
+        const recipeIngredients = recipe.ingredients;
+
+        // List the ingredients
+        const recipeIngredientsList = $("<ul>");
+        for (let j = 0; j < recipeIngredients.length; j++) {
+          const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
+          // console.log(`Recipe Ingredient: ${recipeIngredients[j].food}`);
+          recipeIngredientsList.append(recipeIngredient);
+        }
+
+        const recipeResult = $(`
 
         <div class="recipeResult py-3" style="cursor:pointer" data-uri="${recipeUri}">
           <div class="row">
@@ -123,7 +155,8 @@ $("#searchRecipes").on("click", function () {
 
       `);
 
-      $("#recipe-results").append(recipeResult);
+        $("#recipe-results").append(recipeResult);
+      }
     }
   });
 });
@@ -151,6 +184,12 @@ async function fetchRecipes() {
 
     // once response retrieved, convert to json format
     let data = await response.json();
+
+    // Check for zero results and return and set data.noResults to true
+    // This is so that the calling function can check any were found
+    if (data.count === 0) {
+      return { noResults: true };
+    }
 
     // Convert the JSON data to a string
     const jsonString = JSON.stringify(data);
