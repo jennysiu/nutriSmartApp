@@ -62,3 +62,7 @@ button{
     margin-bottom: 10px;
 }
 
+/* Recipe Search */
+.recipe-favourite{
+    font-size: 2rem;
+}

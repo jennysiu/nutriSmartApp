@@ -1,8 +1,20 @@
 const RECIPE_SEARCH_API_ID = "3074c0c2";
 const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
 
-// Array of favourite recipe IDs taken from localStorage
+// Array of favourite recipe URIs,  taken from localStorage
 const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
+// Saves recipe URI, recipe title and recipe image, protein, total fat, net carbs and calories
+/*[
+    {
+      "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_a2ff05c3bdd96dac307072dafe049ec1",
+      "label": "Double Bacon Bagel Egg Casserole recipes",
+      "image": "https://edamam-product-images.s3.amazonaws.com/web-img/298/298d7f6512722b92e4718f108d36cba0?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJHMEUCIQCI03kAhHN8C5POkpKhFClj6gww11ZayNtJim8KK1ourgIgfzfCktqGe%2FUCWmpLmWlD2QV5UeMEKtn5lklBiISSon0quQUIExAAGgwxODcwMTcxNTA5ODYiDN2KYIfbZM7vWHfs6iqWBaenyJt37ap7W8ecVRxe5D%2BQA3RX%2Fl%2BlZUSi6gR86MOMDZH7%2B9yl7hQNomh6Rufb3jDpjDgoqid7zxtVSa%2FM3cQWHSeOrvQw1IBaaSx4XICyXXYe5LBpAYRhtMCvYvRlVwdp87kDMDGCXoIPogWdRceevUV6j5UEOvt7YYG%2FrrT5a3vMqVDO4qFmvYoj%2F9hyp28ygaZ2gtv3H%2Fin8kKDEy3sovveS9Rh%2F8PgzBLle6ekwZlY4jk%2FI8pnR%2BO3T1HEKMLaQT5cj9aVo58PNVidERA7A65CdLtmPBN2XiMySMWZhQsmRaWQtoU1h3uKggNtNWe9mRsAgAVaq8ncNTGWW7jMmtEP0EB1Bo99N0S0ovaYkbvzZaTz8Z8Q%2FDIW7hc%2FlMY4Uidu1Vbr9P3BMEMio7QWUUTuMU22zl0UPia8bF4ujlstO5bkcVYy2Jj91D0zhgiiTXUjCOTCzYrgIFd8brib%2FPyZzJeNDhnA4WXzxwNRjh2wuUFs3gX0CqksTkT3bLee8JCsSyswPOMEt6c3IUGHURryANMsWCRNSRWPvS57dPMlJc%2B11NWVxtLPoZw1j%2BdjXeKhYIeAcmXp3uAJiOE05mXsKtw2oNVsHQ%2BzKwGQtfInQ2AttjyyYSd4AEgi0akWyXAaM%2FGaG93peNHzPmVX7iMtJrCfsFqY%2B9JOdX0V9Le5%2BOB53iNjj3RcNHNU7S43Y4ZqWDZrZU9yTNT436zU1IkgvWK%2B4KGBS5Uc%2FYIRlZBGNz%2FUjGmXHKbUU7XRHfnJSxN4B%2FWxxMMPbCLUtJkRQtYUcdTuE4W8SPBsG0Lxhv5z9MH5qmNzX574Jm5P1%2FC8w1j4smbX9SJSX7VO9qEp4xOnIaCe936JaXXVRZEODWkAL6sXMOG8rq0GOrEBL7PnjQ%2BBenTi9kQnDEB04n1kAmUBDZiu87vpUca5zAKyScDquZeRcMrBFV4EBEQX8dAXHwz8fOY9yTbSS7saevjb2CQM%2BThvNcNJdSLSe26vUAi8Q8uGS%2F2ElFA%2B4Jhos%2F5ixE4I3fEdvcTy5PSuKxT3o6PjWO6lm7WjfJqz3wZ3sxme7pxs1xEZ2JD6qkbqKUI5JvqeLrZNdV0m7wj1M5WctwKAuY49J6SNoLkO6YcQ&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240120T110557Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFIEPDEKUV%2F20240120%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=54a5dd8c1fec6ff068d3c0818eb1f8a371794786f400cf6e62e5287e8e928f2d"
+      "protein": 0,
+      "fat": 0,
+      "carbs": 0,
+      "calories:" 0
+    }
+]*/
 
 // Array of ingredients to search
 const ingredientsSearch = [];
@@ -229,17 +241,21 @@ $("#recipe-results").on("click", ".recipe-method-button", function (e) {
 });
 
 // Event listener on recipe favourite button to add to favourites array ("favouriteRecipes") and localStorage ("recipeSearch_favouriteRecipes")
-//   If recipe is to be favourite (data-fav="false")
-//     Lookup clicked recipe in recipeResultData array
-//       Add entire recipe object to favouriteRecipes array
-//       Add entire recipe object to localStorage
-//       Set icon to "bi-heart-fill"
-//       Set data-fav="true"
-//   If recipe is not to be a favourite (data-fav="true")
-//     Remove entire recipe object from favouriteRecipes array
-//     Remove entire recipe object from localStorage
-//     Set icon class to "bi-heart"
-//     Set data-fav="false"
+$(".recipe-result").on("click", "button", function (e) {
+  const el = e.target;
+  console.log(this);
+  //   If recipe is to be favourite (data-fav="false")
+  //     Lookup clicked recipe in recipeResultData array
+  //       Add entire recipe object to favouriteRecipes array
+  //       Add entire recipe object to localStorage
+  //       Set icon to "bi-heart-fill"
+  //       Set data-fav="true"
+  //   If recipe is not to be a favourite (data-fav="true")
+  //     Remove entire recipe object from favouriteRecipes array
+  //     Remove entire recipe object from localStorage
+  //     Set icon class to "bi-heart"
+  //     Set data-fav="false"
+});
 
 // API search
 async function fetchRecipes() {
