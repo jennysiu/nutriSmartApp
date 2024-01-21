@@ -97,6 +97,12 @@ $("#searchRecipes").on("click", function () {
       //      const recipeImageWidth = recipe.images.REGULAR.width;
       const recipeYield = recipe.yield;
       const recipeIngredients = recipe.ingredients;
+      let totalTime = recipe.totalTime;
+
+      // If a prep time exists then create the clock and duration code
+      if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
+        totalTime = "?";
+      }
 
       // List the ingredients
       const recipeIngredientsList = $("<ul>");
@@ -110,8 +116,11 @@ $("#searchRecipes").on("click", function () {
 
         <div class="recipeResult py-3" style="cursor:pointer" data-uri="${recipeUri}">
           <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3 d-flex flex-column align-items-start">
               <img src="${recipe.images.REGULAR.url}" style="width:100%;height:auto">
+              <span class="recipe-meta">
+              <span>Servings ${recipeYield}</span>
+              <span><i class="bi bi-clock"></i> ${totalTime}</span>
             </div>
             <div class="col-sm-9">
               <h4>${recipe.label}</h4>
