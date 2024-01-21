@@ -25,10 +25,10 @@ $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) 
 });
 
 // Event listener on ingredient search form
-$("#addIngredient").on("submit", function (e) {
+$("#addRecipeIngredient").on("submit", function (e) {
   e.preventDefault();
 
-  const inputText = $("#addIngredient input").val().trim();
+  const inputText = $("#addRecipeIngredient input").val().trim();
 
   // Convert all non word or special characters other than hyphen, with "+"
   const ingredient = inputText.replace(/[^\w\s-]+/g, "").replace(/\s+/g, "+");
@@ -44,7 +44,7 @@ $("#addIngredient").on("submit", function (e) {
   }
 
   // Clear the input box
-  $("#addIngredient input").val("");
+  $("#addRecipeIngredient input").val("");
 
   // Show recipe ingredients
   renderRecipeSearchIngredients();
@@ -162,7 +162,8 @@ $("#searchRecipes").on("click", function () {
             <div class="col-sm-9 d-flex flex-column">
               <div class="d-flex justify-content-between">
                 <h3>${recipe.label}</h3>
-                <button class="recipe-favourite"><i class="bi bi-heart-fill"></i></button>
+                <button class="recipe-favourite" data-uri="${recipeUri}">
+                <i class="bi bi-heart-fill"></i></button>
               </div>
               <div class="recipe-ingredients">Ingredients: 
                 ${recipeIngredientsList.prop("outerHTML")}
@@ -227,16 +228,18 @@ $("#recipe-results").on("click", ".recipe-method-button", function (e) {
   window.open(url, winName);
 });
 
-// Event listener on recipe favourite button to add to favourites and localStorage
+// Event listener on recipe favourite button to add to favourites array ("favouriteRecipes") and localStorage ("recipeSearch_favouriteRecipes")
 //   If recipe is to be favourite (data-fav="false")
 //     Lookup clicked recipe in recipeResultData array
 //       Add entire recipe object to favouriteRecipes array
 //       Add entire recipe object to localStorage
 //       Set icon to "bi-heart-fill"
+//       Set data-fav="true"
 //   If recipe is not to be a favourite (data-fav="true")
 //     Remove entire recipe object from favouriteRecipes array
 //     Remove entire recipe object from localStorage
 //     Set icon class to "bi-heart"
+//     Set data-fav="false"
 
 // API search
 async function fetchRecipes() {
