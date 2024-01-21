@@ -1,6 +1,6 @@
 :root {
   --soft-green: #35b035;
-  --light-grey: #4b4a4a;
+  --light-grey: #535353;
 }
 
 body {
@@ -12,21 +12,24 @@ body {
 
 
 /* NUTRI INFO */
-/* display user search */
+
 
 #custom-analysis-button {
-  padding: 4% 7%;
+  padding: 1% 4%;
   background-color: aliceblue;
   border-radius: 0.6rem;
 }
 
+
+/* display user search */
 #display-user-ingredients {
   display: block;
   margin: 2% 0;
   margin-left: 25%;
   padding: 1%;
   border-top: 1px solid var(--light-grey);
-  border-radius: 0.6rem;
+  border-bottom: 1px solid var(--light-grey);
+  /* border-radius: 0.6rem; */
   text-align: center;
   width: 50%;
 }
@@ -45,11 +48,11 @@ body {
   margin-right: auto;
   margin-top: 2%;
   width: 40%;
-  /* background-color: #35b035; */
 }
 
 .nutrition-row-section{
   text-align: center;
+  margin-bottom: 15%;
 }
 .label-badge {
   padding: 2%;
@@ -63,10 +66,10 @@ body {
 /* Nutrition card */
 .nutrition-card {
 border: 1px solid var(--light-grey);
-margin: 20px;
+margin: 3%;
 float: left;
 width: fit-content;
-padding: 0.5rem;
+padding: 0.6rem;
 }
 
 .nutrition-card__title {
@@ -96,11 +99,13 @@ th,
 td {
   font-weight: normal;
   text-align: left;
-  padding: 0.25rem 0;
+  padding: 0.25rem 0.7rem;
   border-top: 1px solid var(--light-grey);
   white-space: nowrap;
+
 }
 td {
+  font-size: small;
 
 }
 .blank-cell {
@@ -114,42 +119,9 @@ td {
   }
 }
 
-.small-info {
-font-size: 0.7rem;
-}
-
 .nutrition-card__table--small {
   border-bottom: 1px solid #999;
   margin: 0 0 0.5rem 0;
-  thead {
-      tr {
-      border-bottom: 1px solid var(--light-grey);
-      }
-}
-td {
-  &:last-child {
-  text-align: left;
-  }
-}
-th,
-td {
-  border: 0;
-  padding: 0;
-}
-}
-
-.nutrition-card__table--grid {
-margin: 0 0 0.5rem 0;
-td {
-  &:last-child {
-  text-align: left;
-  &::before {
-      content: "•";
-      font-weight: bold;
-      margin: 0 0.25rem 0 0;
-  }
-  }
-}
 }
 
 .text-center {
