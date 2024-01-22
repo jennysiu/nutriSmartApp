@@ -1,26 +1,14 @@
 const RECIPE_SEARCH_API_ID = "3074c0c2";
 const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
 
-// Array of favourite recipe URIs,  taken from localStorage
+// Get favourite recipe data from localStorage or initialise as an empty array
 const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
-// Saves recipe URI, recipe title and recipe image, protein, total fat, net carbs and calories
-/*[
-    {
-      "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_a2ff05c3bdd96dac307072dafe049ec1",
-      "label": "Double Bacon Bagel Egg Casserole recipes",
-      "image": "https://edamam-product-images.s3.amazonaws.com/web-img/298/298d7f6512722b92e4718f108d36cba0?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJHMEUCIQCI03kAhHN8C5POkpKhFClj6gww11ZayNtJim8KK1ourgIgfzfCktqGe%2FUCWmpLmWlD2QV5UeMEKtn5lklBiISSon0quQUIExAAGgwxODcwMTcxNTA5ODYiDN2KYIfbZM7vWHfs6iqWBaenyJt37ap7W8ecVRxe5D%2BQA3RX%2Fl%2BlZUSi6gR86MOMDZH7%2B9yl7hQNomh6Rufb3jDpjDgoqid7zxtVSa%2FM3cQWHSeOrvQw1IBaaSx4XICyXXYe5LBpAYRhtMCvYvRlVwdp87kDMDGCXoIPogWdRceevUV6j5UEOvt7YYG%2FrrT5a3vMqVDO4qFmvYoj%2F9hyp28ygaZ2gtv3H%2Fin8kKDEy3sovveS9Rh%2F8PgzBLle6ekwZlY4jk%2FI8pnR%2BO3T1HEKMLaQT5cj9aVo58PNVidERA7A65CdLtmPBN2XiMySMWZhQsmRaWQtoU1h3uKggNtNWe9mRsAgAVaq8ncNTGWW7jMmtEP0EB1Bo99N0S0ovaYkbvzZaTz8Z8Q%2FDIW7hc%2FlMY4Uidu1Vbr9P3BMEMio7QWUUTuMU22zl0UPia8bF4ujlstO5bkcVYy2Jj91D0zhgiiTXUjCOTCzYrgIFd8brib%2FPyZzJeNDhnA4WXzxwNRjh2wuUFs3gX0CqksTkT3bLee8JCsSyswPOMEt6c3IUGHURryANMsWCRNSRWPvS57dPMlJc%2B11NWVxtLPoZw1j%2BdjXeKhYIeAcmXp3uAJiOE05mXsKtw2oNVsHQ%2BzKwGQtfInQ2AttjyyYSd4AEgi0akWyXAaM%2FGaG93peNHzPmVX7iMtJrCfsFqY%2B9JOdX0V9Le5%2BOB53iNjj3RcNHNU7S43Y4ZqWDZrZU9yTNT436zU1IkgvWK%2B4KGBS5Uc%2FYIRlZBGNz%2FUjGmXHKbUU7XRHfnJSxN4B%2FWxxMMPbCLUtJkRQtYUcdTuE4W8SPBsG0Lxhv5z9MH5qmNzX574Jm5P1%2FC8w1j4smbX9SJSX7VO9qEp4xOnIaCe936JaXXVRZEODWkAL6sXMOG8rq0GOrEBL7PnjQ%2BBenTi9kQnDEB04n1kAmUBDZiu87vpUca5zAKyScDquZeRcMrBFV4EBEQX8dAXHwz8fOY9yTbSS7saevjb2CQM%2BThvNcNJdSLSe26vUAi8Q8uGS%2F2ElFA%2B4Jhos%2F5ixE4I3fEdvcTy5PSuKxT3o6PjWO6lm7WjfJqz3wZ3sxme7pxs1xEZ2JD6qkbqKUI5JvqeLrZNdV0m7wj1M5WctwKAuY49J6SNoLkO6YcQ&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240120T110557Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFIEPDEKUV%2F20240120%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=54a5dd8c1fec6ff068d3c0818eb1f8a371794786f400cf6e62e5287e8e928f2d"
-      "protein": 0,
-      "fat": 0,
-      "carbs": 0,
-      "calories:" 0
-    }
-]*/
 
 // Array of ingredients to search
 const ingredientsSearch = [];
 
 // Array of recipe data on display so a favourite recipe can be moved into localStorage
-let recipeResultData = [];
+const recipeResultData = [];
 
 // Event listener on ingredient button to remove it from the array
 $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) {
@@ -40,7 +28,13 @@ $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) 
 $("#addRecipeIngredient").on("submit", function (e) {
   e.preventDefault();
 
+  // Get and trim the value in the text box
   const inputText = $("#addRecipeIngredient input").val().trim();
+
+  // If no input text then there's nothing to do so exit function
+  if (!inputText) {
+    return;
+  }
 
   // Convert all non word or special characters other than hyphen, with "+"
   const ingredient = inputText.replace(/[^\w\s-]+/g, "").replace(/\s+/g, "+");
@@ -87,16 +81,12 @@ function renderRecipeSearchIngredients() {
 
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
-  console.log("Recipe Search");
-
   fetchRecipes().then((data) => {
     if (data.noResults) {
       // No data
-      console.log("No recipes found");
 
       // Empty global variable containing the array of recipe results on this page
       recipeResultData = 0;
-      console.log(recipeResultData);
 
       // Empty the results
       $("#recipe-results").empty();
@@ -133,7 +123,7 @@ $("#searchRecipes").on("click", function () {
         const recipeUri = recipe.uri;
         const recipeYield = recipe.yield;
         const recipeIngredients = recipe.ingredients;
-        let totalTime = recipe.totalTime;
+        const totalTime = recipe.totalTime;
 
         // If a prep time isn't useful show question mark
         if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
@@ -166,6 +156,10 @@ $("#searchRecipes").on("click", function () {
           recipeIngredientsDetail.append(li);
         }
 
+        // Set the fav icon and data-fav if this is a favourite recipe
+        const recipeFavIcon = isFavouriteRecipe(recipeUri) ? "bi-heart-fill" : "bi-heart";
+        const recipeDataFav = isFavouriteRecipe(recipeUri) ? "true" : "false";
+
         const recipeResult = $(`
 
         <div class="recipe-result py-3" style="cursor:pointer" data-uri="${recipeUri}">
@@ -184,8 +178,8 @@ $("#searchRecipes").on("click", function () {
             <div class="col-sm-9 d-flex flex-column">
               <div class="d-flex justify-content-between">
                 <h3>${recipe.label}</h3>
-                <button class="recipe-favourite" data-uri="${recipeUri}" data-index="${i}" data-fav="false">
-                <i class="bi bi-heart"></i></button>
+                <button class="recipe-favourite" data-uri="${recipeUri}" data-index="${i}" data-fav="${recipeDataFav}">
+                <i class="bi ${recipeFavIcon}"></i></button>
               </div>
               <div class="recipe-ingredients">Ingredients: 
                 ${recipeIngredientsList.prop("outerHTML")}
@@ -231,9 +225,17 @@ $("#searchRecipes").on("click", function () {
   });
 });
 
-// Lookup if recipe is a favourte in global array and return true or false
+// Lookup if recipe is a favourite in global array and return true or false
 function isFavouriteRecipe(uri) {
-  //
+  // Loop array and try to find uri
+  for (let i = 0; i < favouriteRecipes.length; i++) {
+    const recipe = favouriteRecipes[i].recipe;
+
+    // Check if there is a match and exit function if found
+    if (recipe.uri === uri) {
+      return true;
+    }
+  }
 }
 
 // Event listener on nutrition button to open/close full nutrition info
@@ -255,6 +257,40 @@ $("#recipe-results").on("click", ".recipe-method-button", function (e) {
   window.open(url, winName);
 });
 
+// Add recipe to favourites
+function addFavouriteRecipe(recipe) {
+  if (!recipe) {
+    return false;
+  } else {
+    // Prevent duplicates by looping the favourites
+    for (let i = 0; i < favouriteRecipes.length; i++) {
+      const uri = favouriteRecipes[i].recipe.uri;
+
+      // Check if this uri exists in the array
+      if (recipe.uri === uri) {
+        // Prevent adding more than one by exiting the function
+        return true;
+      }
+    }
+
+    // Add to the end of the array
+    favouriteRecipes.push(recipe);
+
+    // Replace localstorage favourites with new (stringified) array of recipes
+    localStorage.setItem("recipeSearch_favouriteRecipes", JSON.stringify(favouriteRecipes));
+
+    return true;
+  }
+}
+
+// Remove recipe from favourites
+function removeFavouriteRecipe(uri) {
+  // loop the favouriteRecipes array and look for uri
+  //   if a match is found;
+  //    remove from favouriteRecipes array
+  //    replace localstorage favourites with new array of recipes
+}
+
 // Event listener on recipe favourite button to add to favourites array ("favouriteRecipes") and localStorage ("recipeSearch_favouriteRecipes")
 $("#recipe-results").on("click", ".recipe-favourite", function (e) {
   // Get the index of the recipe on the page
@@ -264,7 +300,7 @@ $("#recipe-results").on("click", ".recipe-favourite", function (e) {
   const favorite = $(this).attr("data-fav");
 
   // If there is no info about fav or it is false then make it a favourite
-  if (!favorite || favorite == "false") {
+  if (!favorite || favorite === "false") {
     // Add it to favourite recipes
     if (addFavouriteRecipe(recipeResultData[index])) {
       // set icon
@@ -278,33 +314,6 @@ $("#recipe-results").on("click", ".recipe-favourite", function (e) {
     // Conditionaly call removeFavouriteRecipe(uri) as above but set data-fav to "false" and switch the icon classes
   }
 });
-
-// Add recipe to favourites
-function addFavouriteRecipe(recipe) {
-  if (!recipe) {
-    console.log("No recipe available to add to favourites!");
-    return false;
-  } else {
-    // Check if it already exists
-
-    // Add to the end of the array
-    favouriteRecipes.push(recipe);
-
-    // Replace localstorage favourites with new (stringified) array of recipes
-    localStorage.setItem("recipeSearch_favouriteRecipes", JSON.stringify(favouriteRecipes));
-
-    console.log("added to favourites");
-    return true;
-  }
-}
-
-// Remove recipe from favourites
-function removeFavouriteRecipe(uri) {
-  // loop the favouriteRecipes array and look for uri
-  //   if a match is found;
-  //    remove from favouriteRecipes array
-  //    replace localstorage favourites with new array of recipes
-}
 
 // API search
 async function fetchRecipes() {
