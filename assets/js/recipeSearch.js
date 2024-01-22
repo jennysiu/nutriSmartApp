@@ -20,7 +20,7 @@ const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favourite
 const ingredientsSearch = [];
 
 // Array of recipe data on display so a favourite recipe can be moved into localStorage
-const recipeResultData = [];
+let recipeResultData = [];
 
 // Event listener on ingredient button to remove it from the array
 $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) {
@@ -94,6 +94,13 @@ $("#searchRecipes").on("click", function () {
       // No data
       console.log("No recipes found");
 
+      // Empty global variable containing the array of recipe results on this page
+      recipeResultData = 0;
+      console.log(recipeResultData);
+
+      // Empty the results
+      $("#recipe-results").empty();
+
       // No recipes found, so briefly show a message
       const elNoResults = $("<span>")
         .addClass("invalid-feedback")
@@ -113,6 +120,9 @@ $("#searchRecipes").on("click", function () {
 
       // Array of returned recipes
       const recipes = data.hits;
+
+      // Save recipes to global variable for when the user adds a recipe to their favourites
+      recipeResultData.push(...recipes);
 
       // Empty the results
       $("#recipe-results").empty();
@@ -174,7 +184,7 @@ $("#searchRecipes").on("click", function () {
             <div class="col-sm-9 d-flex flex-column">
               <div class="d-flex justify-content-between">
                 <h3>${recipe.label}</h3>
-                <button class="recipe-favourite" data-uri="${recipeUri}">
+                <button class="recipe-favourite" data-uri="${recipeUri}" data-index="${i}">
                 <i class="bi bi-heart-fill"></i></button>
               </div>
               <div class="recipe-ingredients">Ingredients: 
@@ -241,21 +251,52 @@ $("#recipe-results").on("click", ".recipe-method-button", function (e) {
 });
 
 // Event listener on recipe favourite button to add to favourites array ("favouriteRecipes") and localStorage ("recipeSearch_favouriteRecipes")
-$(".recipe-result").on("click", "button", function (e) {
-  const el = e.target;
-  console.log(this);
-  //   If recipe is to be favourite (data-fav="false")
-  //     Lookup clicked recipe in recipeResultData array
-  //       Add entire recipe object to favouriteRecipes array
-  //       Add entire recipe object to localStorage
-  //       Set icon to "bi-heart-fill"
-  //       Set data-fav="true"
-  //   If recipe is not to be a favourite (data-fav="true")
-  //     Remove entire recipe object from favouriteRecipes array
-  //     Remove entire recipe object from localStorage
-  //     Set icon class to "bi-heart"
-  //     Set data-fav="false"
+$("#recipe-results").on("click", ".recipe-favourite", function (e) {
+  // Get the index of the recipe on the page
+  const index = $(this).attr("data-index");
+
+  // Is this a favourite
+  const favorite = $(this).attr("data-fav");
+
+  // If there is no info about fav or it is false then make it a favourite
+  if (!favorite || favorite == "false") {
+    // Add it to favourite recipes
+    if (addFavouriteRecipe(recipeResultData[index])) {
+      // set icon
+      $(this).attr("data-fav", "true");
+    }
+  } else {
+    // Remove from favourites and set icon class to "bi-heart" and data-fav="false"
+    // removeFavouriteRecipe(uri);
+  }
 });
+
+// Add recipe to favourites
+function addFavouriteRecipe(recipe) {
+  if (!recipe) {
+    console.log("No recipe available to add to favourites!");
+    return false;
+  } else {
+    // Check if it already exists
+    // ... reorder?
+
+    // Add to the end of the array (top?)
+    favouriteRecipes.push(recipe);
+
+    // Replace localstorage favourites with new (stringified) array of recipes
+    localStorage.setItem("recipeSearch_favouriteRecipes", JSON.stringify(favouriteRecipes));
+
+    console.log("added to favourites");
+    return true;
+  }
+}
+
+// Remove recipe from favourites
+function removeFavouriteRecipe(uri) {
+  // loop the array and look for uri
+  // remove from array
+  // Replace localstorage favourites with new array of recipes
+}
 
 // API search
 async function fetchRecipes() {
@@ -277,8 +318,6 @@ async function fetchRecipes() {
     if (data.count === 0) {
       return { noResults: true };
     }
-
-    console.log(data)
 
     // return data
     return data;
