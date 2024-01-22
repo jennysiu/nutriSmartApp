@@ -4,9 +4,14 @@ body{
     font-family: 'Merienda', cursive;
     background-color: #f2f0e9;
 }
-.bg-body-tertiary{
-    padding: 15px 50px;
+
+/* Add padding to nav above lg breakpoint for wider displays */ 
+@media screen and (min-width: 992px) {
+    .navbar{
+        padding: 15px 50px;
+    }
 }
+
 .navbar-expand-lg .navbar-nav .nav-link{
    font-weight: 600; 
    font-size: 17px;
@@ -22,11 +27,13 @@ h3, h2 {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
 }
+
 .jumbotman{
     padding: 0;
     background-color: #b3ecfc;
-    padding: 100px 200px;
+    padding: 5vh 5vw; /* Responsive padding (5% viewport height/width) */
 }
+
 .form-search{
     padding: 20px;
     border: 0;
