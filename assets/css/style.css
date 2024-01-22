@@ -1,12 +1,8 @@
 body{
     margin: 0;
     padding: 0;
-
     font-family: 'Merienda', cursive;
     background-color: #f2f0e9;
-}
-.container-fluid{
-    margin: 0;
 }
 .bg-body-tertiary{
     padding: 15px 50px;
@@ -21,29 +17,20 @@ h2 {
     text-align: center;
     margin-bottom: 30px;
 }
-h3 {
-    font-family: 'Merienda', cursive;
-    font-weight: 400;
-    text-align: center;
-    margin-bottom: 10px;
+
+h3, h2 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
 }
 .jumbotman{
     padding: 0;
-    /* background-color: #b3ecfc; */
+    background-color: #b3ecfc;
     padding: 100px 200px;
 }
 .form-search{
     padding: 20px;
     border: 0;
 }
-.search-recipe-ingredient{
-    background-color: antiquewhite;
-  color: black;
-  border-radius: 20px;
-  padding: 10px 20px;
-  border: 1px solid #9a9893;
-}
-
 .input-group-text{
     border: 0;
 }
@@ -51,14 +38,6 @@ button{
     border: 0;
     background-color: inherit;
 }
-
-#searchRecipes{
-    border-radius: 50px;
-  padding: 10px 20px;
-  background-color: black;
-  border: 0;
-}
-
 .bi-search{
     font-size: 20px;
 }
@@ -94,5 +73,4 @@ button{
     font-size: 14px;
     margin-bottom: 10px;
 }
-
 
