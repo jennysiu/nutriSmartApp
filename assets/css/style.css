@@ -81,3 +81,14 @@ button{
     margin-bottom: 10px;
 }
 
+/* Recipe Search */
+.recipe-favourite{
+    font-size: 1.75rem; /* Match recipe heading font-size */ 
+    line-height: 1.2rem; /* Match recipe heading line-height  */ 
+}
+
+/* Fav icons */
+.bi-heart,
+.bi-heart-fill {
+    color: #ea868f
+}
