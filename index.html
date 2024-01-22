@@ -19,10 +19,10 @@
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap"
       rel="stylesheet"
     />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cuprum&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cuprum&display=swap" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -102,28 +102,11 @@
       </div>
     </section>
 
-    <!-- Looking for inspirations (Random recipes) -->
-    <section id="random-recipes-section" class="d-none randomRecipes">
-      <div class="container-fluid" style="max-width: 1400px">
-        <div class="row">
-          <div class="col-xl-12 title">
-            <!-- Common Ingredients Headline -->
-            <h3>Looking for inspirations (Random recipes)</h3>
-          </div>
-
-          <!-- inspiration recipe cards here -->
-          <!-- *** maybe better to dynamically add these *** -->
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-    </section>
-
     <!-- *** NUTRITIONAL ANALYSIS SECTION *** -->
     <section class="section d-none jumbotman" id="nutritional-analysis-container">
-      
       <div class="container-fluid" style="max-width: 1400px">
         <div class="row">
-          <h1>Custom Nutritional Analysis</1>
+          <h1>Custom Nutritional Analysis</h1>
           <!-- jumbotron user search box -->
           <section class="jumbotron-search">
             <div class="col-12">
@@ -137,23 +120,22 @@
                       class="form-control form-search"
                       id="custom-search-input"
                       placeholder="Type ingredients..."
-                        aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default"
-                      />
-                    </div>
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                  </div>
 
-                    <button id="custom-analysis-button" type="button" class="btn btn-primary">
-                      Analyse Ingredients
-                    </button>
+                  <button id="custom-analysis-button" type="button" class="btn btn-primary">
+                    Analyse Ingredients
+                  </button>
 
-                    <p class="error-message" id="custom-search-input-error"></p>
-                  </form>
-
-                </div>
+                  <p class="error-message" id="custom-search-input-error"></p>
+                </form>
               </div>
-            </section>
-          </div>  
+            </div>
+          </section>
         </div>
+      </div>
 
       <section class="d-none" id="display-user-ingredients">
         <!-- dynamically display user search here -->
@@ -312,14 +294,17 @@
       </section>
     </section>
 
-    <!-- FOOTER HERE -->
-    <footer class="row footer">
-      <div class="col-xl-12">
-        <a href="https://github.com/GraceEmah17">Grace Emah</a>
-        <a href="https://github.com/willmowlam">Will Mowlam</a>
-        <a href="https://github.com/jennysiu">Jenny Siu</a>
+    <footer class="container-fluid footer">
+      <div class="row">
+        <div class="d-flex justify-content-center">
+          <a href="https://github.com/GraceEmah17">Grace Emah</a>
+          <a href="https://github.com/willmowlam">Will Mowlam</a>
+          <a href="https://github.com/jennysiu">Jenny Siu</a>
+        </div>
       </div>
-      <div class="col-xl-12 copyright">Copyright 2024 NutriSmart</div>
+      <div class="row copyright">
+        <div class="text-center">Copyright 2024 NutriSmart</div>
+      </div>
     </footer>
 
     <!-- SCRIPTS -->
