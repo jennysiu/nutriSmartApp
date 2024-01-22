@@ -123,7 +123,7 @@ $("#searchRecipes").on("click", function () {
         const recipeUri = recipe.uri;
         const recipeYield = recipe.yield;
         const recipeIngredients = recipe.ingredients;
-        const totalTime = recipe.totalTime;
+        let totalTime = recipe.totalTime;
 
         // If a prep time isn't useful show question mark
         if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
