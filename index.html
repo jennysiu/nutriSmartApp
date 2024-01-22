@@ -19,9 +19,14 @@
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap"
       rel="stylesheet"
     />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cuprum&display=swap" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/nutritionalStylingDraft.css" />
+    <link rel="stylesheet" href="./assets/css/custom-nutri.css" />
   </head>
   <body>
     <!-- *** NAVBAR *** -->
@@ -48,7 +53,7 @@
               <a id="nutritionalNavigation" class="nav-link">Nutritional Analysis</a>
             </li>
             <li class="nav-item">
-              <a id="nutritionalNavigation" class="nav-link">Saved Recipes</a>
+              <a id="nutritionalNavigation" class="nav-link">Favourtie Recipes</a>
             </li>
           </ul>
         </div>
@@ -59,10 +64,10 @@
     <section id="recipe-search-section" class="jumbotman">
       <div class="container-fluid" style="max-width: 1400px">
         <div class="row">
-          <h2>Recipe Search</h2>
+          <h1>Recipe Search</h1>
           <!-- jumbotron search box -->
           <div class="pt-5">
-            <h3>Search ingredients</h3>
+            <h2>Search ingredients</h2>
             <form id="addRecipeIngredient">
               <div class="input-group mb-3">
                 <input
@@ -111,41 +116,6 @@
           <div class="col-xl-2">
             <span class="badge text-bg-info">Name of recipes</span>
           </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-          <div class="col-xl-2">
-            <span class="badge text-bg-info">Name of recipes</span>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- *** NUTRITIONAL ANALYSIS SECTION *** -->
@@ -153,13 +123,13 @@
       
       <div class="container-fluid" style="max-width: 1400px">
         <div class="row">
-          <h2>Custom Nutritional Analysis</h2>
+          <h1>Custom Nutritional Analysis</1>
           <!-- jumbortron user search box -->
           <section class="jumbotron-search">
             <div class="col-12">
               <!-- bootstrap form -->
               <div class="pt-5">
-                <h3>Analyse a custom recipe</h3>
+                <h2>Analyse a custom recipe</h2>
                 <form id="customIngredient" method="post">
                   <div class="input-group mb-3">
                     <input
@@ -172,19 +142,18 @@
                       />
                     </div>
 
-                    <button type="submit" id="custom-analysis-button">Analyse</button>
+                    <button id="custom-analysis-button" type="button" class="btn btn-primary">
+                      Analyse Ingredients
+                    </button>
 
                     <p class="error-message" id="custom-search-input-error"></p>
                   </form>
-                  <button id="searchRecipes" type="button" class="d-none btn btn-primary">
-                    Analyse
-                  </button>
+
                 </div>
               </div>
             </section>
           </div>  
         </div>
-      </section>
 
       <section class="d-none" id="display-user-ingredients">
         <!-- dynamically display user search here -->
