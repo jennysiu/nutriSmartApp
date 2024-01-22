@@ -184,8 +184,8 @@ $("#searchRecipes").on("click", function () {
             <div class="col-sm-9 d-flex flex-column">
               <div class="d-flex justify-content-between">
                 <h3>${recipe.label}</h3>
-                <button class="recipe-favourite" data-uri="${recipeUri}" data-index="${i}">
-                <i class="bi bi-heart-fill"></i></button>
+                <button class="recipe-favourite" data-uri="${recipeUri}" data-index="${i}" data-fav="false">
+                <i class="bi bi-heart"></i></button>
               </div>
               <div class="recipe-ingredients">Ingredients: 
                 ${recipeIngredientsList.prop("outerHTML")}
@@ -231,6 +231,11 @@ $("#searchRecipes").on("click", function () {
   });
 });
 
+// Lookup if recipe is a favourte in global array and return true or false
+function isFavouriteRecipe(uri) {
+  //
+}
+
 // Event listener on nutrition button to open/close full nutrition info
 $("#recipe-results").on("click", ".recipe-nutrition-button", function (e) {
   const button = e.target;
@@ -263,11 +268,14 @@ $("#recipe-results").on("click", ".recipe-favourite", function (e) {
     // Add it to favourite recipes
     if (addFavouriteRecipe(recipeResultData[index])) {
       // set icon
+      $(this).find(".bi-heart").removeClass("bi-heart").addClass("bi-heart-fill");
+
+      //Set data attribute
       $(this).attr("data-fav", "true");
     }
   } else {
-    // Remove from favourites and set icon class to "bi-heart" and data-fav="false"
-    // removeFavouriteRecipe(uri);
+    // Remove from favourites via data-uri
+    // Conditionaly call removeFavouriteRecipe(uri) as above but set data-fav to "false" and switch the icon classes
   }
 });
 
@@ -278,9 +286,8 @@ function addFavouriteRecipe(recipe) {
     return false;
   } else {
     // Check if it already exists
-    // ... reorder?
 
-    // Add to the end of the array (top?)
+    // Add to the end of the array
     favouriteRecipes.push(recipe);
 
     // Replace localstorage favourites with new (stringified) array of recipes
@@ -293,9 +300,10 @@ function addFavouriteRecipe(recipe) {
 
 // Remove recipe from favourites
 function removeFavouriteRecipe(uri) {
-  // loop the array and look for uri
-  // remove from array
-  // Replace localstorage favourites with new array of recipes
+  // loop the favouriteRecipes array and look for uri
+  //   if a match is found;
+  //    remove from favouriteRecipes array
+  //    replace localstorage favourites with new array of recipes
 }
 
 // API search
