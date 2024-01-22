@@ -1,8 +1,4 @@
-
-// todo: formating for nutritional information
-// todo: add contact links
 // todo: user input error handle works but console log will still throw an error
-// todo: local storage - save favourite recipes
 
 // assign global variables
 const NUTRITIONAL_API_ID = "9a70d71a";
@@ -14,11 +10,11 @@ const allVitAndMinerals = ["CA", "FE", "K", "MG", "NIA", "P", "RIBF", "THIA", "T
 function handleUserInputError(errorCode) {
     if (errorCode === 555) {
     $("#custom-search-input-error")
-    .class("error-message")
+    .addClass("error-message")
     .text(` We cannot calculate the nutrition for some ingredients. Please check the ingredient spelling or if you have entered a quantities for the ingredients.`)
     } else {
       $("#custom-search-input-error")
-      .class("error-message")
+      .addClass("error-message")
       .text(`An unexpected error has happened. Please try again later.`)
     }
 }
@@ -39,16 +35,16 @@ function captureUserInput() {
     // fetchNutriInfo to see if repsonse is valid
     fetchNutritionalInfo(userIngridients).then(response => {
       if (response.success) {
-        $("#custom-search-input").text("")
+        $("#custom-search-input").val("")
         customAnalysis(response.data)
       } else {
-        $("#custom-search-input").text("")
+        $("#custom-search-input").val("")
         handleUserInputError(response.errorCode)
       }
-      });
-    } else {
-      $("#custom-search-input-error").text(`Please type in the name of ingreidnts and the quantity of each.`)
-    }
+    });
+  } else {
+    $("#custom-search-input-error").text(`Please type in the name of the ingredients and the quantity of each.`)
+  }
 }
 
  //  customAnalysis(userIngridients);
@@ -56,9 +52,14 @@ async function fetchNutritionalInfo(userIngridients) {
   try {
     
     // Define the body of the request
+
+    // Split userIngridients to create list because we are just passing in a comma separated string into a list atm
+    // I.e. we have here ["1 chicken, 1 onion"], but we want ["1 chicken", "1 onion"]
     const nutritionalParameters = {
       ingr: [userIngridients], 
     };
+
+    console.log(nutritionalParameters);
     // Define the request URL
     const nutritionalURL = `https://api.edamam.com/api/nutrition-details?app_id=${NUTRITIONAL_API_ID}&app_key=${NUTRITIONAL_API_KEY}`;
     // Make a POST request
@@ -89,12 +90,12 @@ async function fetchNutritionalInfo(userIngridients) {
 function customAnalysis(data) {
   console.log(userIngridients)
 
-  
-  
   // display nutri info sections
   $("#nutritional-info").removeClass("d-none");
 
   // clear existing info 
+  $(".displayUserSearchInfo").empty();
+  
   $(".diet-labels").empty();
   $(".health-labels").empty();
   $("#vit-and-minerals-body").empty();
@@ -103,10 +104,12 @@ function customAnalysis(data) {
   $("#display-user-ingredients").removeClass("d-none");
 
   let displayUserSearchHeader = $("<h5>")
+  .addClass("displayUserSearchInfo")
   .text("Analysing for:")
   $("#display-user-ingredients").append(displayUserSearchHeader)
 
   let userSearchedText = $("<p>")
+  .addClass("displayUserSearchInfo")
   .text(`${userIngridients}`);
 
   $("#display-user-ingredients").append(userSearchedText);
@@ -143,7 +146,7 @@ function customAnalysis(data) {
 
   // NURTRITION CARD
   // calories
-  // calories
+  
   let calories = data.calories;
   console.log(calories);
 
