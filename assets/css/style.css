@@ -1,8 +1,16 @@
+:root {
+    --light-green: #35b035;
+    --green: #6ca96c;    
+    --light-grey: #535353;
+    --light-orange: rgb(202, 121, 59);
+    --dark-orange: rgb(214, 131, 66);
+}
+
 body{
     margin: 0;
     padding: 0;
-    font-family: 'Merienda', cursive;
-    background-color: #f2f0e9;
+    font-family: 'Merienda', "cursive";
+    background-color: white;
 }
 
 /* Add padding to nav above lg breakpoint for wider displays */ 
@@ -12,26 +20,64 @@ body{
     }
 }
 
-.navbar-expand-lg .navbar-nav .nav-link{
-   font-weight: 600; 
-   font-size: 17px;
-}
-h2 {
-    font-family: 'Merienda', cursive;
+h1 {
+    font-family: 'Merienda', "cursive";
     font-weight: 900;
     text-align: center;
     margin-bottom: 30px;
 }
 
-h3, h2 {
-    font-family: 'Raleway', sans-serif;
+h2 {
+    font-family: 'Merienda', "cursive";
+    font-weight: bold;
+    text-align: left;
+}
+
+h3 {
+    font-family: 'Merienda', "cursive";
+    text-align: left;
+}
+
+.btn-primary {
+    padding: 0.6rem;
+    background-color: var(--light-orange);
+    border: transparent;
+    font-size: 1rem;
+}
+
+.btn-primary:hover  {
+    background-color: var(--green);
+}
+
+.btn-secondary {
+    background-color: var(--green);
+    border: transparent;
+}
+
+.error-message {
+    margin: 3% 0;
+    color: red;
     font-weight: bold;
 }
 
+/* NAVBAR */
+.nav-link{
+    font-family: 'Merienda', "cursive";
+    font-weight: 600; 
+    font-size: 17px;
+}
+
+.nav-link:hover {
+    color: var(--dark-orange);
+}
+
+/* JUMBOSEARCH */
 .jumbotman{
-    padding: 0;
-    background-color: #b3ecfc;
-    padding: 5vh 5vw; /* Responsive padding (5% viewport height/width) */
+    padding: 5vh 5vw; /* Responsive padding (5% viewport height/width) */    
+    background-image: url(../images/hermes-rivera-Ww8eQWjMJWk-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 20%;
 }
 
 .form-search{
@@ -52,22 +98,17 @@ button{
     margin-top: 20px;
     padding: 50px 200px;
 }
-.badges{
-    margin-top: 20px;
 
-}
-.badge{
-    padding: 20px 20px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    
-}
+
 .title{
     margin-bottom: 15px;
     
 }
 
+
+/* FOOTER */
 .footer{
+    padding-top: 1rem;
     text-align: center;
 }
 .footer a{
@@ -75,13 +116,22 @@ button{
     padding: 10px;
     color: #252525;
 }
+
+.footer a:hover {
+    color: orange;
+}
+
 .copyright{
     margin-top: 20px;
     font-size: 14px;
     margin-bottom: 10px;
 }
 
-/* Recipe Search */
+/* RECIPE SEARCH SECTION */
+#recipe-search-section  {
+    padding-bottom: 11%;
+}
+
 .recipe-favourite{
     font-size: 1.75rem; /* Match recipe heading font-size */ 
     line-height: 1.2rem; /* Match recipe heading line-height  */ 
