@@ -7,11 +7,17 @@ const  NUTRITIONAL_API_KEY = "7fc8d04c2f9d72df3a6d50790e97e17e";
 const nutriCardNutrients = ["FAT", "FASAT", "CHOLE", "NA", "CHOCDF", "FIBTG", "SIGAR", "PROCNT"];
 const allVitAndMinerals = ["CA", "FE", "K", "MG", "NIA", "P", "RIBF", "THIA", "TOCPHA", "VITA_RAE", "VITB6A", "VITB12", "VITC", "VITD", "VITK1", "ZN"];
 
+let userIngridients = [];
+
 function handleUserInputError(errorCode) {
     if (errorCode === 555) {
     $("#custom-search-input-error")
     .addClass("error-message")
     .text(` We cannot calculate the nutrition for some ingredients. Please check the ingredient spelling or if you have entered a quantities for the ingredients.`)
+    // } else if (errorCode === 400) {
+    //   $("#custom-search-input-error")
+    //   .addClass("error-message")
+    //   .text(` .`)  
     } else {
       $("#custom-search-input-error")
       .addClass("error-message")
@@ -53,10 +59,15 @@ async function fetchNutritionalInfo(userIngridients) {
     
     // Define the body of the request
 
+    // userIngredients comes our as one string, so here we separate the string into an array of strings (split using comma)
+    console.log(typeof userIngridients)
+    let userIngridientsArray = userIngridients.split(",");
     // Split userIngridients to create list because we are just passing in a comma separated string into a list atm
     // I.e. we have here ["1 chicken, 1 onion"], but we want ["1 chicken", "1 onion"]
+    console.log(userIngridientsArray)
+
     const nutritionalParameters = {
-      ingr: [userIngridients], 
+      ingr: userIngridientsArray, 
     };
 
     console.log(nutritionalParameters);
@@ -88,7 +99,7 @@ async function fetchNutritionalInfo(userIngridients) {
 
 // render custom analysis
 function customAnalysis(data) {
-  console.log(userIngridients)
+  console.log(typeof userIngridients)
 
   // display nutri info sections
   $("#nutritional-info").removeClass("d-none");
