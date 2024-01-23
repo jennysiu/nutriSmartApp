@@ -86,7 +86,7 @@ $("#searchRecipes").on("click", function () {
       // No data
 
       // Empty global variable containing the array of recipe results on this page
-      recipeResultData = 0;
+      recipeResultData.length = 0;
 
       // Empty the results
       $("#recipe-results").empty();
