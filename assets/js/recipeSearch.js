@@ -130,6 +130,8 @@ $("#searchRecipes").on("click", function () {
         const recipeYield = recipe.yield;
         const recipeIngredients = recipe.ingredients;
         let totalTime = recipe.totalTime;
+        let dailyPercentage = recipe.totalDaily;
+        let totalNutrients = recipe.totalNutrients;
 
         // If a prep time isn't useful show question mark
         if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
@@ -215,8 +217,165 @@ $("#searchRecipes").on("click", function () {
           </div>
           <div class="col-sm-6">
 
-            <h3>Nutrition</h3>
-            <table>TABLE</table>
+          <h3 class="recipe-search-nutri-header">Nutrition</h3>
+
+          <section class="row" class="nutritional-info">
+            <!-- nutrition labels -->
+            <section class="col-sm-12 col-md-12 nutrition-labels">
+              <!-- diet labels -->
+              <section class="nutrition-row-section">
+                <h4 class="diet-label-header">Diet Labels</h4>
+                <section class="diet-labels">${renderDietLabels(recipe)}</section>
+              </section>
+
+              <!-- health labels -->
+              <section class="nutrition-row-section">
+                <h4 class="health-label-header">Health Labels</h4>
+                <section class="health-labels">${renderHealthLabels(recipe)}</section>
+              </section>
+            </section>
+            
+            <!-- NUTRITION CARD -->
+            <section class="col-sm-12 col-md-12 nutrition-card">
+              <header class="nutrition-card__header">
+                <h4 class="nutrition-card__title">Nutrition Facts</h4>
+              </header>
+              <table class="nutrition-card__table">
+                <thead>
+                  <tr>
+                    <th colspan="3" class="small-info">Total Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- calories -->
+                  <tr>
+                    <th colspan="3">
+                      <b>Calories</b>
+                      <span class="total-calories">${recipe.calories.toFixed(0)}</span>
+                    </th>
+                  </tr>
+    
+                  <!-- % daily value column label -->
+                  <tr class="thick-row">
+                    <td colspan="3" class="small-info">
+                      <b>% Daily Value*</b>
+                    </td>
+                  </tr>
+    
+                  <!-- Macronutrients -->
+                  <tr class="total-fats">
+                    <!-- total fat -->
+                    <th colspan="2">
+                      <b>Total Fat</b>
+                      <span class="quantity">${
+                        totalNutrients.FAT.quantity.toFixed(1) + totalNutrients.FAT.unit
+                      }</span>
+                    </th>
+                    <td class="percentage">
+                      <b>${dailyPercentage.FAT.quantity.toFixed(1)}%</b>
+                    </td>
+                  </tr>
+                  <!-- saturated fat -->
+                  <tr class="saturated-fats">
+                    <td class="blank-cell"></td>
+                    <th>
+                      Saturated Fat
+                      <span class="quantity">${
+                        totalNutrients.FASAT.quantity.toFixed(1) + totalNutrients.FASAT.unit
+                      }</span>
+                    </th>
+                    <td class="percentage">
+                      <b>${dailyPercentage.FASAT.quantity.toFixed(1)}%</b>
+                    </td>
+                  </tr>
+    
+                  <!-- cholesterol -->
+                  <tr class="cholesterol">
+                    <th colspan="2">
+                      <b>Cholesterol</b>
+                      <span class="quantity">${
+                        totalNutrients.CHOLE.quantity.toFixed(1) + totalNutrients.CHOLE.unit
+                      }</span>
+                    </th>
+                    <td class="percentage">
+                      <b>${dailyPercentage.CHOLE.quantity.toFixed(1)}%</b>
+                    </td>
+                  </tr>
+    
+                  <!-- sodium -->
+                  <tr class="sodium">
+                    <th colspan="2">
+                      <b>Sodium</b>
+                      <span class="quantity">${
+                        totalNutrients.NA.quantity.toFixed(1) + totalNutrients.NA.unit
+                      }</span>
+                    </th>
+                    <td class="percentage">
+                      <b>${dailyPercentage.NA.quantity.toFixed(1)}%</b>
+                    </td>
+                  </tr>
+    
+                  <!-- Carbs -->
+                  <tr class="total-carbs">
+                    <th colspan="2">
+                      <b>Total Carbohydrate</b>
+                      <span class="quantity">${
+                        totalNutrients.CHOCDF.quantity.toFixed(1) + totalNutrients.CHOCDF.unit
+                      }</span>
+                    </th>
+                    <td class="percentage">
+                      <b>${dailyPercentage.CHOCDF.quantity.toFixed(1)}%</b>
+                    </td>
+                  </tr>
+    
+                  <!-- fibre -->
+                  <tr class="fibre">
+                    <td class="blank-cell"></td>
+                    <th>
+                      Dietary Fibre
+                      <span class="quantity">${
+                        totalNutrients.FIBTG.quantity.toFixed(1) + totalNutrients.FIBTG.unit
+                      }</span>
+                    </th>
+                    <td class="percentage">
+                      <b>${dailyPercentage.FIBTG.quantity.toFixed(1)}%</b>
+                    </td>
+                  </tr>
+    
+                  <!-- sugar -->
+                  <tr class="sugar">
+                    <td class="blank-cell"></td>
+                    <th>
+                      Sugars
+                      <span class="quantity">${
+                        totalNutrients.SUGAR.quantity.toFixed(1) + totalNutrients.SUGAR.unit
+                      }</span>
+                    </th>
+                    <td class="percentage">
+                      <b></b>
+                    </td>
+                  </tr>
+    
+                  <!-- protein -->
+                  <tr class="thick-end" class="protein">
+                    <th colspan="2">
+                      <b>Protein</b>
+                      <span class="quantity">${
+                        totalNutrients.PROCNT.quantity.toFixed(1) + totalNutrients.PROCNT.unit
+                      }</span>
+                    </th>
+                    <td class="percentage">
+                      <b>${dailyPercentage.PROCNT.quantity.toFixed(1)}%</b>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              ${renderVitAndMins(recipe)}
+
+            </section>
+          </section>            
+
 
           </div>
         </div>        
@@ -230,6 +389,139 @@ $("#searchRecipes").on("click", function () {
     }
   });
 });
+
+function renderDietLabels(recipe) {
+  const dietLabels = recipe.dietLabels;
+  // console.log(dietLabels);
+
+  // Create an element for the labels
+  const el = $("<div>").addClass("diet-labels");
+
+  // Loop and add each diet label to the element
+  for (let i = 0; i < dietLabels.length; i++) {
+    const label = $("<span>").text(dietLabels[i] + ", ");
+    $(el).append(label);
+  }
+  return el.html();
+}
+
+function renderHealthLabels(recipe) {
+  // health labels to remove from list API list
+  let unwantedHealthLabels = [
+    "SULPHITE_FREE",
+    "SESAME_FREE",
+    "SUGAR_CONSCIOUS",
+    "SPECIFIC_CARBS",
+    "MILK_FREE",
+    "FISH_FREE",
+    "WHEAT_FREE",
+    "MEDITERRANEAN",
+    "DASH",
+    "EGG_FREE",
+    "RED_MEAT_FREE",
+    "CELERY_FREE",
+    "MUSTARD_FREE",
+    "LUPINE_FREE",
+    "ALCOHOL_FREE",
+    "NO_OIL_ADDED",
+    "NO_SUGAR_ADDED",
+    "FODMAP_FREE",
+  ];
+
+  let healthLabels = recipe.healthLabels;
+  // new array with unwanted health labels filtered out
+  let healthLabelsToKeep = healthLabels.filter((item) => !unwantedHealthLabels.includes(item));
+  //console.log(healthLabelsToKeep);
+
+  // Create an element for the labels
+  const el = $("<div>").addClass("health-labels");
+
+  // Add health labels
+  for (let i = 0; i < healthLabelsToKeep.length; i++) {
+    const label = $("<span>").text(healthLabelsToKeep[i] + ", ");
+    $(el).append(label);
+  }
+
+  // Return rendered html
+  return el.html();
+}
+
+// Return a table of vitamins and minerals data for the given recipe
+function renderVitAndMins(recipe) {
+  console.log("vit min");
+  let totalDailyPercentage = recipe.totalDaily;
+  console.log(totalDailyPercentage);
+  let firstColumnEmpty = true;
+  let tableRow = null;
+
+  const allVitAndMinerals = [
+    "CA",
+    "FE",
+    "K",
+    "MG",
+    "NIA",
+    "P",
+    "RIBF",
+    "THIA",
+    "TOCPHA",
+    "VITA_RAE",
+    "VITB6A",
+    "VITB12",
+    "VITC",
+    "VITD",
+    "VITK1",
+    "ZN",
+  ];
+
+  // Create an element to hold the table
+  const tbody = $("<tbody>").addClass("vit-and-minerals-body"); // This must be a class as there are many on the page at the same time
+
+  for (const key in totalDailyPercentage) {
+    if (totalDailyPercentage.hasOwnProperty(key)) {
+      let vitAndMineralsName = totalDailyPercentage[key].label;
+      let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
+      // console.log(vitAndMineralsName);
+      // console.log(key);
+
+      // filter out zero quantities && if the key is a nutrient in the allVitAndMinerals array
+      // (to avoid duplicate nutrients already added in nutri card)
+      // dynamically render vitamins onto nutrition card
+      if (vitAndMineralsQuantity > 0 && allVitAndMinerals.includes(key)) {
+        if (firstColumnEmpty) {
+          tableRow = $("<tr>").addClass("vitamin-row");
+
+          let tableDataOne = $("<td>").text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+
+          tableRow.append(tableDataOne);
+
+          firstColumnEmpty = false;
+        } else {
+          let tableDataTwo = $("<td>").text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+
+          tableRow.append(tableDataTwo);
+
+          let thinLine = $("<tr>").addClass("thin-end");
+
+          $(tbody).append(tableRow);
+          $(tbody).append(thinLine);
+
+          firstColumnEmpty = true;
+        }
+      }
+    }
+  }
+
+  // Create table
+  const table = $("<table>").addClass("vit-and-minerals-table");
+  console.log(table.html());
+
+  // Add tbody to table
+  $(table).append(tbody);
+  console.log(table.html());
+
+  // Return rendered html
+  return table.prop("outerHTML");
+}
 
 // Lookup if recipe is a favourite in global array and return true or false
 function isFavouriteRecipe(uri) {
@@ -282,7 +574,7 @@ function addFavouriteRecipe(recipe) {
     // Add to the end of the array
     favouriteRecipes.push(recipe);
 
-    // Replace localstorage favourites with new (stringified) array of recipes
+    // Replace localStorage favourites with new (stringified) array of recipes
     localStorage.setItem("recipeSearch_favouriteRecipes", JSON.stringify(favouriteRecipes));
 
     return true;
