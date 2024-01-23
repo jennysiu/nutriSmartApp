@@ -8,6 +8,7 @@
 
 /* NUTRI INFO */
 
+/* This now only targets the nutrition page, the recipe page is a class of .nutrition-info */
 #nutritional-info {
   width: 80%;
   margin-left: auto;
@@ -28,6 +29,7 @@
   width: 50%;
   }
   
+ /* This now only targets the nutrition page, the recipe page is a class of .nutrition-card */
   #nutrition-card {
   margin-left: auto;
   margin-right: auto;
@@ -36,6 +38,7 @@
   
   /* Nutri labels */
   
+  /* This only targets the nutrition page, the recipe page is a class of .nutrition-labels */
   #nutrition-labels {
   padding: 1%;
   margin-left: auto;
