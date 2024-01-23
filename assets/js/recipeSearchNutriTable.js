@@ -106,7 +106,7 @@ $("#searchRecipes").on("click", function () {
       // Handle any errors
       console.error("Error:", data.error);
     } else {
-      console.log(data)
+      console.log(data);
       // Work with the data
 
       // Array of returned recipes
@@ -117,8 +117,8 @@ $("#searchRecipes").on("click", function () {
 
       // Empty the results
       $("#recipe-results").empty();
-      $(".diet-labels").empty();
-      $(".health-labels").empty();
+      // $(".diet-labels").empty();
+      // $(".health-labels").empty();
 
       // Loop the recipes returned
       for (let i = 0; i < recipes.length; i++) {
@@ -222,17 +222,13 @@ $("#searchRecipes").on("click", function () {
                 <!-- diet labels -->
                 <section class="nutrition-row-section">
                   <h4 class="diet-label-header">Diet Labels</h4>
-                  <section class="diet-labels">
-                    <!-- render diet label badges here -->
-                  </section>
+                  <section class="diet-labels">${renderDietLabels(recipe)}</section>
                 </section>
 
                 <!-- health labels -->
                 <section class="nutrition-row-section">
                   <h4 class="health-label-header">Health Labels</h4>
-                  <section class="health-labels">
-                    <!-- render health label badges here -->
-                  </section>
+                  <section class="health-labels">${renderHealthLabels(recipe)}</section>
                 </section>
               </section>
       
@@ -357,10 +353,9 @@ $("#searchRecipes").on("click", function () {
                 </table>
       
                 <table class="performance-facts__table--grid vit-and-minerals-table">
-                  <tbody id="vit-and-minerals-body">
-                    <!-- dynamically add vitamins here -->
-                  </tbody>
+                  <tbody id="vit-and-minerals-body">${renderVitAndMins(recipe)}</tbody>
                 </table>
+
               </section>
             </section>            
 
@@ -372,10 +367,6 @@ $("#searchRecipes").on("click", function () {
       <hr style="border: 1px solid #999;">
       `);
 
-      renderDietLabels(recipe);
-      renderHealthLabels(recipe)
-      rednerVitAndMins(recipe)
-
         $("#recipe-results").append(recipeResult);
       }
     }
@@ -383,80 +374,138 @@ $("#searchRecipes").on("click", function () {
 });
 
 function renderDietLabels(recipe) {
-  let dietLabels = recipe.dietLabels;
-  console.log(dietLabels);
+  const dietLabels = recipe.dietLabels;
+  // console.log(dietLabels);
 
+  // Create an element for the labels
+  const el = $("<div>").addClass("diet-labels");
+
+  // Loop and add each diet label to the element
   for (let i = 0; i < dietLabels.length; i++) {
-    const dietBadge = $("<span>")
-    .addClass("badge label-badge")
-    .text(dietLabels[i]);
-    $(".diet-labels").append(dietBadge)
+    const dietBadge = $("<span>").addClass("badge label-badge").text(dietLabels[i]);
+    $(el).append(dietBadge);
   }
+  return el.html();
 }
 
 function renderHealthLabels(recipe) {
   // health labels to remove from list API list
-  let unwantedHealthLabels = ["SULPHITE_FREE","SESAME_FREE","SUGAR_CONSCIOUS","SPECIFIC_CARBS","MILK_FREE","FISH_FREE","WHEAT_FREE","MEDITERRANEAN", "DASH", "EGG_FREE","RED_MEAT_FREE","CELERY_FREE","MUSTARD_FREE","LUPINE_FREE","ALCOHOL_FREE","NO_OIL_ADDED","NO_SUGAR_ADDED","FODMAP_FREE" ];
+  let unwantedHealthLabels = [
+    "SULPHITE_FREE",
+    "SESAME_FREE",
+    "SUGAR_CONSCIOUS",
+    "SPECIFIC_CARBS",
+    "MILK_FREE",
+    "FISH_FREE",
+    "WHEAT_FREE",
+    "MEDITERRANEAN",
+    "DASH",
+    "EGG_FREE",
+    "RED_MEAT_FREE",
+    "CELERY_FREE",
+    "MUSTARD_FREE",
+    "LUPINE_FREE",
+    "ALCOHOL_FREE",
+    "NO_OIL_ADDED",
+    "NO_SUGAR_ADDED",
+    "FODMAP_FREE",
+  ];
 
   let healthLabels = recipe.healthLabels;
-  // new array with unwanted health lables filtered out
-  let healthLabelsToKeep = healthLabels.filter(item => !unwantedHealthLabels.includes(item));
-  console.log(healthLabelsToKeep)
+  // new array with unwanted health labels filtered out
+  let healthLabelsToKeep = healthLabels.filter((item) => !unwantedHealthLabels.includes(item));
+  //console.log(healthLabelsToKeep);
 
+  // Create an element for the labels
+  const el = $("<div>").addClass("health-labels");
+
+  // Add health labels
   for (let i = 0; i < healthLabelsToKeep.length; i++) {
-    const healthBadge = $("<span>")
-    .addClass("badge label-badge")
-    .text(healthLabelsToKeep[i]);
-    $(".health-labels").append(healthBadge)
+    const healthBadge = $("<span>").addClass("badge label-badge").text(healthLabelsToKeep[i]);
+    $(el).append(healthBadge);
   }
+
+  // Return rendered html
+  return el.html();
 }
 
-function rednerVitAndMins(recipe) {
+function renderVitAndMins(recipe) {
   let totalDailyPercentage = recipe.totalDaily;
-  console.log(totalDailyPercentage)
+  console.log(totalDailyPercentage);
   let firstColumnEmpty = true;
   let tableRow = null;
 
-  const allVitAndMinerals = ["CA", "FE", "K", "MG", "NIA", "P", "RIBF", "THIA", "TOCPHA", "VITA_RAE", "VITB6A", "VITB12", "VITC", "VITD", "VITK1", "ZN"];
+  const allVitAndMinerals = [
+    "CA",
+    "FE",
+    "K",
+    "MG",
+    "NIA",
+    "P",
+    "RIBF",
+    "THIA",
+    "TOCPHA",
+    "VITA_RAE",
+    "VITB6A",
+    "VITB12",
+    "VITC",
+    "VITD",
+    "VITK1",
+    "ZN",
+  ];
+
+  // Create an element to hold the table
+  const el = $("<div>").addClass("vit-and-minerals-body"); // This must be a class as there are many on the page at the same time
 
   for (const key in totalDailyPercentage) {
     if (totalDailyPercentage.hasOwnProperty(key)) {
       let vitAndMineralsName = totalDailyPercentage[key].label;
       let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
-      // console.log(vitAndMineralsName);    
-      // console.log(key);      
+      // console.log(vitAndMineralsName);
+      // console.log(key);
 
-      // filter out zero quantities && if the key is a nutrient in the allVitAndMinerals array 
+      // filter out zero quantities && if the key is a nutrient in the allVitAndMinerals array
       // (to avoid duplicate nutrients already added in nutri card)
-      // dynamically render vitamins onto nutrition card      
-      if ((vitAndMineralsQuantity > 0 && allVitAndMinerals.includes(key))) {
-        if(firstColumnEmpty){
-          tableRow = $("<tr>")
-          .addClass("vitamin-row"); 
+      // dynamically render vitamins onto nutrition card
+      if (vitAndMineralsQuantity > 0 && allVitAndMinerals.includes(key)) {
+        if (firstColumnEmpty) {
+          tableRow = $("<tr>").addClass("vitamin-row");
 
-          let tableDataOne = $("<td>")
-          .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+          let tableDataOne = $("<td>").text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
 
           tableRow.append(tableDataOne);
 
           firstColumnEmpty = false;
         } else {
-          let tableDataTwo = $("<td>")
-          .text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
+          let tableDataTwo = $("<td>").text(`${vitAndMineralsName} ${vitAndMineralsQuantity} %`);
 
           tableRow.append(tableDataTwo);
 
-          let thinLine = $("<tr>")
-          .addClass("thin-end");
+          let thinLine = $("<tr>").addClass("thin-end");
 
-          $("#vit-and-minerals-body").append(tableRow);
-          $("#vit-and-minerals-body").append(thinLine)
+          $(el).append(tableRow);
+          $(el).append(thinLine);
 
           firstColumnEmpty = true;
         }
       }
     }
   }
+
+  // Create table
+  const table = $("<table>").addClass("vit-and-minerals-table");
+
+  // Create tbody
+  const tbody = $("<tbody>").addClass("vit-and-minerals-body"); // ? Class maybe not needed as we can style the table via .vit-and-minerals-table
+
+  // Add tbody
+  $(table).append(tbody);
+
+  // Add table rows
+  $(table).append(el);
+
+  // Return rendered html
+  return el.html();
 }
 
 // Lookup if recipe is a favourite in global array and return true or false
