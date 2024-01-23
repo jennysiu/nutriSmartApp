@@ -86,7 +86,7 @@ $("#searchRecipes").on("click", function () {
       // No data
 
       // Empty global variable containing the array of recipe results on this page
-      recipeResultData = 0;
+      recipeResultData.length = 0;
 
       // Empty the results
       $("#recipe-results").empty();
@@ -117,8 +117,6 @@ $("#searchRecipes").on("click", function () {
 
       // Empty the results
       $("#recipe-results").empty();
-      // $(".diet-labels").empty();
-      // $(".health-labels").empty();
 
       // Loop the recipes returned
       for (let i = 0; i < recipes.length; i++) {
@@ -216,9 +214,9 @@ $("#searchRecipes").on("click", function () {
 
             <h3>Nutrition</h3>
 
-            <section class="row" id="nutritional-info">
+            <section class="row" class="nutritional-info">
               <!-- nutrition labels -->
-              <section class="col-md-6" id="nutrition-labels">
+              <section class="col-md-6" class="nutrition-labels">
                 <!-- diet labels -->
                 <section class="nutrition-row-section">
                   <h4 class="diet-label-header">Diet Labels</h4>
@@ -231,9 +229,9 @@ $("#searchRecipes").on("click", function () {
                   <section class="health-labels">${renderHealthLabels(recipe)}</section>
                 </section>
               </section>
-      
+              
               <!-- NUTRITION CARD -->
-              <section class="col-md-6 nutrition-card" id="nutrition-card">
+              <section class="col-md-6 nutrition-card">
                 <header class="nutrition-card__header">
                   <h3 class="nutrition-card__title">Nutrition Facts</h3>
                 </header>
@@ -248,7 +246,7 @@ $("#searchRecipes").on("click", function () {
                     <tr>
                       <th colspan="3">
                         <b>Calories</b>
-                        <span id="total-calories">${recipe.calories}</span>
+                        <span class="total-calories">${recipe.calories}</span>
                       </th>
                     </tr>
       
@@ -260,7 +258,7 @@ $("#searchRecipes").on("click", function () {
                     </tr>
       
                     <!-- Macronutrients -->
-                    <tr id="total-fats">
+                    <tr class="total-fats">
                       <!-- total fat -->
                       <th colspan="2">
                         <b>Total Fat</b>
@@ -271,7 +269,7 @@ $("#searchRecipes").on("click", function () {
                       </td>
                     </tr>
                     <!-- saturated fat -->
-                    <tr id="saturated-fats">
+                    <tr class="saturated-fats">
                       <td class="blank-cell"></td>
                       <th>
                         Saturated Fat
@@ -283,7 +281,7 @@ $("#searchRecipes").on("click", function () {
                     </tr>
       
                     <!-- cholesterol -->
-                    <tr id="cholesterol">
+                    <tr class="cholesterol">
                       <th colspan="2">
                         <b>Cholesterol</b>
                         <span class="quantity"></span>
@@ -294,7 +292,7 @@ $("#searchRecipes").on("click", function () {
                     </tr>
       
                     <!-- sodium -->
-                    <tr id="sodium">
+                    <tr class="sodium">
                       <th colspan="2">
                         <b>Sodium</b>
                         <span class="quantity"></span>
@@ -305,7 +303,7 @@ $("#searchRecipes").on("click", function () {
                     </tr>
       
                     <!-- Carbs -->
-                    <tr id="total-carbs">
+                    <tr class="total-carbs">
                       <th colspan="2">
                         <b>Total Carbohydrate</b>
                         <span class="quantity"></span>
@@ -316,7 +314,7 @@ $("#searchRecipes").on("click", function () {
                     </tr>
       
                     <!-- fibre -->
-                    <tr id="fibre">
+                    <tr class="fibre">
                       <td class="blank-cell"></td>
                       <th>
                         Dietary Fiber
@@ -328,7 +326,7 @@ $("#searchRecipes").on("click", function () {
                     </tr>
       
                     <!-- sugar -->
-                    <tr id="sugar">
+                    <tr class="sugar">
                       <td class="blank-cell"></td>
                       <th>
                         Sugars
@@ -340,7 +338,7 @@ $("#searchRecipes").on("click", function () {
                     </tr>
       
                     <!-- protein -->
-                    <tr class="thick-end" id="protein">
+                    <tr class="thick-end" class="protein">
                       <th colspan="2">
                         <b>Protein</b>
                         <span class="quantity"></span>
@@ -351,10 +349,8 @@ $("#searchRecipes").on("click", function () {
                     </tr>
                   </tbody>
                 </table>
-      
-                <table class="performance-facts__table--grid vit-and-minerals-table">
-                  <tbody id="vit-and-minerals-body">${renderVitAndMins(recipe)}</tbody>
-                </table>
+                
+                ${renderVitAndMins(recipe)}
 
               </section>
             </section>            
@@ -382,8 +378,8 @@ function renderDietLabels(recipe) {
 
   // Loop and add each diet label to the element
   for (let i = 0; i < dietLabels.length; i++) {
-    const dietBadge = $("<span>").addClass("badge label-badge").text(dietLabels[i]);
-    $(el).append(dietBadge);
+    const label = $("<span>").text(dietLabels[i] + ", ");
+    $(el).append(label);
   }
   return el.html();
 }
@@ -421,15 +417,17 @@ function renderHealthLabels(recipe) {
 
   // Add health labels
   for (let i = 0; i < healthLabelsToKeep.length; i++) {
-    const healthBadge = $("<span>").addClass("badge label-badge").text(healthLabelsToKeep[i]);
-    $(el).append(healthBadge);
+    const label = $("<span>").text(healthLabelsToKeep[i] + ", ");
+    $(el).append(label);
   }
 
   // Return rendered html
   return el.html();
 }
 
+// Return a table of vitamins and minerals data for the given recipe
 function renderVitAndMins(recipe) {
+  console.log("vit min");
   let totalDailyPercentage = recipe.totalDaily;
   console.log(totalDailyPercentage);
   let firstColumnEmpty = true;
@@ -455,7 +453,7 @@ function renderVitAndMins(recipe) {
   ];
 
   // Create an element to hold the table
-  const el = $("<div>").addClass("vit-and-minerals-body"); // This must be a class as there are many on the page at the same time
+  const tbody = $("<tbody>").addClass("vit-and-minerals-body"); // This must be a class as there are many on the page at the same time
 
   for (const key in totalDailyPercentage) {
     if (totalDailyPercentage.hasOwnProperty(key)) {
@@ -483,8 +481,8 @@ function renderVitAndMins(recipe) {
 
           let thinLine = $("<tr>").addClass("thin-end");
 
-          $(el).append(tableRow);
-          $(el).append(thinLine);
+          $(tbody).append(tableRow);
+          $(tbody).append(thinLine);
 
           firstColumnEmpty = true;
         }
@@ -494,18 +492,14 @@ function renderVitAndMins(recipe) {
 
   // Create table
   const table = $("<table>").addClass("vit-and-minerals-table");
+  console.log(table.html());
 
-  // Create tbody
-  const tbody = $("<tbody>").addClass("vit-and-minerals-body"); // ? Class maybe not needed as we can style the table via .vit-and-minerals-table
-
-  // Add tbody
+  // Add tbody to table
   $(table).append(tbody);
-
-  // Add table rows
-  $(table).append(el);
+  console.log(table.html());
 
   // Return rendered html
-  return el.html();
+  return table.prop("outerHTML");
 }
 
 // Lookup if recipe is a favourite in global array and return true or false
