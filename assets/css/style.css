@@ -128,7 +128,12 @@ button{
 }
 
 /* RECIPE SEARCH SECTION */
-#recipe-search-section  {
+#recipe-search-nutri-header {
+    padding: 1rem;
+    text-align: center !important;
+}
+
+.recipe-search-section {
     padding-bottom: 11%;
 }
 

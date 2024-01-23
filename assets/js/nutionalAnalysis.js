@@ -63,7 +63,6 @@ async function fetchNutritionalInfo(userIngridients) {
     console.log(typeof userIngridients)
     let userIngridientsArray = userIngridients.split(",");
     // Split userIngridients to create list because we are just passing in a comma separated string into a list atm
-    // I.e. we have here ["1 chicken, 1 onion"], but we want ["1 chicken", "1 onion"]
     console.log(userIngridientsArray)
 
     const nutritionalParameters = {
@@ -104,6 +103,7 @@ function customAnalysis(data) {
   // display nutri info sections
   $("#nutritional-info").removeClass("d-none");
 
+
   // clear existing info 
   $(".displayUserSearchInfo").empty();
   
@@ -139,7 +139,6 @@ function customAnalysis(data) {
   }
 
   // health labels
-
   // health labels to remove from list API list
   let unwantedHealthLabels = ["SULPHITE_FREE","SESAME_FREE","SUGAR_CONSCIOUS","SPECIFIC_CARBS","MILK_FREE","FISH_FREE","WHEAT_FREE","MEDITERRANEAN", "DASH", "EGG_FREE","RED_MEAT_FREE","CELERY_FREE","MUSTARD_FREE","LUPINE_FREE","ALCOHOL_FREE","NO_OIL_ADDED","NO_SUGAR_ADDED","FODMAP_FREE" ];
 
@@ -199,7 +198,7 @@ function customAnalysis(data) {
   $("#total-carbs .percentage").text(`${totalDailyPercentage.CHOCDF.quantity.toFixed(1)}%`);
   // fibre
   $("#fibre .percentage").text(`${totalDailyPercentage.FIBTG.quantity.toFixed(1)}%`);
-  // suagrs
+  // there is no sugar percentage available in the API fetch
   // $("#sugar .percentage").text(`${totalDailyPercentage.SUGAR.quantity.toFixed(1)}%`);
   // protien
   $("#protein .percentage").text(`${totalDailyPercentage.PROCNT.quantity.toFixed(1)}%`);
@@ -247,3 +246,4 @@ function customAnalysis(data) {
     }
   }
 }
+

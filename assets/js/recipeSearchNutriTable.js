@@ -134,6 +134,8 @@ $("#searchRecipes").on("click", function () {
         let dailyPercentage = recipe.totalDaily;
         let totalNutrients = recipe.totalNutrients;
 
+        console.log(recipe.totalDaily)
+
         // If a prep time isn't useful show question mark
         if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
           totalTime = "?";
@@ -218,11 +220,11 @@ $("#searchRecipes").on("click", function () {
           </div>
           <div class="col-sm-6">
 
-            <h3>Nutrition</h3>
+            <h3 id="recipe-search-nutri-header">Nutrition</h3>
 
-            <section class="row" class="nutritional-info">
+            <section class="row" id="nutritional-info">
               <!-- nutrition labels -->
-              <section class="col-md-6" class="nutrition-labels">
+              <section class="col-sm-12 col-md-12 nutrition-labels">
                 <!-- diet labels -->
                 <section class="nutrition-row-section">
                   <h4 class="diet-label-header">Diet Labels</h4>
@@ -237,9 +239,9 @@ $("#searchRecipes").on("click", function () {
               </section>
               
               <!-- NUTRITION CARD -->
-              <section class="col-md-6 nutrition-card">
+              <section class="col-sm-12 col-md-12 nutrition-card">
                 <header class="nutrition-card__header">
-                  <h3 class="nutrition-card__title">Nutrition Facts</h3>
+                  <h4 class="nutrition-card__title">Nutrition Facts</h4>
                 </header>
                 <table class="nutrition-card__table">
                   <thead>
@@ -252,7 +254,7 @@ $("#searchRecipes").on("click", function () {
                     <tr>
                       <th colspan="3">
                         <b>Calories</b>
-                        <span class="total-calories">${recipe.calories}</span>
+                        <span class="total-calories">${recipe.calories.toFixed(0)}</span>
                       </th>
                     </tr>
       
@@ -268,10 +270,10 @@ $("#searchRecipes").on("click", function () {
                       <!-- total fat -->
                       <th colspan="2">
                         <b>Total Fat</b>
-                        <span class="quantity"></span>
+                        <span class="quantity">${totalNutrients.FAT.quantity.toFixed(1) + totalNutrients.FAT.unit}</span>
                       </th>
                       <td class="percentage">
-                        <b>%</b>
+                        <b>${dailyPercentage.FAT.quantity.toFixed(1)}%</b>
                       </td>
                     </tr>
                     <!-- saturated fat -->
@@ -279,10 +281,10 @@ $("#searchRecipes").on("click", function () {
                       <td class="blank-cell"></td>
                       <th>
                         Saturated Fat
-                        <span class="quantity"></span>
+                        <span class="quantity">${totalNutrients.FASAT.quantity.toFixed(1) + totalNutrients.FASAT.unit}</span>
                       </th>
                       <td class="percentage">
-                        <b>%</b>
+                        <b>${dailyPercentage.FASAT.quantity.toFixed(1)}%</b>
                       </td>
                     </tr>
       
@@ -290,10 +292,10 @@ $("#searchRecipes").on("click", function () {
                     <tr class="cholesterol">
                       <th colspan="2">
                         <b>Cholesterol</b>
-                        <span class="quantity"></span>
+                        <span class="quantity">${totalNutrients.CHOLE.quantity.toFixed(1) + totalNutrients.CHOLE.unit}</span>
                       </th>
                       <td class="percentage">
-                        <b>%</b>
+                        <b>${dailyPercentage.CHOLE.quantity.toFixed(1)}%</b>
                       </td>
                     </tr>
       
@@ -301,10 +303,10 @@ $("#searchRecipes").on("click", function () {
                     <tr class="sodium">
                       <th colspan="2">
                         <b>Sodium</b>
-                        <span class="quantity"></span>
+                        <span class="quantity">${totalNutrients.NA.quantity.toFixed(1) + totalNutrients.NA.unit}</span>
                       </th>
                       <td class="percentage">
-                        <b></b>
+                        <b>${dailyPercentage.NA.quantity.toFixed(1)}%</b>
                       </td>
                     </tr>
       
@@ -312,10 +314,10 @@ $("#searchRecipes").on("click", function () {
                     <tr class="total-carbs">
                       <th colspan="2">
                         <b>Total Carbohydrate</b>
-                        <span class="quantity"></span>
+                        <span class="quantity">${totalNutrients.CHOCDF.quantity.toFixed(1) + totalNutrients.CHOCDF.unit}</span>
                       </th>
                       <td class="percentage">
-                        <b></b>
+                        <b>${dailyPercentage.CHOCDF.quantity.toFixed(1)}%</b>
                       </td>
                     </tr>
       
@@ -324,10 +326,10 @@ $("#searchRecipes").on("click", function () {
                       <td class="blank-cell"></td>
                       <th>
                         Dietary Fiber
-                        <span class="quantity"></span>
+                        <span class="quantity">${totalNutrients.FIBTG.quantity.toFixed(1) + totalNutrients.FIBTG.unit}</span>
                       </th>
                       <td class="percentage">
-                        <b></b>
+                        <b>${dailyPercentage.FIBTG.quantity.toFixed(1)}%</b>
                       </td>
                     </tr>
       
@@ -336,7 +338,7 @@ $("#searchRecipes").on("click", function () {
                       <td class="blank-cell"></td>
                       <th>
                         Sugars
-                        <span class="quantity"></span>
+                        <span class="quantity">${totalNutrients.SUGAR.quantity.toFixed(1) + totalNutrients.SUGAR.unit}</span>
                       </th>
                       <td class="percentage">
                         <b></b>
@@ -347,10 +349,10 @@ $("#searchRecipes").on("click", function () {
                     <tr class="thick-end" class="protein">
                       <th colspan="2">
                         <b>Protein</b>
-                        <span class="quantity"></span>
+                        <span class="quantity">${totalNutrients.PROCNT.quantity.toFixed(1) + totalNutrients.PROCNT.unit}</span>
                       </th>
                       <td class="percentage">
-                        <b></b>
+                        <b>${dailyPercentage.PROCNT.quantity.toFixed(1)}%</b>
                       </td>
                     </tr>
                   </tbody>
@@ -380,7 +382,8 @@ function renderDietLabels(recipe) {
   // console.log(dietLabels);
 
   // Create an element for the labels
-  const el = $("<div>").addClass("diet-labels");
+  const el = $("<div>")
+  .addClass("diet-labels");
 
   // Loop and add each diet label to the element
   for (let i = 0; i < dietLabels.length; i++) {
