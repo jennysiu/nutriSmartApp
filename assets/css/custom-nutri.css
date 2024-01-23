@@ -68,6 +68,7 @@
   float: left;
   width: fit-content;
   padding: 0.6rem;
+  background:rgb(255,255,255,0.9);
   }
   
   .nutrition-card__title {
