@@ -285,10 +285,23 @@ function addFavouriteRecipe(recipe) {
 
 // Remove recipe from favourites
 function removeFavouriteRecipe(uri) {
-  // loop the favouriteRecipes array and look for uri
-  //   if a match is found;
-  //    remove from favouriteRecipes array
-  //    replace localstorage favourites with new array of recipes
+  if (!uri) {
+    return false;
+  } else {
+    // loop the favouriteRecipes array and look for uri
+    for (let i = 0; i < favouriteRecipes.length; i++) {
+      // if a match is found;
+      const arrayUri = favouriteRecipes[i].recipe.uri;
+      if (uri === arrayUri) {
+        // remove from favouriteRecipes array
+        favouriteRecipes.splice(i, 1);
+
+        // Replace localStorage favourites with new (stringified) array of recipes
+        localStorage.setItem("recipeSearch_favouriteRecipes", JSON.stringify(favouriteRecipes));
+        return true;
+      }
+    }
+  }
 }
 
 // Event listener on recipe favourite button to add to favourites array ("favouriteRecipes") and localStorage ("recipeSearch_favouriteRecipes")
@@ -297,10 +310,13 @@ $("#recipe-results").on("click", ".recipe-favourite", function (e) {
   const index = $(this).attr("data-index");
 
   // Is this a favourite
-  const favorite = $(this).attr("data-fav");
+  const favourite = $(this).attr("data-fav");
+
+  // Uri of recipe
+  const uri = $(this).attr("data-uri");
 
   // If there is no info about fav or it is false then make it a favourite
-  if (!favorite || favorite === "false") {
+  if (!favourite || favourite === "false") {
     // Add it to favourite recipes
     if (addFavouriteRecipe(recipeResultData[index])) {
       // set icon
@@ -310,8 +326,14 @@ $("#recipe-results").on("click", ".recipe-favourite", function (e) {
       $(this).attr("data-fav", "true");
     }
   } else {
-    // Remove from favourites via data-uri
-    // Conditionaly call removeFavouriteRecipe(uri) as above but set data-fav to "false" and switch the icon classes
+    // Conditionally call removeFavouriteRecipe(uri) but set data-fav to "false" and switch the icon classes
+    if (removeFavouriteRecipe(uri)) {
+      // set icon
+      $(this).find(".bi-heart-fill").removeClass("bi-heart-fill").addClass("bi-heart");
+
+      //Set data attribute
+      $(this).attr("data-fav", "false");
+    }
   }
 });
 
