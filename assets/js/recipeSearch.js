@@ -15,7 +15,7 @@ $("#ingredientsToSearch").on("click", ".search-recipe-ingredient", function (e) 
   // Remove clicked ingredient from array of ingredients
   for (let i = 0; i < ingredientsSearch.length; i++) {
     const ingredient = ingredientsSearch[i];
-    if (ingredient === $(e.target).attr("data-ingredient")) {
+    if (ingredient === $(this).attr("data-ingredient")) {
       // remove this ingredient from search array
       ingredientsSearch.splice(i, 1);
     }
