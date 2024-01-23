@@ -81,7 +81,13 @@ function renderRecipeSearchIngredients() {
 
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
-  fetchRecipes().then((data) => {
+  // Get search terms from array of search terms
+  const tags = ingredientsSearch.join("+");
+
+  // Construct search URL
+  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&tag=${tags}`;
+
+  fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
       // No data
 
@@ -337,17 +343,11 @@ $("#recipe-results").on("click", ".recipe-favourite", function (e) {
   }
 });
 
-// API search
-async function fetchRecipes() {
+// API fetch Recipes
+async function fetchRecipes(queryUrl) {
   try {
-    // Get search terms from array of search terms
-    const tags = ingredientsSearch.join("+");
-
-    // Construct search URL
-    const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&tag=${tags}`;
-
     // await response call
-    let response = await fetch(recipeSearchURL);
+    let response = await fetch(queryUrl);
 
     // once response retrieved, convert to json format
     let data = await response.json();
