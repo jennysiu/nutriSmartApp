@@ -128,11 +128,25 @@ button{
 }
 
 /* RECIPE SEARCH SECTION */
-#recipe-search-section  {
+#recipe-results-section .recipe-search-nutri-header {
+    padding-bottom: 1rem;
+    text-align: center !important;
+}
+
+#recipe-results-section .nutrition-card{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#recipe-results-section .nutritional-info{
+    text-align: center;
+}
+
+.recipe-search-section {
     padding-bottom: 11%;
 }
 
-.recipe-favourite{
+#recipe-results-section .recipe-favourite{
     font-size: 1.75rem; /* Match recipe heading font-size */ 
     line-height: 1.2rem; /* Match recipe heading line-height  */ 
 }

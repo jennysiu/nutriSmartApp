@@ -10,14 +10,18 @@
 
 /* This now only targets the nutrition page, the recipe page is a class of .nutrition-info */
 #nutritional-info {
+  /* flex-wrap: nowrap; */
+  justify-content: center;
+  align-items: center;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
-  }
+  gap: 15%;
+}
   
   
   /* display user search */
-  #display-user-ingredients {
+#display-user-ingredients {
   display: block;
   margin: 2% 0;
   margin-left: 25%;
@@ -27,49 +31,49 @@
   /* border-radius: 0.6rem; */
   text-align: center;
   width: 50%;
-  }
+}
   
- /* This now only targets the nutrition page, the recipe page is a class of .nutrition-card */
-  #nutrition-card {
+/* This now only targets the nutrition page, the recipe page is a class of .nutrition-card */
+#nutrition-card {
   margin-left: auto;
   margin-right: auto;
-  } 
+} 
   
   
-  /* Nutri labels */
-  
-  /* This only targets the nutrition page, the recipe page is a class of .nutrition-labels */
-  #nutrition-labels {
+/* Nutri labels */
+
+/* This only targets the nutrition page, the recipe page is a class of .nutrition-labels */
+#nutrition-labels {
   padding: 1%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2%;
   width: 40%;
-  }
+}
   
-  .nutrition-row-section{
+.nutrition-row-section{
   text-align: center;
   margin-bottom: 15%;
-  }
+}
   
-  .label-badge {
+.label-badge {
   padding: 2%;
   margin: 2%;
   width: fit-content;
   background-color: var(--light-green);
   font-weight: bold;
   font-size: small;
-  }
+}
   
-  /* Nutrition card */
-  .nutrition-card {
+/* Nutrition card */
+.nutrition-card {
   border: 1px solid var(--light-grey);
   margin: 3%;
   float: left;
   width: fit-content;
   padding: 0.6rem;
   background:rgb(255,255,255,0.9);
-  }
+}
   
   .nutrition-card__title {
   font-weight: bold;
