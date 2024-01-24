@@ -81,11 +81,14 @@ function renderRecipeSearchIngredients() {
 
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
+  // Get random results
+  const random = "true";
+
   // Get search terms from array of search terms
   const tags = ingredientsSearch.join("+");
 
   // Construct search URL
-  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&tag=${tags}`;
+  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
 
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
@@ -171,9 +174,6 @@ function renderFavouritesModal() {
 
 // Fetch and render favourites
 function renderFavourites() {
-  // Get random results
-  const random = "true";
-
   // variable to build the uri querystring parameter
   let uris = "";
 
@@ -197,7 +197,7 @@ function renderFavourites() {
   }
 
   // Construct search URL
-  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2/by-uri?${uris}&type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}`;
+  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2/by-uri?${uris}&type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}`;
 
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
