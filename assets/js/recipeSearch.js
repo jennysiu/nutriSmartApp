@@ -119,9 +119,6 @@ $("#searchRecipes").on("click", function () {
 
 // Fetch and render favourites
 function renderFavourites() {
-  console.log("renderFavourites()");
-  console.log(`favourites count: ${favouriteRecipes.length}`);
-
   // variable to build the uri querystring parameter
   let uris = "";
 
@@ -137,8 +134,6 @@ function renderFavourites() {
     }
   }
 
-  console.log(`uris: ${uris}`);
-
   // Exit if there are no favourites
   if (!uris) {
     return false;
@@ -147,10 +142,7 @@ function renderFavourites() {
   // Construct search URL
   const recipeSearchURL = `https://api.edamam.com/api/recipes/v2/by-uri?${uris}&type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}`;
 
-  console.log(recipeSearchURL);
-
   fetchRecipes(recipeSearchURL).then((data) => {
-    console.log(data);
     if (data.noResults) {
       // No data
 
