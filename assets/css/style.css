@@ -77,7 +77,7 @@ h3 {
     background-image: url(../images/hermes-rivera-Ww8eQWjMJWk-unsplash.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 20%;
+    background-position: center center; /* prevent image floating off screen */
 }
 
 .form-search{
