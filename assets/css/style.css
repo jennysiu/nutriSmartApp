@@ -168,3 +168,8 @@ button{
 .bi-heart-fill {
     color: #ea868f
 }
+
+/* Favourites Modal */
+#editFavouriteRecipes:hover {
+    color: var(--dark-orange);
+}
