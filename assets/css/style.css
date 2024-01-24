@@ -74,7 +74,7 @@ h3 {
 /* JUMBOSEARCH */
 .jumbotman{
     padding: 5vh 5vw; /* Responsive padding (5% viewport height/width) */    
-    background-image: url(/assets/images/hermes-rivera-Ww8eQWjMJWk-unsplash.jpg);
+    background-image: url("../images/hermes-rivera-Ww8eQWjMJWk-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center; /* prevent image floating off screen */
