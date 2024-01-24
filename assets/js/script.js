@@ -2,6 +2,7 @@
 $("#recipeNavigation").on("click", function () {
   $("#recipe-search-section").removeClass("d-none");
   $("#ingredientsToSearch").empty();
+  $("#searchRecipes").addClass("d-none");
   $("#recipe-results").empty();
   $("#recipe-results-section").removeClass("d-none");
   $("#recipe-favourites-section").addClass("d-none");
