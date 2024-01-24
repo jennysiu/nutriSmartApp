@@ -117,6 +117,46 @@ $("#searchRecipes").on("click", function () {
   });
 });
 
+// Event listener for the favourites modal to update its contents before being displayed
+$("#favouriteRecipesEditModal").on("show.bs.modal", function (event) {
+  renderFavouritesModal();
+});
+
+// Render the favourites modal from the favourites array
+function renderFavouritesModal() {
+  // Clear all favourites
+  $("#favouriteRecipesModalContainer").empty();
+
+  console.log(favouriteRecipes);
+
+  // Loop the favourites in global array and render rows for each recipe
+  for (let i = 0; i < favouriteRecipes.length; i++) {
+    const row = $("<div>").addClass("row");
+    const recipe = favouriteRecipes[i].recipe;
+    const col1 = $("<div>").addClass("col-10 fs-3 lh-base");
+    const col2 = $("<div>").addClass("col-2 text-center fs-3 lh-base");
+    const button = $("<button>")
+      .addClass("recipe-favourite")
+      .attr("data-uri", recipe.uri)
+      .attr("data-index", i);
+    const icon = $("<i>").addClass("bi bi-heart-fill");
+    const title = $("<h5>").text(recipe.label);
+
+    // Add icon to button
+    button.append(icon);
+
+    // Add title and button to columns
+    col1.append(title); // Make link to view single recipe
+    col2.append(button);
+
+    // save both columns to the row
+    row.append(col1, col2);
+
+    // Save the row to the recipe container
+    $("#favouriteRecipesModalContainer").append(row);
+  }
+}
+
 // Fetch and render favourites
 function renderFavourites() {
   // variable to build the uri querystring parameter
