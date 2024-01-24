@@ -171,6 +171,9 @@ function renderFavouritesModal() {
 
 // Fetch and render favourites
 function renderFavourites() {
+  // Get random results
+  const random = "true";
+
   // variable to build the uri querystring parameter
   let uris = "";
 
@@ -194,7 +197,7 @@ function renderFavourites() {
   }
 
   // Construct search URL
-  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2/by-uri?${uris}&type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}`;
+  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2/by-uri?${uris}&type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}`;
 
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {

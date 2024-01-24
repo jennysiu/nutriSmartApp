@@ -1,7 +1,11 @@
 // Event listener on nav link to show Recipe Sections
 $("#recipeNavigation").on("click", function () {
   $("#recipe-search-section").removeClass("d-none");
+
+  // Clear the ingredients search
   $("#ingredientsToSearch").empty();
+  ingredientsSearch.length = 0;
+
   $("#searchRecipes").addClass("d-none");
   $("#recipe-results").empty();
   $("#recipe-results-section").removeClass("d-none");
