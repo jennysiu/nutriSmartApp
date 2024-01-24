@@ -112,63 +112,66 @@ $("#searchRecipes").on("click", function () {
       // Handle any errors
       console.error("Error:", data.error);
     } else {
-      // Work with the data
+      renderRecipes(data);
+    }
+  });
+});
 
-      // Array of returned recipes
-      const recipes = data.hits;
+// Render recipes in results section
+function renderRecipes(data) {
+  // Array of returned recipes
+  const recipes = data.hits;
 
-      // Save recipes to global variable for when the user adds a recipe to their favourites
-      recipeResultData.push(...recipes);
+  // Save recipes to global variable for when the user adds a recipe to their favourites
+  recipeResultData.push(...recipes);
 
-      // Empty the results
-      $("#recipe-results").empty();
+  // Empty the results
+  $("#recipe-results").empty();
 
-      // Loop the recipes returned
-      for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i].recipe;
-        const recipeUri = recipe.uri;
-        const recipeYield = recipe.yield;
-        const recipeIngredients = recipe.ingredients;
-        let totalTime = recipe.totalTime;
-        let dailyPercentage = recipe.totalDaily;
-        let totalNutrients = recipe.totalNutrients;
+  // Loop the recipes returned
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i].recipe;
+    const recipeUri = recipe.uri;
+    const recipeYield = recipe.yield;
+    const recipeIngredients = recipe.ingredients;
+    let totalTime = recipe.totalTime;
+    let dailyPercentage = recipe.totalDaily;
+    let totalNutrients = recipe.totalNutrients;
 
-        // If a prep time isn't useful show question mark
-        if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
-          totalTime = "?";
-        }
+    // If a prep time isn't useful show question mark
+    if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
+      totalTime = "?";
+    }
 
-        // List the ingredients
-        const recipeIngredientsList = $("<ul>").addClass("recipe-ingredients-list");
-        for (let j = 0; j < recipeIngredients.length; j++) {
-          const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
-          recipeIngredientsList.append(recipeIngredient);
-        }
+    // List the ingredients
+    const recipeIngredientsList = $("<ul>").addClass("recipe-ingredients-list");
+    for (let j = 0; j < recipeIngredients.length; j++) {
+      const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
+      recipeIngredientsList.append(recipeIngredient);
+    }
 
-        // Build list with images of ingredients
-        const recipeIngredientsDetail = $("<ul>").addClass(
-          "recipe-ingredients-detail list-unstyled"
-        );
-        const recipeIngredientsArray = recipe.ingredients;
-        for (let i = 0; i < recipeIngredientsArray.length; i++) {
-          const title = $("<h5>").text(recipeIngredientsArray[i].text).addClass("p-3");
-          const image = $("<img>")
-            .attr("src", recipeIngredientsArray[i].image)
-            .attr("loading", "lazy")
-            .addClass("rounded")
-            .attr("style", "max-width:50px;height:auto");
-          const div = $("<div>").addClass("d-flex align-items-center").append(image, title);
+    // Build list with images of ingredients
+    const recipeIngredientsDetail = $("<ul>").addClass("recipe-ingredients-detail list-unstyled");
+    const recipeIngredientsArray = recipe.ingredients;
+    for (let i = 0; i < recipeIngredientsArray.length; i++) {
+      const title = $("<h5>").text(recipeIngredientsArray[i].text).addClass("p-3");
+      const image = $("<img>")
+        .attr("src", recipeIngredientsArray[i].image)
+        .attr("loading", "lazy")
+        .addClass("rounded")
+        .attr("style", "max-width:50px;height:auto");
+      const div = $("<div>").addClass("d-flex align-items-center").append(image, title);
 
-          const li = $("<li>").append(div);
+      const li = $("<li>").append(div);
 
-          recipeIngredientsDetail.append(li);
-        }
+      recipeIngredientsDetail.append(li);
+    }
 
-        // Set the fav icon and data-fav if this is a favourite recipe
-        const recipeFavIcon = isFavouriteRecipe(recipeUri) ? "bi-heart-fill" : "bi-heart";
-        const recipeDataFav = isFavouriteRecipe(recipeUri) ? "true" : "false";
+    // Set the fav icon and data-fav if this is a favourite recipe
+    const recipeFavIcon = isFavouriteRecipe(recipeUri) ? "bi-heart-fill" : "bi-heart";
+    const recipeDataFav = isFavouriteRecipe(recipeUri) ? "true" : "false";
 
-        const recipeResult = $(`
+    const recipeResult = $(`
 
         <div class="recipe-result py-3" style="cursor:pointer" data-uri="${recipeUri}">
           <div class="row">
@@ -384,11 +387,9 @@ $("#searchRecipes").on("click", function () {
       <hr style="border: 1px solid #999;">
       `);
 
-        $("#recipe-results").append(recipeResult);
-      }
-    }
-  });
-});
+    $("#recipe-results").append(recipeResult);
+  }
+}
 
 function renderDietLabels(recipe) {
   const dietLabels = recipe.dietLabels;
