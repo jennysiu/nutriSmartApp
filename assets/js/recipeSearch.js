@@ -454,7 +454,6 @@ function renderRecipes(data) {
 
 function renderDietLabels(recipe) {
   const dietLabels = recipe.dietLabels;
-  // console.log(dietLabels);
 
   // Create an element for the labels
   const el = $("<div>").addClass("diet-labels");
@@ -493,7 +492,6 @@ function renderHealthLabels(recipe) {
   let healthLabels = recipe.healthLabels;
   // new array with unwanted health labels filtered out
   let healthLabelsToKeep = healthLabels.filter((item) => !unwantedHealthLabels.includes(item));
-  //console.log(healthLabelsToKeep);
 
   // Create an element for the labels
   const el = $("<div>").addClass("health-labels");
@@ -510,9 +508,7 @@ function renderHealthLabels(recipe) {
 
 // Return a table of vitamins and minerals data for the given recipe
 function renderVitAndMins(recipe) {
-  //console.log("vit min");
   let totalDailyPercentage = recipe.totalDaily;
-  //console.log(totalDailyPercentage);
   let firstColumnEmpty = true;
   let tableRow = null;
 
@@ -542,8 +538,6 @@ function renderVitAndMins(recipe) {
     if (totalDailyPercentage.hasOwnProperty(key)) {
       let vitAndMineralsName = totalDailyPercentage[key].label;
       let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
-      // console.log(vitAndMineralsName);
-      // console.log(key);
 
       // filter out zero quantities && if the key is a nutrient in the allVitAndMinerals array
       // (to avoid duplicate nutrients already added in nutri card)
@@ -575,11 +569,9 @@ function renderVitAndMins(recipe) {
 
   // Create table
   const table = $("<table>").addClass("vit-and-minerals-table");
-  //console.log(table.html());
 
   // Add tbody to table
   $(table).append(tbody);
-  //console.log(table.html());
 
   // Return rendered html
   return table.prop("outerHTML");
@@ -719,31 +711,3 @@ async function fetchRecipes(queryUrl) {
     console.error("Fetch error:", error);
   }
 }
-
-// Testing a simple fetch function
-async function fetchData() {
-  try {
-    // Make a GET request to an example URL
-    const response = await fetch(
-      "https://api.edamam.com/api/recipes/v2/by-uri?uri=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_97b3bb0d0d8a4a8fa9ebd3176104acfb&type=public&app_id=3074c0c2&app_key=c3d552607ffb94d88d65387ada3819bb"
-    );
-
-    // Check if the response is successful (status code 200-299)
-    if (response.ok) {
-      // Parse the response JSON
-      const data = await response.json();
-      console.log("Data:", data);
-    } else {
-      // Handle non-successful responses
-      console.error("Request failed with status:", response.status);
-      console.error(response.error);
-      console.info(response);
-    }
-  } catch (error) {
-    // Handle fetch errors
-    console.error("Fetch error:", error);
-  }
-}
-
-// Call the fetch function
-//fetchData();
