@@ -119,6 +119,12 @@ $("#searchRecipes").on("click", function () {
 
 // Render recipes in results section
 function renderRecipes(data) {
+  // Check there is data to work with
+  if (!data) {
+    console.error("Error: No recipe data to render");
+    return false;
+  }
+
   // Array of returned recipes
   const recipes = data.hits;
 
