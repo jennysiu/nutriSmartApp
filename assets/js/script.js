@@ -1,6 +1,7 @@
 // Event listener on nav link to show Recipe Sections
 $("#recipeNavigation").on("click", function () {
   $("#recipe-search-section").removeClass("d-none");
+  $("#recipe-results").empty();
   $("#recipe-results-section").removeClass("d-none");
   $("#recipe-favourites-section").addClass("d-none");
   $("#nutritional-analysis-container").addClass("d-none");
