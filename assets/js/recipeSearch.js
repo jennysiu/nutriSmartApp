@@ -81,11 +81,14 @@ function renderRecipeSearchIngredients() {
 
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
+  // Get random results
+  const random = "true";
+
   // Get search terms from array of search terms
   const tags = ingredientsSearch.join("+");
 
   // Construct search URL
-  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&tag=${tags}`;
+  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
 
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
@@ -112,63 +115,181 @@ $("#searchRecipes").on("click", function () {
       // Handle any errors
       console.error("Error:", data.error);
     } else {
-      // Work with the data
+      renderRecipes(data);
+    }
+  });
+});
 
-      // Array of returned recipes
-      const recipes = data.hits;
+// Event listener for delete favourites button
+$("#deleteAllFavourites").on("click", function () {
+  // Flush favourites array
+  favouriteRecipes.length = 0;
 
-      // Save recipes to global variable for when the user adds a recipe to their favourites
-      recipeResultData.push(...recipes);
+  // Replace localStorage favourites with new (stringified) array of recipes
+  localStorage.setItem("recipeSearch_favouriteRecipes", JSON.stringify(favouriteRecipes));
+
+  // Empty the results
+  $("#recipe-results").empty();
+});
+
+// Event listener for the favourites modal to update its contents before being displayed
+$("#favouriteRecipesEditModal").on("show.bs.modal", function (event) {
+  renderFavouritesModal();
+});
+
+// Render the favourites modal from the favourites array
+function renderFavouritesModal() {
+  // Clear all favourites
+  $("#favouriteRecipesModalContainer").empty();
+
+  // console.log(favouriteRecipes);
+
+  // Loop the favourites in global array and render rows for each recipe
+  for (let i = 0; i < favouriteRecipes.length; i++) {
+    const row = $("<div>").addClass("row");
+    const recipe = favouriteRecipes[i].recipe;
+    const col1 = $("<div>").addClass("col-10 fs-3 lh-base");
+    const col2 = $("<div>").addClass("col-2 text-center fs-3 lh-base");
+    const button = $("<button>")
+      .addClass("recipe-favourite")
+      .attr("data-uri", recipe.uri)
+      .attr("data-index", i);
+    const icon = $("<i>").addClass("bi bi-heart-fill");
+    const title = $("<h5>").text(recipe.label);
+
+    // Add icon to button
+    button.append(icon);
+
+    // Add title and button to columns
+    col1.append(title); // Make link to view single recipe
+    col2.append(button);
+
+    // save both columns to the row
+    row.append(col1, col2);
+
+    // Save the row to the recipe container
+    $("#favouriteRecipesModalContainer").append(row);
+  }
+}
+
+// Fetch and render favourites
+function renderFavourites() {
+  // variable to build the uri querystring parameter
+  let uris = "";
+
+  // Get uri from favourites array and construct uri query parameters
+  for (let i = 0; i < favouriteRecipes.length; i++) {
+    const uri = favouriteRecipes[i].recipe.uri;
+
+    // Add ampersand separator but not on the first uri
+    if (i > 0) {
+      uris = uris + "&uri=" + encodeURIComponent(uri);
+    } else {
+      uris = uris + "uri=" + encodeURIComponent(uri);
+    }
+  }
+
+  // Exit if there are no favourites
+  if (!uris) {
+    // Empty the results
+    $("#recipe-results").empty();
+    return false;
+  }
+
+  // Construct search URL
+  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2/by-uri?${uris}&type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}`;
+
+  fetchRecipes(recipeSearchURL).then((data) => {
+    if (data.noResults) {
+      // No data
+
+      // Empty global variable containing the array of recipe results on this page
+      recipeResultData.length = 0;
 
       // Empty the results
       $("#recipe-results").empty();
 
-      // Loop the recipes returned
-      for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i].recipe;
-        const recipeUri = recipe.uri;
-        const recipeYield = recipe.yield;
-        const recipeIngredients = recipe.ingredients;
-        let totalTime = recipe.totalTime;
-        let dailyPercentage = recipe.totalDaily;
-        let totalNutrients = recipe.totalNutrients;
+      // No recipes found, so briefly show a message
+      const elNoResults = $("<span>")
+        .addClass("invalid-feedback")
+        .addClass("px-3")
+        .text("No favourites found.")
+        .insertAfter($("#recipe-favourites-section"))
+        .show();
 
-        // If a prep time isn't useful show question mark
-        if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
-          totalTime = "?";
-        }
+      setTimeout(function () {
+        elNoResults.hide();
+      }, 3000);
+    } else if (data.error) {
+      // Handle any errors
+      console.error("Error:", data.error);
+    } else {
+      renderRecipes(data);
+    }
+  });
+}
 
-        // List the ingredients
-        const recipeIngredientsList = $("<ul>").addClass("recipe-ingredients-list");
-        for (let j = 0; j < recipeIngredients.length; j++) {
-          const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
-          recipeIngredientsList.append(recipeIngredient);
-        }
+// Render recipes in results section
+function renderRecipes(data) {
+  // Check there is data to work with
+  if (!data) {
+    console.error("Error: No recipe data to render");
+    return false;
+  }
 
-        // Build list with images of ingredients
-        const recipeIngredientsDetail = $("<ul>").addClass(
-          "recipe-ingredients-detail list-unstyled"
-        );
-        const recipeIngredientsArray = recipe.ingredients;
-        for (let i = 0; i < recipeIngredientsArray.length; i++) {
-          const title = $("<h5>").text(recipeIngredientsArray[i].text).addClass("p-3");
-          const image = $("<img>")
-            .attr("src", recipeIngredientsArray[i].image)
-            .attr("loading", "lazy")
-            .addClass("rounded")
-            .attr("style", "max-width:50px;height:auto");
-          const div = $("<div>").addClass("d-flex align-items-center").append(image, title);
+  // Array of returned recipes
+  const recipes = data.hits;
 
-          const li = $("<li>").append(div);
+  // Save recipes to global variable for when the user adds a recipe to their favourites
+  recipeResultData.push(...recipes);
 
-          recipeIngredientsDetail.append(li);
-        }
+  // Empty the results
+  $("#recipe-results").empty();
 
-        // Set the fav icon and data-fav if this is a favourite recipe
-        const recipeFavIcon = isFavouriteRecipe(recipeUri) ? "bi-heart-fill" : "bi-heart";
-        const recipeDataFav = isFavouriteRecipe(recipeUri) ? "true" : "false";
+  // Loop the recipes returned
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i].recipe;
+    const recipeUri = recipe.uri;
+    const recipeYield = recipe.yield;
+    const recipeIngredients = recipe.ingredients;
+    let totalTime = recipe.totalTime;
+    let dailyPercentage = recipe.totalDaily;
+    let totalNutrients = recipe.totalNutrients;
 
-        const recipeResult = $(`
+    // If a prep time isn't useful show question mark
+    if (!totalTime || isNaN(parseFloat(totalTime)) || !isFinite(totalTime) || totalTime === 0) {
+      totalTime = "?";
+    }
+
+    // List the ingredients
+    const recipeIngredientsList = $("<ul>").addClass("recipe-ingredients-list");
+    for (let j = 0; j < recipeIngredients.length; j++) {
+      const recipeIngredient = $(`<li>${recipeIngredients[j].food}</li>`);
+      recipeIngredientsList.append(recipeIngredient);
+    }
+
+    // Build list with images of ingredients
+    const recipeIngredientsDetail = $("<ul>").addClass("recipe-ingredients-detail list-unstyled");
+    const recipeIngredientsArray = recipe.ingredients;
+    for (let i = 0; i < recipeIngredientsArray.length; i++) {
+      const title = $("<h5>").text(recipeIngredientsArray[i].text).addClass("p-3");
+      const image = $("<img>")
+        .attr("src", recipeIngredientsArray[i].image)
+        .attr("loading", "lazy")
+        .addClass("rounded")
+        .attr("style", "max-width:50px;height:auto");
+      const div = $("<div>").addClass("d-flex align-items-center").append(image, title);
+
+      const li = $("<li>").append(div);
+
+      recipeIngredientsDetail.append(li);
+    }
+
+    // Set the fav icon and data-fav if this is a favourite recipe
+    const recipeFavIcon = isFavouriteRecipe(recipeUri) ? "bi-heart-fill" : "bi-heart";
+    const recipeDataFav = isFavouriteRecipe(recipeUri) ? "true" : "false";
+
+    const recipeResult = $(`
 
         <div class="recipe-result py-3" style="cursor:pointer" data-uri="${recipeUri}">
           <div class="row">
@@ -384,15 +505,12 @@ $("#searchRecipes").on("click", function () {
       <hr style="border: 1px solid #999;">
       `);
 
-        $("#recipe-results").append(recipeResult);
-      }
-    }
-  });
-});
+    $("#recipe-results").append(recipeResult);
+  }
+}
 
 function renderDietLabels(recipe) {
   const dietLabels = recipe.dietLabels;
-  // console.log(dietLabels);
 
   // Create an element for the labels
   const el = $("<div>").addClass("diet-labels");
@@ -431,7 +549,6 @@ function renderHealthLabels(recipe) {
   let healthLabels = recipe.healthLabels;
   // new array with unwanted health labels filtered out
   let healthLabelsToKeep = healthLabels.filter((item) => !unwantedHealthLabels.includes(item));
-  //console.log(healthLabelsToKeep);
 
   // Create an element for the labels
   const el = $("<div>").addClass("health-labels");
@@ -448,9 +565,7 @@ function renderHealthLabels(recipe) {
 
 // Return a table of vitamins and minerals data for the given recipe
 function renderVitAndMins(recipe) {
-  console.log("vit min");
   let totalDailyPercentage = recipe.totalDaily;
-  console.log(totalDailyPercentage);
   let firstColumnEmpty = true;
   let tableRow = null;
 
@@ -480,8 +595,6 @@ function renderVitAndMins(recipe) {
     if (totalDailyPercentage.hasOwnProperty(key)) {
       let vitAndMineralsName = totalDailyPercentage[key].label;
       let vitAndMineralsQuantity = totalDailyPercentage[key].quantity.toFixed(1);
-      // console.log(vitAndMineralsName);
-      // console.log(key);
 
       // filter out zero quantities && if the key is a nutrient in the allVitAndMinerals array
       // (to avoid duplicate nutrients already added in nutri card)
@@ -513,11 +626,9 @@ function renderVitAndMins(recipe) {
 
   // Create table
   const table = $("<table>").addClass("vit-and-minerals-table");
-  console.log(table.html());
 
   // Add tbody to table
   $(table).append(tbody);
-  console.log(table.html());
 
   // Return rendered html
   return table.prop("outerHTML");
@@ -601,6 +712,18 @@ function removeFavouriteRecipe(uri) {
     }
   }
 }
+
+// Event listener on recipe favourite button in modal
+$("#favouriteRecipesEditModal").on("click", ".recipe-favourite", function (e) {
+  // Uri of recipe
+  const uri = $(this).attr("data-uri");
+
+  removeFavouriteRecipe(uri);
+
+  renderFavouritesModal();
+
+  renderFavourites();
+});
 
 // Event listener on recipe favourite button to add to favourites array ("favouriteRecipes") and localStorage ("recipeSearch_favouriteRecipes")
 $("#recipe-results").on("click", ".recipe-favourite", function (e) {

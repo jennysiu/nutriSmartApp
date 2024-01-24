@@ -1,11 +1,3 @@
-:root {
-  --light-green: #35b035;
-  --green: #6ca96c;    
-  --light-grey: #535353;
-  --light-orange: rgb(202, 121, 59);
-  --dark-orange: rgb(214, 131, 66);
-}
-
 /* NUTRI INFO */
 
 /* This now only targets the nutrition page, the recipe page is a class of .nutrition-info */
