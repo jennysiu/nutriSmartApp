@@ -18,8 +18,9 @@ $("#nutritionalNavigation").on("click", function () {
 
 // Event listener on nav link to show Favourite Sections
 $("#favouriteNavigation").on("click", function () {
+  renderFavourites();
   $("#recipe-search-section").addClass("d-none");
-  $("#recipe-results-section").addClass("d-none");
+  $("#recipe-results-section").removeClass("d-none");
   $("#recipe-favourites-section").removeClass("d-none");
   $("#nutritional-analysis-container").addClass("d-none");
 });

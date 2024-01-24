@@ -117,6 +117,69 @@ $("#searchRecipes").on("click", function () {
   });
 });
 
+// Fetch and render favourites
+function renderFavourites() {
+  console.log("renderFavourites()");
+  console.log(`favourites count: ${favouriteRecipes.length}`);
+
+  // variable to build the uri querystring parameter
+  let uris = "";
+
+  // Get uri from favourites array and construct uri query parameters
+  for (let i = 0; i < favouriteRecipes.length; i++) {
+    const uri = favouriteRecipes[i].recipe.uri;
+
+    // Add ampersand separator but not on the first uri
+    if (i > 0) {
+      uris = uris + "&uri=" + encodeURIComponent(uri);
+    } else {
+      uris = uris + "uri=" + encodeURIComponent(uri);
+    }
+  }
+
+  console.log(`uris: ${uris}`);
+
+  // Exit if there are no favourites
+  if (!uris) {
+    return false;
+  }
+
+  // Construct search URL
+  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2/by-uri?${uris}&type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}`;
+
+  console.log(recipeSearchURL);
+
+  fetchRecipes(recipeSearchURL).then((data) => {
+    console.log(data);
+    if (data.noResults) {
+      // No data
+
+      // Empty global variable containing the array of recipe results on this page
+      recipeResultData.length = 0;
+
+      // Empty the results
+      $("#recipe-results").empty();
+
+      // No recipes found, so briefly show a message
+      const elNoResults = $("<span>")
+        .addClass("invalid-feedback")
+        .addClass("px-3")
+        .text("No favourites found.")
+        .insertAfter($("#recipe-favourites-section"))
+        .show();
+
+      setTimeout(function () {
+        elNoResults.hide();
+      }, 3000);
+    } else if (data.error) {
+      // Handle any errors
+      console.error("Error:", data.error);
+    } else {
+      renderRecipes(data);
+    }
+  });
+}
+
 // Render recipes in results section
 function renderRecipes(data) {
   // Check there is data to work with
@@ -455,9 +518,9 @@ function renderHealthLabels(recipe) {
 
 // Return a table of vitamins and minerals data for the given recipe
 function renderVitAndMins(recipe) {
-  console.log("vit min");
+  //console.log("vit min");
   let totalDailyPercentage = recipe.totalDaily;
-  console.log(totalDailyPercentage);
+  //console.log(totalDailyPercentage);
   let firstColumnEmpty = true;
   let tableRow = null;
 
@@ -520,11 +583,11 @@ function renderVitAndMins(recipe) {
 
   // Create table
   const table = $("<table>").addClass("vit-and-minerals-table");
-  console.log(table.html());
+  //console.log(table.html());
 
   // Add tbody to table
   $(table).append(tbody);
-  console.log(table.html());
+  //console.log(table.html());
 
   // Return rendered html
   return table.prop("outerHTML");
@@ -664,3 +727,31 @@ async function fetchRecipes(queryUrl) {
     console.error("Fetch error:", error);
   }
 }
+
+// Testing a simple fetch function
+async function fetchData() {
+  try {
+    // Make a GET request to an example URL
+    const response = await fetch(
+      "https://api.edamam.com/api/recipes/v2/by-uri?uri=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_97b3bb0d0d8a4a8fa9ebd3176104acfb&type=public&app_id=3074c0c2&app_key=c3d552607ffb94d88d65387ada3819bb"
+    );
+
+    // Check if the response is successful (status code 200-299)
+    if (response.ok) {
+      // Parse the response JSON
+      const data = await response.json();
+      console.log("Data:", data);
+    } else {
+      // Handle non-successful responses
+      console.error("Request failed with status:", response.status);
+      console.error(response.error);
+      console.info(response);
+    }
+  } catch (error) {
+    // Handle fetch errors
+    console.error("Fetch error:", error);
+  }
+}
+
+// Call the fetch function
+//fetchData();
