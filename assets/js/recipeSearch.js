@@ -117,6 +117,18 @@ $("#searchRecipes").on("click", function () {
   });
 });
 
+// Event listener for delete favourites button
+$("#deleteAllFavourites").on("click", function () {
+  // Flush favourites array
+  favouriteRecipes.length = 0;
+
+  // Replace localStorage favourites with new (stringified) array of recipes
+  localStorage.setItem("recipeSearch_favouriteRecipes", JSON.stringify(favouriteRecipes));
+
+  // Empty the results
+  $("#recipe-results").empty();
+});
+
 // Event listener for the favourites modal to update its contents before being displayed
 $("#favouriteRecipesEditModal").on("show.bs.modal", function (event) {
   renderFavouritesModal();
@@ -127,7 +139,7 @@ function renderFavouritesModal() {
   // Clear all favourites
   $("#favouriteRecipesModalContainer").empty();
 
-  console.log(favouriteRecipes);
+  // console.log(favouriteRecipes);
 
   // Loop the favourites in global array and render rows for each recipe
   for (let i = 0; i < favouriteRecipes.length; i++) {
@@ -176,6 +188,8 @@ function renderFavourites() {
 
   // Exit if there are no favourites
   if (!uris) {
+    // Empty the results
+    $("#recipe-results").empty();
     return false;
   }
 
