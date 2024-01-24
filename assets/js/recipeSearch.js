@@ -1,5 +1,6 @@
-const RECIPE_SEARCH_API_ID = "3074c0c2";
-const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
+// Jennys 
+const RECIPE_SEARCH_API_ID = "f2f4ac30";
+const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
 
 // Get favourite recipe data from localStorage or initialise as an empty array
 const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
@@ -348,13 +349,6 @@ function renderRecipes(data) {
                 <h4 class="diet-label-header">Diet Labels</h4>
                 <section class="diet-labels">${renderDietLabels(recipe)}</section>
               </section>
-
-              <!-- health labels -->
-              <section class="nutrition-row-section">
-                <h4 class="health-label-header">Health Labels</h4>
-                <section class="health-labels">${renderHealthLabels(recipe)}</section>
-              </section>
-            </section>
             
             <!-- NUTRITION CARD -->
             <section class="col-sm-12 col-md-12 nutrition-card">
@@ -520,46 +514,6 @@ function renderDietLabels(recipe) {
     const label = $("<span>").text(dietLabels[i] + ", ");
     $(el).append(label);
   }
-  return el.html();
-}
-
-function renderHealthLabels(recipe) {
-  // health labels to remove from list API list
-  let unwantedHealthLabels = [
-    "SULPHITE_FREE",
-    "SESAME_FREE",
-    "SUGAR_CONSCIOUS",
-    "SPECIFIC_CARBS",
-    "MILK_FREE",
-    "FISH_FREE",
-    "WHEAT_FREE",
-    "MEDITERRANEAN",
-    "DASH",
-    "EGG_FREE",
-    "RED_MEAT_FREE",
-    "CELERY_FREE",
-    "MUSTARD_FREE",
-    "LUPINE_FREE",
-    "ALCOHOL_FREE",
-    "NO_OIL_ADDED",
-    "NO_SUGAR_ADDED",
-    "FODMAP_FREE",
-  ];
-
-  let healthLabels = recipe.healthLabels;
-  // new array with unwanted health labels filtered out
-  let healthLabelsToKeep = healthLabels.filter((item) => !unwantedHealthLabels.includes(item));
-
-  // Create an element for the labels
-  const el = $("<div>").addClass("health-labels");
-
-  // Add health labels
-  for (let i = 0; i < healthLabelsToKeep.length; i++) {
-    const label = $("<span>").text(healthLabelsToKeep[i] + ", ");
-    $(el).append(label);
-  }
-
-  // Return rendered html
   return el.html();
 }
 
