@@ -713,6 +713,18 @@ function removeFavouriteRecipe(uri) {
   }
 }
 
+// Event listener on recipe favourite button in modal
+$("#favouriteRecipesEditModal").on("click", ".recipe-favourite", function (e) {
+  // Uri of recipe
+  const uri = $(this).attr("data-uri");
+
+  removeFavouriteRecipe(uri);
+
+  renderFavouritesModal();
+
+  renderFavourites();
+});
+
 // Event listener on recipe favourite button to add to favourites array ("favouriteRecipes") and localStorage ("recipeSearch_favouriteRecipes")
 $("#recipe-results").on("click", ".recipe-favourite", function (e) {
   // Get the index of the recipe on the page
