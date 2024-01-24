@@ -1,9 +1,10 @@
 :root {
     --light-green: #35b035;
-    --green: #6ca96c;    
+    --green: #6ca96c;
+    --dark-green: #548554; 
     --light-grey: #535353;
     --light-orange: rgb(202, 121, 59);
-    --dark-orange: rgb(214, 131, 66);
+    --dark-orange: rgb(153, 91, 44);
 }
 
 body{
@@ -39,19 +40,25 @@ h3 {
 }
 
 .btn-primary {
-    padding: 0.6rem;
+/*    padding: 0.6rem;*/
     background-color: var(--light-orange);
     border: transparent;
-    font-size: 1rem;
+/*    font-size: 1rem;*/
 }
 
+
 .btn-primary:hover  {
-    background-color: var(--green);
+    background-color: var(--dark-orange);
 }
+
 
 .btn-secondary {
     background-color: var(--green);
     border: transparent;
+}
+
+.btn-secondary:hover  {
+    background-color: var(--dark-green);
 }
 
 .error-message {
@@ -68,7 +75,7 @@ h3 {
 }
 
 .nav-link:hover {
-    color: var(--dark-orange);
+    color: var(--light-orange);
 }
 
 /* JUMBOSEARCH */
@@ -123,7 +130,7 @@ button{
 }
 
 .footer a:hover {
-    color: orange;
+    color: var(--light-orange);
 }
 
 .copyright{
