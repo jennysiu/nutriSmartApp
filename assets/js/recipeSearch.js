@@ -184,12 +184,16 @@ $("#searchRecipes").on("click", function () {
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
 
   // builds on URL based on user preferences entered
-  if (typeof mealType === "string") {
+  if (mealType.length > 0) {
     recipeSearchURL += `&mealType=${mealType}`;
   }
-  if (typeof health === "string") {
+  console.log(mealType)
+  
+  if (health.length > 0) {
     recipeSearchURL += `&health=${health}`;
   }
+
+  console.log(health)
   if (cuisineChoices.length > 0) {
     for (let i = 0;i < cuisineChoices.length; i++) {
       recipeSearchURL += `&cuisineType=${cuisineChoices[i].toLowerCase()}`;
