@@ -103,10 +103,8 @@ function customAnalysis(data) {
   // display nutri info sections
   $("#nutritional-info").removeClass("d-none");
 
-
   // clear existing info 
   $(".displayUserSearchInfo").empty();
-  
   $(".diet-labels").empty();
   $(".health-labels").empty();
   $("#vit-and-minerals-body").empty();
