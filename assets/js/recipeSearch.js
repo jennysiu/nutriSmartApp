@@ -8,7 +8,26 @@ const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favourite
 const allergiesArray = ["Gluten-free", "Wheat-free", "Egg-Free", "Peanut-Free", "Tree-Nut-Free", "Soy-Free", "Shellfish-Free", "Crustacean-Free", "Celery-Free", 
 "Sesame-Free", "Lupine-Free", "Mollusk-Free", "Mustard-Free"]
 
-const cuisinesArray = []
+const cuisinesArray = [
+  "American",
+  "Asian",
+  "British",
+  "Caribbean",
+  "Central Europe",
+  "Chinese",
+  "Eastern Europe",
+  "French",
+  "Indian",
+  "Italian",
+  "Japanese",
+  "Kosher",
+  "Mediterranean",
+  "Mexican",
+  "Middle Eastern",
+  "Nordic",
+  "South American",
+  "South East Asian"
+]
 
 // Array of ingredients to search
 const ingredientsSearch = [];
@@ -89,8 +108,7 @@ function renderRecipeSearchIngredients() {
 // loop through allergiesArray and dynamically render allergy checkboxes
 for (let i = 0; i < allergiesArray.length; i++) {
   let allergy = allergiesArray[i];
-
-  console.log(allergy)
+  // console.log(allergy)
 
   let alergyLabel = $("<label>")
   .attr("for", `alergy-${allergy}`)
@@ -99,7 +117,7 @@ for (let i = 0; i < allergiesArray.length; i++) {
   let allergyCheckboxEl = $("<input>")
   .attr({
     "type": "checkbox",
-    "name": `allergy-${allergy}`,
+    "name": `allergy`,
     "id": `${allergy}`,
   });
 
@@ -107,8 +125,25 @@ for (let i = 0; i < allergiesArray.length; i++) {
 }
 
 // dynamically render cuisine types
+// loop through allergiesArray and dynamically render cuisine checkboxes
+for (let i = 0; i < cuisinesArray.length; i++) {
+  let cuisine = cuisinesArray[i];
+  // console.log(cuisine)
 
+  let cuisineLabel = $("<label>")
+  .attr("for", `cuisine-${cuisine}`)
+  .text(cuisine);
 
+  let cuisineCheckboxEl = $("<input>")
+  .attr({
+    "type": "checkbox",
+    "name": `cuisine`,
+    "id": `${cuisine}`
+  });
+
+  $("#cuisine-options").append(cuisineLabel)
+  cuisineLabel.append(cuisineCheckboxEl)
+}
 
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
@@ -121,45 +156,33 @@ $("#searchRecipes").on("click", function () {
   // dietary requirmenets and filtering
   let mealType = [$("input[name='meal-type']:checked").attr('id')];
   let health = [$("input[name='dietary-req']:checked").attr('id')];
+  let = allergieChoices = $("input[name='allergy']:checked").map(function() {
+    return $(this).attr('id');
+  }).get();
   
-  let cuisine = ["Asian"];
+  let cuisineChoices = $("input[name='cuisine']:checked").map(function() {
+    return $(this).attr('id');
+  }).get();
 
-  // loop through allergiesArray and dynamically render allergy checkboxes
-  for (let i = 0; i < allergiesArray.length; i++) {
-    let allergy = allergiesArray[i];
-
-    console.log(allergy)
-
-    let alergyLabel = $("<label>")
-    .attr("for", `alergy-${allergy}`)
-    .text(allergy);
-
-    let allergyCheckboxEl = $("<input>")
-    .attr({
-      "type": "checkbox",
-      "name": `allergy-${allergy}`,
-      "id": `${allergy}`,
-    });
-
-    $("#allergies-options").append(alergyLabel, allergyCheckboxEl)
-  }
+  console.log(allergieChoices)
   
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
   console.log(recipeSearchURL)
 
-  // builds on URL based on user preferences
+  // builds on URL based on user preferences entered
   if (typeof mealType === "string") {
     recipeSearchURL += `&mealType=${mealType}`
   }
   if (typeof health === "string") {
     recipeSearchURL += `&health=${health}`
   }
-  if (typeof cuisine === "string") {
-    recipeSearchURL += `&cuisineType=${cuisine}`
+  if (typeof cuisineChoices.length > 0) {
+    recipeSearchURL += `&cuisineType=${cuisineChoices}`
   }
-
-
+  if (typeof allergieChoices.length > 0) {
+    recipeSearchURL += `&cuisineType=${allergieChoices}`
+  }
 
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {

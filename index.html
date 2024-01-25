@@ -10,7 +10,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
     />
     <!-- jquery UI -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"
+    />
 
     <!-- Bootstrap Icons -->
     <link
@@ -97,67 +100,47 @@
               <fieldset>
                 <legend>Meal type</legend>
                 <label for="meal-breakfast">Breakfast</label>
-                <input type="radio" name="meal-type" id="Breakfast">
+                <input type="radio" name="meal-type" id="Breakfast" />
 
                 <label for="meal-lunch">Lunch</label>
-                <input type="radio" name="meal-type" id="Lunch">
+                <input type="radio" name="meal-type" id="Lunch" />
 
                 <label for="meal-dinner">Dinner</label>
-                <input type="radio" name="meal-type" id="Dinner">
+                <input type="radio" name="meal-type" id="Dinner" />
 
                 <label for="meal-snack">Snack</label>
-                <input type="radio" name="meal-type" id="Snack">
+                <input type="radio" name="meal-type" id="Snack" />
               </fieldset>
 
               <!-- dietary requirements -->
               <fieldset>
                 <legend>Dietary requirements</legend>
                 <label for="diet-pescetarian">Pescetarian</label>
-                <input type="radio" name="dietary-req" id="pescetarian">
-                
+                <input type="radio" name="dietary-req" id="pescetarian" />
+
                 <label for="diet-vegetarian">Vegetarian</label>
-                <input type="radio" name="dietary-req" id="vegetarian">
-                
+                <input type="radio" name="dietary-req" id="vegetarian" />
+
                 <label for="diet-vegan">Vegan</label>
-                <input type="radio" name="dietary-req" id="vegan">
-                
+                <input type="radio" name="dietary-req" id="vegan" />
+
                 <label for="diet-kosher">Kosher</label>
-                <input type="radio" name="dietary-req" id="kosher">
+                <input type="radio" name="dietary-req" id="kosher" />
               </fieldset>
-            
+
               <!-- allergies -->
               <fieldset id="allergies-options">
                 <legend>Allergies</legend>
-                <!-- <label for="allergy-crustacean">Crustacean-free</label>
-                <input type="checkbox" name="allergy-crustacean" id="allergy-crustacean">
-              
-                <label for="allergy-dairy">Dairy-free</label>
-                <input type="checkbox" name="allergy-dairy" id="allergy-dairy">
-              
-                <label for="allergy-gluten">Gluten-free</label>
-                <input type="checkbox" name="allergy-gluten" id="allergy-gluten">
-              
-                <label for="allergy-keto">Keto-friendly</label>
-                <input type="checkbox" name="allergy-keto" id="allergy-keto"> -->
+                <!-- dynamically render alergy options here -->
               </fieldset>
-            
+
               <!-- cuisine -->
               <fieldset id="cuisine-options">
                 <legend>Cuisine</legend>
-                <label for="cuisine-american">American
-                  <input type="checkbox" name="cuisine-american" id="cuisine-american">
-                </label>
-              
-                <label for="cuisine-central-europe">Central Europe
-                  <input type="checkbox" name="cuisine-central-europe" id="cuisine-central-europe">
-                </label>
-              
-                <label for="cuisine-british">British
-                  <input type="checkbox" name="cuisine-british" id="cuisine-british">
-                </label>
-              
-                <label for="cuisine-chinese">Chinese
-                  <input type="checkbox" name="cuisine-chinese" id="cuisine-chinese">
+                <!-- dynamically render cuisine options here -->
+                <label for="cuisine-american"
+                  >American
+                  <input type="checkbox" name="cuisine-american" id="cuisine-american" />
                 </label>
               </fieldset>
             </div>
