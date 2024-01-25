@@ -1,12 +1,25 @@
-// Jennys 
+// Jennys
 const RECIPE_SEARCH_API_ID = "f2f4ac30";
 const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
 
 // Get favourite recipe data from localStorage or initialise as an empty array
 const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
-const allergiesArray = ["Gluten-free", "Wheat-free", "Egg-Free", "Peanut-Free", "Tree-Nut-Free", "Soy-Free", "Shellfish-Free", "Crustacean-Free", "Celery-Free", 
-"Sesame-Free", "Lupine-Free", "Mollusk-Free", "Mustard-Free"]
+const allergiesArray = [
+  "Gluten-free",
+  "Wheat-free",
+  "Egg-Free",
+  "Peanut-Free",
+  "Tree-Nut-Free",
+  "Soy-Free",
+  "Shellfish-Free",
+  "Crustacean-Free",
+  "Celery-Free",
+  "Sesame-Free",
+  "Lupine-Free",
+  "Mollusk-Free",
+  "Mustard-Free",
+];
 
 const cuisinesArray = [
   "American",
@@ -26,8 +39,8 @@ const cuisinesArray = [
   "Middle Eastern",
   "Nordic",
   "South American",
-  "South East Asian"
-]
+  "South East Asian",
+];
 
 // Array of ingredients to search
 const ingredientsSearch = [];
@@ -104,24 +117,22 @@ function renderRecipeSearchIngredients() {
   }
 }
 
-// dynamically render allergy options 
+// dynamically render allergy options
 // loop through allergiesArray and dynamically render allergy checkboxes
 for (let i = 0; i < allergiesArray.length; i++) {
   let allergy = allergiesArray[i];
   // console.log(allergy)
 
-  let alergyLabel = $("<label>")
-  .attr("for", `alergy-${allergy}`)
-  .text(allergy);
+  let alergyLabel = $("<label>").attr("for", `alergy-${allergy}`).text(allergy);
 
-  let allergyCheckboxEl = $("<input>")
-  .attr({
-    "type": "checkbox",
-    "name": `allergy`,
-    "id": `${allergy}`,
+  let allergyCheckboxEl = $("<input>").attr({
+    type: "checkbox",
+    name: `allergy`,
+    id: `${allergy}`,
+    value: `${allergy.toLowerCase()}`,
   });
 
-  $("#allergies-options").append(alergyLabel, allergyCheckboxEl)
+  $("#allergies-options").append(alergyLabel, allergyCheckboxEl);
 }
 
 // dynamically render cuisine types
@@ -130,19 +141,17 @@ for (let i = 0; i < cuisinesArray.length; i++) {
   let cuisine = cuisinesArray[i];
   // console.log(cuisine)
 
-  let cuisineLabel = $("<label>")
-  .attr("for", `cuisine-${cuisine}`)
-  .text(cuisine);
+  let cuisineLabel = $("<label>").attr("for", `cuisine-${cuisine}`).text(cuisine);
 
-  let cuisineCheckboxEl = $("<input>")
-  .attr({
-    "type": "checkbox",
-    "name": `cuisine`,
-    "id": `${cuisine}`
+  let cuisineCheckboxEl = $("<input>").attr({
+    type: "checkbox",
+    name: `cuisine`,
+    id: `${cuisine}`,
+    value: `${cuisine.toLowerCase()}`,
   });
 
-  $("#cuisine-options").append(cuisineLabel)
-  cuisineLabel.append(cuisineCheckboxEl)
+  $("#cuisine-options").append(cuisineLabel);
+  cuisineLabel.append(cuisineCheckboxEl);
 }
 
 // Event listener on the recipe search button
@@ -154,36 +163,39 @@ $("#searchRecipes").on("click", function () {
   let tags = ingredientsSearch.join("+");
 
   // dietary requirmenets and filtering
-  let mealType = [$("input[name='meal-type']:checked").attr('id')];
-  let health = [$("input[name='dietary-req']:checked").attr('id')];
-  let = allergieChoices = $("input[name='allergy']:checked").map(function() {
-    return $(this).attr('id');
-  }).get();
-  
-  let cuisineChoices = $("input[name='cuisine']:checked").map(function() {
-    return $(this).attr('id');
-  }).get();
+  let mealType = [$("input[name='meal-type']:checked").attr("id")];
+  let health = [$("input[name='dietary-req']:checked").attr("id")];
+  let = allergieChoices = $("input[name='allergy']:checked")
+    .map(function () {
+      return $(this).attr("id");
+    })
+    .get();
 
-  console.log(allergieChoices)
-  
+  let cuisineChoices = $("input[name='cuisine']:checked")
+    .map(function () {
+      return $(this).attr("id");
+    })
+    .get();
+
+  //console.log(allergieChoices)
+
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
-  console.log(recipeSearchURL)
 
   // builds on URL based on user preferences entered
   if (typeof mealType === "string") {
-    recipeSearchURL += `&mealType=${mealType}`
+    recipeSearchURL += `&mealType=${mealType}`;
   }
   if (typeof health === "string") {
-    recipeSearchURL += `&health=${health}`
+    recipeSearchURL += `&health=${health}`;
   }
   if (typeof cuisineChoices.length > 0) {
-    recipeSearchURL += `&cuisineType=${cuisineChoices}`
+    recipeSearchURL += `&cuisineType=${cuisineChoices}`;
   }
   if (typeof allergieChoices.length > 0) {
-    recipeSearchURL += `&cuisineType=${allergieChoices}`
+    recipeSearchURL += `&cuisineType=${allergieChoices}`;
   }
-
+  console.log(recipeSearchURL);
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
       // No data
@@ -212,7 +224,6 @@ $("#searchRecipes").on("click", function () {
       renderRecipes(data);
     }
   });
-
 });
 
 // Event listener for delete favourites button
@@ -332,7 +343,7 @@ function renderRecipes(data) {
     return false;
   }
 
-  console.log(data)
+  console.log(data);
 
   // Array of returned recipes
   const recipes = data.hits;
@@ -586,11 +597,9 @@ function renderRecipes(data) {
   }
 }
 
-
 function renderDietLabels(recipe) {
-
   const dietLabels = recipe.dietLabels;
-  console.log(dietLabels.length)
+  console.log(dietLabels.length);
 
   // Create an element for the labels
   const el = $("<div>").addClass("diet-labels");
@@ -598,8 +607,8 @@ function renderDietLabels(recipe) {
   // Loop and add each diet label to the element
   for (let i = 0; i < dietLabels.length; i++) {
     const label = $("<span>")
-    .addClass("badge badge-pill badge-success recipe-label-badge")
-    .text(dietLabels[i]);
+      .addClass("badge badge-pill badge-success recipe-label-badge")
+      .text(dietLabels[i]);
     $(el).append(label);
 
     // // only append comma if index is before the last label here
