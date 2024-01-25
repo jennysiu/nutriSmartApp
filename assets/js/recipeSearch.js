@@ -83,19 +83,33 @@ function renderRecipeSearchIngredients() {
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
   // Get random results
-  const random = "true";
+  let random = "true";
 
   // Get search terms from array of search terms
-  const tags = ingredientsSearch.join("+");
+  let tags = ingredientsSearch.join("+");
 
   // dietary requirmenets and filtering
-  let mealTYpe =;
-  let health =;
-  let cuisine =;
+  let mealType = [$("input[name='meal-type']:checked").attr('id')];
+  let health = [$("input[name='dietary-req']:checked").attr('id')];
+  
+  let cuisine = ["Asian"];
 
 
   // Construct search URL
-  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}&mealType=${mealType}&health=${health}&cuisineType=${cuisine}`;
+  let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
+
+  // build on URL based on user preferences
+  if (typeof mealType === "string") {
+    recipeSearchURL += `&mealType=${mealType}`
+  } else if (mealType)
+  if (typeof health === "string") {
+    recipeSearchURL += `&health=${health}`
+  }
+  if (typeof cuisine === "string") {
+    recipeSearchURL += `&cuisineType=${cuisine}`
+  }
+
+  console.log(recipeSearchURL)
 
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
@@ -243,6 +257,8 @@ function renderRecipes(data) {
     console.error("Error: No recipe data to render");
     return false;
   }
+
+  console.log(data)
 
   // Array of returned recipes
   const recipes = data.hits;
