@@ -88,8 +88,14 @@ $("#searchRecipes").on("click", function () {
   // Get search terms from array of search terms
   const tags = ingredientsSearch.join("+");
 
+  // dietary requirmenets and filtering
+  let mealTYpe =;
+  let health =;
+  let cuisine =;
+
+
   // Construct search URL
-  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
+  const recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}&mealType=${mealType}&health=${health}&cuisineType=${cuisine}`;
 
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
