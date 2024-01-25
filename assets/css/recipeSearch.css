@@ -40,14 +40,26 @@ fieldset {
 }
 
 label {
+  padding: 0.2rem;
   margin: 0.1rem;
-  /* background-color: #ea868f; */
 }
 
-input {
+input[type=radio]  {
   margin: 0.3rem;
+
+
 }
 
+input[type=checkbox] {
+  margin: 0.5rem;
+}
+
+input[type="checkbox"]:checked + label, 
+input[type="radio"]:checked + label {
+  background-color: rgba(205, 114, 3, 0.666);
+  border-radius: 5px;
+  color: white;
+}
 
 /* Fav icons */
 .bi-heart,
