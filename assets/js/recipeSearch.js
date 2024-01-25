@@ -177,7 +177,8 @@ $("#searchRecipes").on("click", function () {
     })
     .get();
 
-  //console.log(allergieChoices)
+  console.log(cuisineChoices)
+  console.log(allergieChoices)
 
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
@@ -189,12 +190,17 @@ $("#searchRecipes").on("click", function () {
   if (typeof health === "string") {
     recipeSearchURL += `&health=${health}`;
   }
-  if (typeof cuisineChoices.length > 0) {
-    recipeSearchURL += `&cuisineType=${cuisineChoices}`;
+  if (cuisineChoices.length > 0) {
+    for (let i = 0;i < cuisineChoices.length; i++) {
+      recipeSearchURL += `&cuisineType=${cuisineChoices[i].toLowerCase()}`;
+    }  
   }
-  if (typeof allergieChoices.length > 0) {
-    recipeSearchURL += `&cuisineType=${allergieChoices}`;
+  if (allergieChoices.length > 0) {
+    for (let i = 0; i < allergieChoices.length; i++) {
+      recipeSearchURL += `&health=${allergieChoices[i].toLowerCase()}`;
+    }  
   }
+
   console.log(recipeSearchURL);
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
