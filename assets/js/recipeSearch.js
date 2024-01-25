@@ -306,8 +306,9 @@ function renderRecipes(data) {
             </div>
 
             <div class="col-sm-9 d-flex flex-column">
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-start">
                 <h3>${recipe.label}</h3>
+                ${renderDietLabels(recipe)}
                 <button class="recipe-favourite" data-uri="${recipeUri}" data-index="${i}" data-fav="${recipeDataFav}">
                 <i class="bi ${recipeFavIcon}"></i></button>
               </div>
@@ -329,26 +330,12 @@ function renderRecipes(data) {
         <!-- Hidden view -->
         <div class="recipe-detail-row row d-none">
           <div class="col-sm-6">
-
             <h3>Ingredients</h3>
             ${recipeIngredientsDetail.prop("outerHTML")}
             <button data-url="${recipe.url}" 
                     class="recipe-method-button btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
             <span class="recipe-attribution">by ${recipe.source}</span>
-
           </div>
-          <div class="col-sm-6">
-
-          <h3 class="recipe-search-nutri-header">Nutrition</h3>
-
-          <section class="row" class="nutritional-info">
-            <!-- nutrition labels -->
-            <section class="col-sm-12 col-md-12 nutrition-labels">
-              <!-- diet labels -->
-              <section class="nutrition-row-section">
-                <h4 class="diet-label-header">Diet Labels</h4>
-                <section class="diet-labels">${renderDietLabels(recipe)}</section>
-              </section>
             
             <!-- NUTRITION CARD -->
             <section class="col-sm-12 col-md-12 nutrition-card">
@@ -514,15 +501,15 @@ function renderDietLabels(recipe) {
 
   // Loop and add each diet label to the element
   for (let i = 0; i < dietLabels.length; i++) {
-    const label = $("<span>").text(dietLabels[i]);
-    console.log(dietLabels[i])
+    const label = $("<span>")
+    .addClass("badge badge-pill badge-success recipe-label-badge")
+    .text(dietLabels[i]);
     $(el).append(label);
 
-    // only append comma if index is before the last label here
-    if (i < dietLabels.length - 1) {
-      $(el).append(", ")
-    }
-
+    // // only append comma if index is before the last label here
+    // if (i < dietLabels.length - 1) {
+    //   $(el).append(", ")
+    // }
   }
   return el.html();
 }
