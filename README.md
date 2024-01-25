@@ -17,11 +17,24 @@ This is the README file for the NutriSmart App. It provides information about th
 
 ## Description
 
-
+Welcome to nutriSmart, the innovative app designed to revolutionize your meal planning and nutritional tracking. Powered by Edamam's robust APIs, nutriSmart offers a comprehensive suite of tools to cater to your dietary needs and culinary curiosities.
 
 ## Features
 
-### Recipe Search 
+### 1. Recipe Search
+
+- Discover Recipes: Explore a vast collection of recipes with our easy-to-use search feature. Just ype in the ingredients you have at hand, nutriSmart has you covered.
+- Nutritional Information: Each recipe comes with detailed nutritional information. Stay informed about what you eat with data on calories, macronutrients, vitamins, and more.
+
+### 2. Nutritional Analysis
+
+- Analyze Custom Ingredients: Curious about the nutritional value of your home-cooked meals? Enter your ingredients, and our app will provide a comprehensive breakdown of the meal's nutritional content.
+- Make Healthier Choices: Use this feature to tweak your recipes for better health. Substitute ingredients and see how it impacts the overall nutritional value of your dish.
+
+### 3. Save Favourite Recipes
+
+- Personalized Cookbook: Easily save your favorite recipes for quick access. Whether it's a family classic or a new find, keep all your beloved recipes at your fingertips.
+- Customize Your Collection: Organize your saved recipes into categories, making meal planning and grocery shopping a breeze. 
 
 
 
