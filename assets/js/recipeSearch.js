@@ -1,5 +1,6 @@
-const RECIPE_SEARCH_API_ID = "3074c0c2";
-const RECIPE_SEARCH_API_KEY = "c3d552607ffb94d88d65387ada3819bb";
+// Jennys 
+const RECIPE_SEARCH_API_ID = "f2f4ac30";
+const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
 
 // Get favourite recipe data from localStorage or initialise as an empty array
 const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
@@ -305,8 +306,9 @@ function renderRecipes(data) {
             </div>
 
             <div class="col-sm-9 d-flex flex-column">
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-start">
                 <h3>${recipe.label}</h3>
+                ${renderDietLabels(recipe)}
                 <button class="recipe-favourite" data-uri="${recipeUri}" data-index="${i}" data-fav="${recipeDataFav}">
                 <i class="bi ${recipeFavIcon}"></i></button>
               </div>
@@ -328,33 +330,12 @@ function renderRecipes(data) {
         <!-- Hidden view -->
         <div class="recipe-detail-row row d-none">
           <div class="col-sm-6">
-
             <h3>Ingredients</h3>
             ${recipeIngredientsDetail.prop("outerHTML")}
             <button data-url="${recipe.url}" 
                     class="recipe-method-button btn btn-secondary btn-md">Method <i class="bi bi-box-arrow-up-right"></i></button>
             <span class="recipe-attribution">by ${recipe.source}</span>
-
           </div>
-          <div class="col-sm-6">
-
-          <h3 class="recipe-search-nutri-header">Nutrition</h3>
-
-          <section class="row" class="nutritional-info">
-            <!-- nutrition labels -->
-            <section class="col-sm-12 col-md-12 nutrition-labels">
-              <!-- diet labels -->
-              <section class="nutrition-row-section">
-                <h4 class="diet-label-header">Diet Labels</h4>
-                <section class="diet-labels">${renderDietLabels(recipe)}</section>
-              </section>
-
-              <!-- health labels -->
-              <section class="nutrition-row-section">
-                <h4 class="health-label-header">Health Labels</h4>
-                <section class="health-labels">${renderHealthLabels(recipe)}</section>
-              </section>
-            </section>
             
             <!-- NUTRITION CARD -->
             <section class="col-sm-12 col-md-12 nutrition-card">
@@ -509,57 +490,27 @@ function renderRecipes(data) {
   }
 }
 
+
 function renderDietLabels(recipe) {
+
   const dietLabels = recipe.dietLabels;
+  console.log(dietLabels.length)
 
   // Create an element for the labels
   const el = $("<div>").addClass("diet-labels");
 
   // Loop and add each diet label to the element
   for (let i = 0; i < dietLabels.length; i++) {
-    const label = $("<span>").text(dietLabels[i] + ", ");
+    const label = $("<span>")
+    .addClass("badge badge-pill badge-success recipe-label-badge")
+    .text(dietLabels[i]);
     $(el).append(label);
+
+    // // only append comma if index is before the last label here
+    // if (i < dietLabels.length - 1) {
+    //   $(el).append(", ")
+    // }
   }
-  return el.html();
-}
-
-function renderHealthLabels(recipe) {
-  // health labels to remove from list API list
-  let unwantedHealthLabels = [
-    "SULPHITE_FREE",
-    "SESAME_FREE",
-    "SUGAR_CONSCIOUS",
-    "SPECIFIC_CARBS",
-    "MILK_FREE",
-    "FISH_FREE",
-    "WHEAT_FREE",
-    "MEDITERRANEAN",
-    "DASH",
-    "EGG_FREE",
-    "RED_MEAT_FREE",
-    "CELERY_FREE",
-    "MUSTARD_FREE",
-    "LUPINE_FREE",
-    "ALCOHOL_FREE",
-    "NO_OIL_ADDED",
-    "NO_SUGAR_ADDED",
-    "FODMAP_FREE",
-  ];
-
-  let healthLabels = recipe.healthLabels;
-  // new array with unwanted health labels filtered out
-  let healthLabelsToKeep = healthLabels.filter((item) => !unwantedHealthLabels.includes(item));
-
-  // Create an element for the labels
-  const el = $("<div>").addClass("health-labels");
-
-  // Add health labels
-  for (let i = 0; i < healthLabelsToKeep.length; i++) {
-    const label = $("<span>").text(healthLabelsToKeep[i] + ", ");
-    $(el).append(label);
-  }
-
-  // Return rendered html
   return el.html();
 }
 
