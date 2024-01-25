@@ -86,7 +86,8 @@ a:hover{
     background-image: url("../images/hermes-rivera-Ww8eQWjMJWk-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center; /* prevent image floating off screen */
+    background-position: center top; /* prevent image floating off screen */
+    min-height: 35vh;
 }
 
 .form-search{

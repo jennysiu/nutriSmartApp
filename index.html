@@ -67,6 +67,75 @@
       </div>
     </nav>
 
+    <!-- RECIPE FAVOURITES SECTION -->
+    <section id="recipe-favourites-section" class="jumbotman d-none">
+      <div class="container-fluid" style="max-width: 1400px">
+        <div class="row">
+          <h1>Favourite Recipes</h1>
+          <div class="d-flex justify-content-center">
+            <h2>
+              <button
+                id="editFavouriteRecipes"
+                type="button"
+                class="btn btn-lg"
+                data-bs-toggle="modal"
+                data-bs-target="#favouriteRecipesEditModal"
+              >
+                <i class="bi bi-gear"> Edit</i>
+              </button>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Favourite Modal -->
+    <!--div
+      id="favouriteRecipesEditModal"
+      class="modal modal-dialog modal-dialog-centered modal-dialog-scrollable"
+    -->
+    <div
+      class="modal fade"
+      id="favouriteRecipesEditModal"
+      tabindex="-1"
+      aria-labelledby="favouriteRecipesEditModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="favouriteRecipesEditModalLabel">
+              Edit your favourite recipes
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="favouriteRecipesModalContainer"><!--dynamically add favourites --></div>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <div>
+              <button
+                id="deleteAllFavourites"
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+              >
+                Delete All
+              </button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- *** RECIPE SEARCH SECTION *** -->
     <section id="recipe-search-section" class="jumbotman">
       <div class="container-fluid" style="max-width: 1400px">
@@ -155,75 +224,6 @@
         </div>
       </div>
     </section>
-
-    <!-- RECIPE FAVOURITES SECTION -->
-    <section id="recipe-favourites-section" class="jumbotman d-none">
-      <div class="container-fluid" style="max-width: 1400px">
-        <div class="row">
-          <h1>Favourite Recipes</h1>
-          <div class="d-flex justify-content-center">
-            <h2>
-              <button
-                id="editFavouriteRecipes"
-                type="button"
-                class="btn btn-lg"
-                data-bs-toggle="modal"
-                data-bs-target="#favouriteRecipesEditModal"
-              >
-                <i class="bi bi-gear"> Edit</i>
-              </button>
-            </h2>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Favourite Modal -->
-    <!--div
-      id="favouriteRecipesEditModal"
-      class="modal modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    -->
-    <div
-      class="modal fade"
-      id="favouriteRecipesEditModal"
-      tabindex="-1"
-      aria-labelledby="favouriteRecipesEditModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="favouriteRecipesEditModalLabel">
-              Edit your favourite recipes
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div id="favouriteRecipesModalContainer"><!--dynamically add favourites --></div>
-          </div>
-          <div class="modal-footer d-flex justify-content-between">
-            <div>
-              <button
-                id="deleteAllFavourites"
-                type="button"
-                class="btn btn-danger"
-                data-bs-dismiss="modal"
-              >
-                Delete All
-              </button>
-            </div>
-            <div>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- *** NUTRITIONAL ANALYSIS SECTION *** -->
     <section class="section d-none jumbotman" id="nutritional-analysis-container">
