@@ -5,6 +5,11 @@ const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
 // Get favourite recipe data from localStorage or initialise as an empty array
 const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
+const allergiesArray = ["Gluten-free", "Wheat-free", "Egg-Free", "Peanut-Free", "Tree-Nut-Free", "Soy-Free", "Shellfish-Free", "Crustacean-Free", "Celery-Free", 
+"Sesame-Free", "Lupine-Free", "Mollusk-Free", "Mustard-Free"]
+
+const cuisinesArray = []
+
 // Array of ingredients to search
 const ingredientsSearch = [];
 
@@ -80,6 +85,31 @@ function renderRecipeSearchIngredients() {
   }
 }
 
+// dynamically render allergy options 
+// loop through allergiesArray and dynamically render allergy checkboxes
+for (let i = 0; i < allergiesArray.length; i++) {
+  let allergy = allergiesArray[i];
+
+  console.log(allergy)
+
+  let alergyLabel = $("<label>")
+  .attr("for", `alergy-${allergy}`)
+  .text(allergy);
+
+  let allergyCheckboxEl = $("<input>")
+  .attr({
+    "type": "checkbox",
+    "name": `allergy-${allergy}`,
+    "id": `${allergy}`,
+  });
+
+  $("#allergies-options").append(alergyLabel, allergyCheckboxEl)
+}
+
+// dynamically render cuisine types
+
+
+
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
   // Get random results
@@ -94,14 +124,34 @@ $("#searchRecipes").on("click", function () {
   
   let cuisine = ["Asian"];
 
+  // loop through allergiesArray and dynamically render allergy checkboxes
+  for (let i = 0; i < allergiesArray.length; i++) {
+    let allergy = allergiesArray[i];
 
+    console.log(allergy)
+
+    let alergyLabel = $("<label>")
+    .attr("for", `alergy-${allergy}`)
+    .text(allergy);
+
+    let allergyCheckboxEl = $("<input>")
+    .attr({
+      "type": "checkbox",
+      "name": `allergy-${allergy}`,
+      "id": `${allergy}`,
+    });
+
+    $("#allergies-options").append(alergyLabel, allergyCheckboxEl)
+  }
+  
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
+  console.log(recipeSearchURL)
 
-  // build on URL based on user preferences
+  // builds on URL based on user preferences
   if (typeof mealType === "string") {
     recipeSearchURL += `&mealType=${mealType}`
-  } else if (mealType)
+  }
   if (typeof health === "string") {
     recipeSearchURL += `&health=${health}`
   }
@@ -109,7 +159,7 @@ $("#searchRecipes").on("click", function () {
     recipeSearchURL += `&cuisineType=${cuisine}`
   }
 
-  console.log(recipeSearchURL)
+
 
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
@@ -139,6 +189,7 @@ $("#searchRecipes").on("click", function () {
       renderRecipes(data);
     }
   });
+
 });
 
 // Event listener for delete favourites button
