@@ -503,16 +503,26 @@ function renderRecipes(data) {
   }
 }
 
+
 function renderDietLabels(recipe) {
+
   const dietLabels = recipe.dietLabels;
+  console.log(dietLabels.length)
 
   // Create an element for the labels
   const el = $("<div>").addClass("diet-labels");
 
   // Loop and add each diet label to the element
   for (let i = 0; i < dietLabels.length; i++) {
-    const label = $("<span>").text(dietLabels[i] + ", ");
+    const label = $("<span>").text(dietLabels[i]);
+    console.log(dietLabels[i])
     $(el).append(label);
+
+    // only append comma if index is before the last label here
+    if (i < dietLabels.length - 1) {
+      $(el).append(", ")
+    }
+
   }
   return el.html();
 }
