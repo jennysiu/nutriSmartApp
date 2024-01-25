@@ -1,4 +1,4 @@
-// Jennys 
+// Jennys
 const RECIPE_SEARCH_API_ID = "f2f4ac30";
 const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
 
@@ -292,7 +292,7 @@ function renderRecipes(data) {
 
     const recipeResult = $(`
 
-        <div class="recipe-result py-3" style="cursor:pointer" data-uri="${recipeUri}">
+        <div class="recipe-result py-3" data-uri="${recipeUri}">
           <div class="row">
 
             <div class="col-sm-3">
@@ -490,11 +490,9 @@ function renderRecipes(data) {
   }
 }
 
-
 function renderDietLabels(recipe) {
-
   const dietLabels = recipe.dietLabels;
-  console.log(dietLabels.length)
+  console.log(dietLabels.length);
 
   // Create an element for the labels
   const el = $("<div>").addClass("diet-labels");
@@ -502,8 +500,8 @@ function renderDietLabels(recipe) {
   // Loop and add each diet label to the element
   for (let i = 0; i < dietLabels.length; i++) {
     const label = $("<span>")
-    .addClass("badge badge-pill badge-success recipe-label-badge")
-    .text(dietLabels[i]);
+      .addClass("badge badge-pill badge-success recipe-label-badge")
+      .text(dietLabels[i]);
     $(el).append(label);
 
     // // only append comma if index is before the last label here

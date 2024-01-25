@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NutriSmart: your guide to healthy eating through smart nutrition</title>
+    <script src="https://developer.edamam.com/attribution/badge.js"></script>
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -76,8 +77,8 @@
                   placeholder="E.g. sweet potato, coconut milk, spinach..."
                   aria-label="Enter ingredients"
                 />
-                <span class="input-group-text" id="inputGroup-sizing-default">
-                  <button type="submit"><i class="bi bi-plus"></i></button>
+                <span class="input-group-text" id="addIngredientButtonContainer">
+                  <button type="submit" class="btn btn-lg"><i class="bi bi-plus"></i></button>
                 </span>
               </div>
             </form>
@@ -372,7 +373,10 @@
         </div>
       </div>
       <div class="row copyright">
-        <div class="text-center">Copyright 2024 NutriSmart · Powered by Edamam</div>
+        <div class="text-center">Copyright &copy; 2024 NutriSmart 
+          <div id="edamam-badge" data-color="transparent"></div>
+        </div>
+        </div>
       </div>
     </footer>
 
