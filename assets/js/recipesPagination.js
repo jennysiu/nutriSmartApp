@@ -3,7 +3,7 @@ const RECIPE_SEARCH_API_ID = "f2f4ac30";
 const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
 
 // API search (this is here to just grab the initial data so i can start building the pagination)
-async function fetchRecipes() {
+async function fetchRecipesBuild() {
   try {
     // Get search terms from array of search terms
     // const tags = ingredientsSearch.join("+");
@@ -38,7 +38,7 @@ async function fetchRecipes() {
 }
 
 // run this once to get your first set of data (for building purposes)
-// fetchRecipes();
+// fetchRecipesBuild();
 
 // Event listener on next button in pagination navbar
 $("#recipe-results").on("click", "#pagination-next", function (e) {
