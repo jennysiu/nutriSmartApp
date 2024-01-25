@@ -1,0 +1,68 @@
+/* RECIPE SEARCH SECTION */
+#addIngredientButtonContainer i{
+  font-weight: bold;
+}
+
+#addIngredientButtonContainer:hover{
+  background-color: rgb(233, 233, 233);
+  transition: background-color 0.3s ease;
+}
+
+#recipe-results-section .recipe-search-nutri-header {
+  padding-bottom: 1rem;
+  text-align: center !important;
+}
+
+#recipe-results-section .nutrition-card{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#recipe-results-section .nutritional-info{
+  text-align: center;
+}
+
+.recipe-search-section {
+  padding-bottom: 11%;
+}
+
+#recipe-results-section .recipe-favourite{
+  font-size: 1.75rem; /* Match recipe heading font-size */ 
+  line-height: 1.2rem; /* Match recipe heading line-height  */ 
+}
+
+/* recipe filters */
+fieldset {
+  padding: 0.6rem;
+  margin: 1.6rem;
+  background-color: #fbfbfb69;
+  border-radius: 10px;
+}
+
+label {
+  margin: 0.1rem;
+  /* background-color: #ea868f; */
+}
+
+input {
+  margin: 0.3rem;
+}
+
+
+/* Fav icons */
+.bi-heart,
+.bi-heart-fill {
+  color: #ea868f
+}
+.recipe-favourite {
+  font-size: 3rem;
+  transition: transform 0.5s ease;
+}
+.recipe-favourite:hover {
+  transform: scale(1.15);
+}
+
+/* Favourites Modal */
+#editFavouriteRecipes:hover {
+  color: var(--dark-orange);
+}
