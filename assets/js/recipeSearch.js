@@ -177,8 +177,8 @@ $("#searchRecipes").on("click", function () {
     })
     .get();
 
-  console.log(cuisineChoices)
-  console.log(allergieChoices)
+  console.log(cuisineChoices);
+  console.log(allergieChoices);
 
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
@@ -191,14 +191,14 @@ $("#searchRecipes").on("click", function () {
     recipeSearchURL += `&health=${health}`;
   }
   if (cuisineChoices.length > 0) {
-    for (let i = 0;i < cuisineChoices.length; i++) {
+    for (let i = 0; i < cuisineChoices.length; i++) {
       recipeSearchURL += `&cuisineType=${cuisineChoices[i].toLowerCase()}`;
-    }  
+    }
   }
   if (allergieChoices.length > 0) {
     for (let i = 0; i < allergieChoices.length; i++) {
       recipeSearchURL += `&health=${allergieChoices[i].toLowerCase()}`;
-    }  
+    }
   }
 
   console.log(recipeSearchURL);
@@ -817,6 +817,10 @@ $("#recipe-results").on("click", ".recipe-favourite", function (e) {
       //Set data attribute
       $(this).attr("data-fav", "false");
     }
+  }
+  // Rerender the favourites if it is visible
+  if (!$("#recipe-favourites-section").hasClass("d-none")) {
+    renderFavourites();
   }
 });
 
