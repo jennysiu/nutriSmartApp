@@ -76,6 +76,7 @@
   margin: 3%;
   float: left;
   width: fit-content;
+  height: fit-content;
   padding: 0.6rem;
   background:rgb(255,255,255,0.9);
 }
