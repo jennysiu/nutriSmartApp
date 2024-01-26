@@ -8,40 +8,40 @@ const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favourite
 const dietaryReqArray = ["pescatarian", "vegan", "vegetarian", "kosher"];
 
 const allergiesArray = [
-  " Gluten-free",
-  " Wheat-free",
-  " Egg-Free",
-  " Peanut-Free",
-  " Tree-Nut-Free",
-  " Soy-Free",
-  " Shellfish-Free",
-  " Crustacean-Free",
-  " Celery-Free",
-  " Sesame-Free",
-  " Lupine-Free",
-  " Mollusk-Free",
-  " Mustard-Free",
+  "Gluten-free",
+  "Wheat-free",
+  "Egg-Free",
+  "Peanut-Free",
+  "Tree-Nut-Free",
+  "Soy-Free",
+  "Shellfish-Free",
+  "Crustacean-Free",
+  "Celery-Free",
+  "Sesame-Free",
+  "Lupine-Free",
+  "Mollusk-Free",
+  "Mustard-Free",
 ];
 
 const cuisinesArray = [
-  " American",
-  " Asian",
-  " British",
-  " Caribbean",
-  " Central Europe",
-  " Chinese",
-  " Eastern Europe",
-  " French",
-  " Indian",
-  " Italian",
-  " Japanese",
-  " Kosher",
-  " Mediterranean",
-  " Mexican",
-  " Middle Eastern",
-  " Nordic",
-  " South American",
-  " South East Asian",
+  "American",
+  "Asian",
+  "British",
+  "Caribbean",
+  "Central Europe",
+  "Chinese",
+  "Eastern Europe",
+  "French",
+  "Indian",
+  "Italian",
+  "Japanese",
+  "Kosher",
+  "Mediterranean",
+  "Mexican",
+  "Middle Eastern",
+  "Nordic",
+  "South American",
+  "South East Asian",
 ];
 
 // Array of ingredients to search
@@ -171,7 +171,15 @@ $("#searchRecipes").on("click", function () {
   let diet = [];
   // retreive user dietary requirmenets and filtering
   // Get search terms from array of search terms
+  // need to convert tags intio an array
   let tags = ingredientsSearch.join("+");
+
+  // converts into an array of query tags
+  let tagsArray = tags.split("+");
+  let qTags;
+  for (let i = 0; i < tagsArray.length; i++) {
+    qTags = qTags + "&tag=" + tagsArray[i];
+  }
 
   let mealChoice = $("input[name='meal-type']:checked").attr("id");
 
@@ -198,8 +206,8 @@ $("#searchRecipes").on("click", function () {
     })
     .get();
 
-  console.log(mealType);
-  console.log(health);
+  console.log(mealChoice);
+  console.log(diet);
 
   console.log(meal);
   console.log(diet);
@@ -224,9 +232,9 @@ $("#searchRecipes").on("click", function () {
     $("<p>").addClass("displayUserSearchInfo").text(`Ingredients: ${tags}`)
   );
 
-  if (mealChoice) {
+  if (meal) {
     $("#display-user-choices").append(
-      $("<p>").addClass("displayUserSearchInfo").text(`Meal type: ${mealChoice}`)
+      $("<p>").addClass("displayUserSearchInfo").text(`Meal type: ${meal}`)
     );
   }
   if (usersDiet.length > 0) {
@@ -245,21 +253,25 @@ $("#searchRecipes").on("click", function () {
       $("<p>").addClass("displayUserSearchInfo").text(`Cuisine: ${cuisineChoices}`)
     );
   }
+  // }
+
+
 
   // API PARAMETERS
   // Get random results
   let random = "true";
 
   // Construct search URL
-  let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
+  let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${qTags}`;
+
 
   // builds on URL based on user preferences entered
   if (meal.length > 0) {
     recipeSearchURL += `&mealType=${meal}`;
   }
 
-  if (diet.length > 0) {
-    recipeSearchURL += `&health=${diet}`;
+  if (usersDiet.length > 0) {
+    recipeSearchURL += `&health=${usersDiet}`;
   }
 
   if (cuisineChoices.length > 0) {
