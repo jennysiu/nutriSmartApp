@@ -123,7 +123,10 @@ for (let i = 0; i < allergiesArray.length; i++) {
   let allergy = allergiesArray[i];
   // console.log(allergy)
 
-  let alergyLabel = $("<label>").attr("for", `alergy-${allergy}`).text(allergy);
+  let allergyItemContainerEl = $("<span>")
+  .addClass("choiceContainer")
+
+  let allergyLabel = $("<label>").attr("for", `alergy-${allergy}`).text(allergy);
 
   let allergyCheckboxEl = $("<input>").attr({
     type: "checkbox",
@@ -132,7 +135,9 @@ for (let i = 0; i < allergiesArray.length; i++) {
     value: `${allergy.toLowerCase()}`,
   });
 
-  $("#allergies-options").append(alergyLabel, allergyCheckboxEl);
+  $("#allergies-options").append(allergyItemContainerEl);
+  // allergyItemContainerEl.append(allergyLabel, allergyCheckboxEl)
+  allergyItemContainerEl.append(allergyCheckboxEl, allergyLabel)
 }
 
 // dynamically render cuisine types
@@ -141,17 +146,24 @@ for (let i = 0; i < cuisinesArray.length; i++) {
   let cuisine = cuisinesArray[i];
   // console.log(cuisine)
 
-  let cuisineLabel = $("<label>").attr("for", `cuisine-${cuisine}`).text(cuisine);
+  let cuisineItemContainerEl = $("<span>")
+  .addClass("choiceContainer")
 
-  let cuisineCheckboxEl = $("<input>").attr({
-    type: "checkbox",
-    name: `cuisine`,
-    id: `${cuisine}`,
-    value: `${cuisine.toLowerCase()}`,
+  let cuisineCheckboxEl = $("<input>")
+  .attr({
+  type: "checkbox",
+  name: `cuisine`,
+  id: `${cuisine}`,
+  value: `${cuisine.toLowerCase()}`,
   });
 
-  $("#cuisine-options").append(cuisineLabel);
-  cuisineLabel.append(cuisineCheckboxEl);
+  let cuisineLabel = $("<label>").attr("for", `cuisine-${cuisine}`).text(cuisine);
+
+
+  $("#cuisine-options").append(cuisineItemContainerEl);
+  cuisineItemContainerEl.append(cuisineCheckboxEl, cuisineLabel)
+
+  
 }
 
 // Event listener on the recipe search button
