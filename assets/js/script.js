@@ -9,10 +9,10 @@ $("#recipeNavigation").on("click", function () {
   $("#recipe-favourites-section").addClass("d-none");
   $("#display-user-ingredients").addClass("d-none");
   $("#nutritional-info").addClass("d-none");
+  $("#display-user-choices").addClass("d-none")
 
   $("#ingredientsToSearch").empty();
   ingredientsSearch.length = 0;
-
 });
 
 // Event listener on nav link to show Nutritional Sections
@@ -27,7 +27,7 @@ $("#nutritionalNavigation").on("click", function () {
 $("#favouriteNavigation").on("click", function () {
   $("#recipe-favourites-section").removeClass("d-none");
   $("#recipe-search-section").addClass("d-none");
-  $("#recipe-results-section").removeClass("d-none");
+  $("#recipe-results-section").addClass("d-none");
   $("#nutritional-analysis-container").addClass("d-none");
   renderFavourites();
 });
