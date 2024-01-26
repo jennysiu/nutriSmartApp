@@ -255,15 +255,12 @@ $("#searchRecipes").on("click", function () {
   }
   // }
 
-
-
   // API PARAMETERS
   // Get random results
   let random = "true";
 
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${qTags}`;
-
 
   // builds on URL based on user preferences entered
   if (meal.length > 0) {
@@ -685,6 +682,7 @@ function renderRecipes(data) {
 
     $("#recipe-results").append(recipeResult);
   }
+  $("#recipe-results-section").removeClass("d-none");
 }
 
 function renderDietLabels(recipe) {

@@ -4,12 +4,13 @@ $("#recipeNavigation").on("click", function () {
   $("#nutritional-analysis-container").addClass("d-none");
   // Clear the ingredients search
   $("#searchRecipes").addClass("d-none");
+  $("#display-user-choices").removeClass("d-none");
   $("#recipe-results").empty();
   $("#recipe-results-section").removeClass("d-none");
   $("#recipe-favourites-section").addClass("d-none");
   $("#display-user-ingredients").addClass("d-none");
   $("#nutritional-info").addClass("d-none");
-  $("#display-user-choices").addClass("d-none")
+  $("#display-user-choices").addClass("d-none");
 
   $("#ingredientsToSearch").empty();
   ingredientsSearch.length = 0;
@@ -18,6 +19,7 @@ $("#recipeNavigation").on("click", function () {
 // Event listener on nav link to show Nutritional Sections
 $("#nutritionalNavigation").on("click", function () {
   $("#recipe-search-section").addClass("d-none");
+  $("#display-user-choices").addClass("d-none");
   $("#recipe-results-section").addClass("d-none");
   $("#recipe-favourites-section").addClass("d-none");
   $("#nutritional-analysis-container").removeClass("d-none");
@@ -27,7 +29,9 @@ $("#nutritionalNavigation").on("click", function () {
 $("#favouriteNavigation").on("click", function () {
   $("#recipe-favourites-section").removeClass("d-none");
   $("#recipe-search-section").addClass("d-none");
+  $("#display-user-choices").addClass("d-none");
   $("#recipe-results-section").addClass("d-none");
   $("#nutritional-analysis-container").addClass("d-none");
+  renderFavouritesModal();
   renderFavourites();
 });
