@@ -5,6 +5,13 @@ const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
 // Get favourite recipe data from localStorage or initialise as an empty array
 const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
+const dietaryReqArray = [
+  "pescatarian",
+  "vegan",
+  "vegetarian",
+  "kosher"
+]
+
 const allergiesArray = [
   "Gluten-free",
   "Wheat-free",
@@ -168,16 +175,11 @@ for (let i = 0; i < cuisinesArray.length; i++) {
 
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
-  // Get random results
-  let random = "true";
-
-  // Get search terms from array of search terms
-  let tags = ingredientsSearch.join("+");
-
-  // dietary requirmenets and filtering
+  
+  // retreive user dietary requirmenets and filtering
   let mealType = [$("input[name='meal-type']:checked").attr("id")];
   let health = [$("input[name='dietary-req']:checked").attr("id")];
-  let = allergieChoices = $("input[name='allergy']:checked")
+  let allergieChoices = $("input[name='allergy']:checked")
     .map(function () {
       return $(this).attr("id");
     })
@@ -189,19 +191,51 @@ $("#searchRecipes").on("click", function () {
     })
     .get();
 
-  console.log(cuisineChoices);
-  console.log(allergieChoices);
+
+  console.log(mealType)
+  console.log(health)
+  console.log(cuisineChoices)
+  console.log(allergieChoices)
+
+
+  // dynamically display/repeat back what user has selcted here
+  $("#display-user-choices").removeClass("d-none");
+
+  let usersDiet = dietaryReqArray.filter(element => health.includes(element));
+  let usersAllergies = allergiesArray.filter(element => health.includes(element));
+  
+  let displayUserChoicesHeader = $("<h5>")
+  .addClass("displayUserSearchInfo")
+  .text("Searching recipes for:")
+  $("#display-user-choices").append(displayUserChoicesHeader);
+
+  let userChoicesText = $("<p>")
+  .addClass("displayUserSearchInfo")
+  .text(`Mealtype: ${userIngridients}\n Dietary requirements: ${usersDiet}\n Allergies: ${usersAllergies}\n Cuisine: ${cuisineChoices}` );
+
+  $("#display-user-choices").append(userChoicesText);
+  
+  // API PARAMETERS
+  // Get random results
+  let random = "true";
+
+  // Get search terms from array of search terms
+  let tags = ingredientsSearch.join("+");
+
+
 
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
 
   // builds on URL based on user preferences entered
-  if (typeof mealType === "string") {
+  if (mealType.length > 0) {
     recipeSearchURL += `&mealType=${mealType}`;
   }
-  if (typeof health === "string") {
+  
+  if (health.length > 0) {
     recipeSearchURL += `&health=${health}`;
   }
+  
   if (cuisineChoices.length > 0) {
     for (let i = 0; i < cuisineChoices.length; i++) {
       recipeSearchURL += `&cuisineType=${cuisineChoices[i].toLowerCase()}`;
@@ -617,7 +651,6 @@ function renderRecipes(data) {
 
 function renderDietLabels(recipe) {
   const dietLabels = recipe.dietLabels;
-  console.log(dietLabels.length);
 
   // Create an element for the labels
   const el = $("<div>").addClass("diet-labels");
