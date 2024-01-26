@@ -1,5 +1,3 @@
-// todo: user input error handle works but console log will still throw an error
-
 // assign global variables
 const NUTRITIONAL_API_ID = "9a70d71a";
 const  NUTRITIONAL_API_KEY = "7fc8d04c2f9d72df3a6d50790e97e17e";
@@ -14,15 +12,17 @@ function handleUserInputError(errorCode) {
     $("#custom-search-input-error")
     .addClass("error-message")
     .text(` We cannot calculate the nutrition for some ingredients. Please check the ingredient spelling or if you have entered a quantities for the ingredients.`)
-    // } else if (errorCode === 400) {
-    //   $("#custom-search-input-error")
-    //   .addClass("error-message")
-    //   .text(` .`)  
     } else {
       $("#custom-search-input-error")
       .addClass("error-message")
       .text(`An unexpected error has happened. Please try again later.`)
     }
+    // clear error message after 5 seconds
+    setTimeout(function() {
+      $("#custom-search-input-error")
+      .removeClass("error-message")
+      .text("")
+    }, 5000);
 }
 
 // wait for page to fullly load & event listener for analyse button
