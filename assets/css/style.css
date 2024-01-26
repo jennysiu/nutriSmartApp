@@ -39,6 +39,10 @@ h3 {
     text-align: left;
 }
 
+h5 {
+    text-align: center;
+}
+
 .btn-primary {
     background-color: var(--light-orange);
     border: transparent;
