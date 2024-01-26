@@ -5,48 +5,43 @@ const RECIPE_SEARCH_API_KEY = "718e862b4ce3b44d9cf1b8a149daf83c";
 // Get favourite recipe data from localStorage or initialise as an empty array
 const favouriteRecipes = JSON.parse(localStorage.getItem("recipeSearch_favouriteRecipes")) || [];
 
-const dietaryReqArray = [
-  "pescatarian",
-  "vegan",
-  "vegetarian",
-  "kosher"
-]
+const dietaryReqArray = ["pescatarian", "vegan", "vegetarian", "kosher"];
 
 const allergiesArray = [
-  "Gluten-free",
-  "Wheat-free",
-  "Egg-Free",
-  "Peanut-Free",
-  "Tree-Nut-Free",
-  "Soy-Free",
-  "Shellfish-Free",
-  "Crustacean-Free",
-  "Celery-Free",
-  "Sesame-Free",
-  "Lupine-Free",
-  "Mollusk-Free",
-  "Mustard-Free",
+  " Gluten-free",
+  " Wheat-free",
+  " Egg-Free",
+  " Peanut-Free",
+  " Tree-Nut-Free",
+  " Soy-Free",
+  " Shellfish-Free",
+  " Crustacean-Free",
+  " Celery-Free",
+  " Sesame-Free",
+  " Lupine-Free",
+  " Mollusk-Free",
+  " Mustard-Free",
 ];
 
 const cuisinesArray = [
-  "American",
-  "Asian",
-  "British",
-  "Caribbean",
-  "Central Europe",
-  "Chinese",
-  "Eastern Europe",
-  "French",
-  "Indian",
-  "Italian",
-  "Japanese",
-  "Kosher",
-  "Mediterranean",
-  "Mexican",
-  "Middle Eastern",
-  "Nordic",
-  "South American",
-  "South East Asian",
+  " American",
+  " Asian",
+  " British",
+  " Caribbean",
+  " Central Europe",
+  " Chinese",
+  " Eastern Europe",
+  " French",
+  " Indian",
+  " Italian",
+  " Japanese",
+  " Kosher",
+  " Mediterranean",
+  " Mexican",
+  " Middle Eastern",
+  " Nordic",
+  " South American",
+  " South East Asian",
 ];
 
 // Array of ingredients to search
@@ -130,8 +125,7 @@ for (let i = 0; i < allergiesArray.length; i++) {
   let allergy = allergiesArray[i];
   // console.log(allergy)
 
-  let allergyItemContainerEl = $("<span>")
-  .addClass("choiceContainer")
+  let allergyItemContainerEl = $("<span>").addClass("choiceContainer");
 
   let allergyLabel = $("<label>").attr("for", `alergy-${allergy}`).text(allergy);
 
@@ -144,7 +138,7 @@ for (let i = 0; i < allergiesArray.length; i++) {
 
   $("#allergies-options").append(allergyItemContainerEl);
   // allergyItemContainerEl.append(allergyLabel, allergyCheckboxEl)
-  allergyItemContainerEl.append(allergyCheckboxEl, allergyLabel)
+  allergyItemContainerEl.append(allergyCheckboxEl, allergyLabel);
 }
 
 // dynamically render cuisine types
@@ -153,22 +147,19 @@ for (let i = 0; i < cuisinesArray.length; i++) {
   let cuisine = cuisinesArray[i];
   // console.log(cuisine)
 
-  let cuisineItemContainerEl = $("<span>")
-  .addClass("choiceContainer")
+  let cuisineItemContainerEl = $("<span>").addClass("choiceContainer");
 
-  let cuisineCheckboxEl = $("<input>")
-  .attr({
-  type: "checkbox",
-  name: `cuisine`,
-  id: `${cuisine}`,
-  value: `${cuisine.toLowerCase()}`,
+  let cuisineCheckboxEl = $("<input>").attr({
+    type: "checkbox",
+    name: `cuisine`,
+    id: `${cuisine}`,
+    value: `${cuisine.toLowerCase()}`,
   });
 
   let cuisineLabel = $("<label>").attr("for", `cuisine-${cuisine}`).text(cuisine);
 
   $("#cuisine-options").append(cuisineItemContainerEl);
-  cuisineItemContainerEl.append(cuisineCheckboxEl, cuisineLabel)
-  
+  cuisineItemContainerEl.append(cuisineCheckboxEl, cuisineLabel);
 }
 
 // Event listener on the recipe search button
@@ -176,9 +167,25 @@ $("#searchRecipes").on("click", function () {
   // clear existing data
   $("#display-user-choices").empty();
 
+  let meal = [];
+  let diet = [];
   // retreive user dietary requirmenets and filtering
-  let mealType = [$("input[name='meal-type']:checked").attr("id")];
-  let health = [$("input[name='dietary-req']:checked").attr("id")];
+  // Get search terms from array of search terms
+  let tags = ingredientsSearch.join("+");
+
+  let mealChoice = $("input[name='meal-type']:checked").attr("id");
+
+  if (mealChoice) {
+    meal = [mealChoice.toLowerCase()];
+  }
+
+  let dietChoice = $("input[name='dietary-req']:checked").attr("id");
+
+  if (dietChoice) {
+    diet = [dietChoice.toLowerCase()];
+    // Now 'dietChoice' is an array with the ID of the checked radio button in lowercase
+  }
+
   let allergieChoices = $("input[name='allergy']:checked")
     .map(function () {
       return $(this).attr("id");
@@ -191,28 +198,54 @@ $("#searchRecipes").on("click", function () {
     })
     .get();
 
-  console.log(mealType)
-  console.log(health)
-  console.log(cuisineChoices)
-  console.log(allergieChoices)
+  console.log(mealType);
+  console.log(health);
+
+  console.log(meal);
+  console.log(diet);
+  console.log(cuisineChoices);
+  console.log(allergieChoices);
 
   // dynamically display/repeat back what user has selcted here
   $("#display-user-choices").removeClass("d-none");
 
-  let usersDiet = dietaryReqArray.filter(element => health.includes(element));
-  let usersAllergies = allergiesArray.filter(element => health.includes(element));
-  
+  let usersDiet = dietaryReqArray.filter((element) => diet.includes(element));
+  let usersAllergies = allergiesArray.filter((element) => allergieChoices.includes(element));
+
+  console.log(usersDiet);
+  console.log(usersAllergies);
+
   let displayUserChoicesHeader = $("<h5>")
-  .addClass("displayUserSearchInfo")
-  .text("Searching recipes for:")
+    .addClass("displayUserSearchInfo")
+    .text("Searching recipes for:");
   $("#display-user-choices").append(displayUserChoicesHeader);
 
-  let userChoicesText = $("<p>")
-  .addClass("displayUserSearchInfo")
-  .text(`Mealtype: ${userIngridients}\n Dietary requirements: ${usersDiet}\n Allergies: ${usersAllergies}\n Cuisine: ${cuisineChoices}` );
+  $("#display-user-choices").append(
+    $("<p>").addClass("displayUserSearchInfo").text(`Ingredients: ${tags}`)
+  );
 
-  $("#display-user-choices").append(userChoicesText);
-  
+  if (mealChoice) {
+    $("#display-user-choices").append(
+      $("<p>").addClass("displayUserSearchInfo").text(`Meal type: ${mealChoice}`)
+    );
+  }
+  if (usersDiet.length > 0) {
+    $("#display-user-choices").append(
+      $("<p>").addClass("displayUserSearchInfo").text(`Dietary requirements: ${usersDiet}`)
+    );
+  }
+  if (usersAllergies.length > 0) {
+    $("#display-user-choices").append(
+      $("<p>").addClass("displayUserSearchInfo").text(`Allergies: ${usersAllergies}`)
+    );
+  }
+
+  if (cuisineChoices > 0) {
+    $("#display-user-choices").append(
+      $("<p>").addClass("displayUserSearchInfo").text(`Cuisine: ${cuisineChoices}`)
+    );
+  }
+
   // API PARAMETERS
   // Get random results
   let random = "true";
@@ -224,14 +257,14 @@ $("#searchRecipes").on("click", function () {
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
 
   // builds on URL based on user preferences entered
-  if (mealType.length > 0) {
-    recipeSearchURL += `&mealType=${mealType}`;
+  if (meal.length > 0) {
+    recipeSearchURL += `&mealType=${meal}`;
   }
-  
-  if (health.length > 0) {
-    recipeSearchURL += `&health=${health}`;
+
+  if (diet.length > 0) {
+    recipeSearchURL += `&health=${diet}`;
   }
-  
+
   if (cuisineChoices.length > 0) {
     for (let i = 0; i < cuisineChoices.length; i++) {
       recipeSearchURL += `&cuisineType=${cuisineChoices[i].toLowerCase()}`;

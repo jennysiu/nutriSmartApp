@@ -26,8 +26,18 @@
   padding-bottom: 11%;
 }
 
-
+#display-user-choices {
+  margin: 4% 0;
+  margin-left: 25%;
+  padding: 1%;
+  border-top: 1px solid var(--light-grey);
+  border-bottom: 1px solid var(--light-grey);
+  /* border-radius: 0.6rem; */
+  text-align: center;
+  width: 50%;
+}
 .displayUserSearchInfo {
+  margin: 2%;
   text-align: center;
 }
 
