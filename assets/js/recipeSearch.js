@@ -250,9 +250,6 @@ $("#searchRecipes").on("click", function () {
   // Get random results
   let random = "true";
 
-  // Get search terms from array of search terms
-  let tags = ingredientsSearch.join("+");
-
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
 
