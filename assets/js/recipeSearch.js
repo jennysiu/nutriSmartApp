@@ -191,10 +191,12 @@ $("#searchRecipes").on("click", function () {
     })
     .get();
 
+
   console.log(mealType)
   console.log(health)
   console.log(cuisineChoices)
   console.log(allergieChoices)
+
 
   // dynamically display/repeat back what user has selcted here
   $("#display-user-choices").removeClass("d-none");
@@ -235,14 +237,14 @@ $("#searchRecipes").on("click", function () {
   }
   
   if (cuisineChoices.length > 0) {
-    for (let i = 0;i < cuisineChoices.length; i++) {
+    for (let i = 0; i < cuisineChoices.length; i++) {
       recipeSearchURL += `&cuisineType=${cuisineChoices[i].toLowerCase()}`;
-    }  
+    }
   }
   if (allergieChoices.length > 0) {
     for (let i = 0; i < allergieChoices.length; i++) {
       recipeSearchURL += `&health=${allergieChoices[i].toLowerCase()}`;
-    }  
+    }
   }
 
   console.log(recipeSearchURL);
@@ -860,6 +862,10 @@ $("#recipe-results").on("click", ".recipe-favourite", function (e) {
       //Set data attribute
       $(this).attr("data-fav", "false");
     }
+  }
+  // Rerender the favourites if it is visible
+  if (!$("#recipe-favourites-section").hasClass("d-none")) {
+    renderFavourites();
   }
 });
 
