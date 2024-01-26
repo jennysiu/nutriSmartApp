@@ -43,6 +43,10 @@ h5 {
     text-align: center;
 }
 
+#favouriteRecipesEditModal h5 {
+    text-align: left;
+}
+
 .btn-primary {
     background-color: var(--light-orange);
     border: transparent;
