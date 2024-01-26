@@ -505,7 +505,7 @@ function renderRecipes(data) {
                 </thead>
                 <tbody>
                   <!-- calories -->
-                  <tr id="calories-container>
+                  <tr id="calories-container">
                     <th colspan="3">
                       <b>Calories</b>
                       <span class="total-calories">${recipe.calories.toFixed(0)}</span>
