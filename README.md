@@ -84,7 +84,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - [Will Mowlam](https://github.com/willmowlam) as my contributing teamate.
 
-- The nutritional card table inspired by CodePen: https://codepen.io/chriscoyier/pen/ApavyZ
+- The nutritional card table inspired by CodePen: [https://codepen.io/chriscoyier/pen/ApavyZ]
 
 - README template inspired by ChatGPT, an AI language model developed by OpenAI.
   (Note: portions of this README were generated with assistance from ChatGPT.)
