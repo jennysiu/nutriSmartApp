@@ -80,13 +80,20 @@ a:hover{
     transition: all 0.3s ease;
 }
 
+body{
+    background-image: url("../images/veg-tofu-salad.jpg");
+    background-repeat: no-repeat;
+    background-position: center top; /* prevent image floating off screen */
+}
+
+#recipe-results-section{
+    background-color:white;
+}
+
 /* JUMBOSEARCH */
 .jumbotman{
     padding: 5vh 5vw; /* Responsive padding (5% viewport height/width) */    
-    background-image: url("../images/hermes-rivera-Ww8eQWjMJWk-unsplash.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center top; /* prevent image floating off screen */
+
     min-height: 35vh;
 }
 
