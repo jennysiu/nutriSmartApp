@@ -206,13 +206,13 @@ $("#searchRecipes").on("click", function () {
     })
     .get();
 
-  console.log(mealChoice);
-  console.log(diet);
+  // console.log(mealChoice);
+  // console.log(diet);
 
-  console.log(meal);
-  console.log(diet);
-  console.log(cuisineChoices);
-  console.log(allergieChoices);
+  // console.log(meal);
+  // console.log(diet);
+  // console.log(cuisineChoices);
+  // console.log(allergieChoices);
 
   // dynamically display/repeat back what user has selcted here
   $("#display-user-choices").removeClass("d-none");
@@ -220,8 +220,8 @@ $("#searchRecipes").on("click", function () {
   let usersDiet = dietaryReqArray.filter((element) => diet.includes(element));
   let usersAllergies = allergiesArray.filter((element) => allergieChoices.includes(element));
 
-  console.log(usersDiet);
-  console.log(usersAllergies);
+  // console.log(usersDiet);
+  // console.log(usersAllergies);
 
   let displayUserChoicesHeader = $("<h5>")
     .addClass("displayUserSearchInfo")
@@ -282,7 +282,7 @@ $("#searchRecipes").on("click", function () {
     }
   }
 
-  console.log(recipeSearchURL);
+  // console.log(recipeSearchURL);
   fetchRecipes(recipeSearchURL).then((data) => {
     if (data.noResults) {
       // No data
@@ -430,7 +430,7 @@ function renderRecipes(data) {
     return false;
   }
 
-  console.log(data);
+  // console.log(data);
 
   // Array of returned recipes
   const recipes = data.hits;
