@@ -166,16 +166,16 @@ for (let i = 0; i < cuisinesArray.length; i++) {
 
   let cuisineLabel = $("<label>").attr("for", `cuisine-${cuisine}`).text(cuisine);
 
-
   $("#cuisine-options").append(cuisineItemContainerEl);
   cuisineItemContainerEl.append(cuisineCheckboxEl, cuisineLabel)
-
   
 }
 
 // Event listener on the recipe search button
 $("#searchRecipes").on("click", function () {
-  
+  // clear existing data
+  $("#display-user-choices").empty();
+
   // retreive user dietary requirmenets and filtering
   let mealType = [$("input[name='meal-type']:checked").attr("id")];
   let health = [$("input[name='dietary-req']:checked").attr("id")];
@@ -191,12 +191,10 @@ $("#searchRecipes").on("click", function () {
     })
     .get();
 
-
   console.log(mealType)
   console.log(health)
   console.log(cuisineChoices)
   console.log(allergieChoices)
-
 
   // dynamically display/repeat back what user has selcted here
   $("#display-user-choices").removeClass("d-none");
@@ -221,8 +219,6 @@ $("#searchRecipes").on("click", function () {
 
   // Get search terms from array of search terms
   let tags = ingredientsSearch.join("+");
-
-
 
   // Construct search URL
   let recipeSearchURL = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${RECIPE_SEARCH_API_ID}&app_key=${RECIPE_SEARCH_API_KEY}&random=${random}&tag=${tags}`;
@@ -509,7 +505,7 @@ function renderRecipes(data) {
                 </thead>
                 <tbody>
                   <!-- calories -->
-                  <tr>
+                  <tr id="calories-container>
                     <th colspan="3">
                       <b>Calories</b>
                       <span class="total-calories">${recipe.calories.toFixed(0)}</span>
