@@ -185,7 +185,7 @@ $("#searchRecipes").on("click", function () {
 
   if (mealChoice) {
     meal = [mealChoice.toLowerCase()];
-  }
+  } 
 
   let dietChoice = $("input[name='dietary-req']:checked").attr("id");
 
@@ -228,11 +228,17 @@ $("#searchRecipes").on("click", function () {
     .text("Searching recipes for:");
   $("#display-user-choices").append(displayUserChoicesHeader);
 
+
+  // adds space between array items for the ingredients
+  for (let i = 1; i < tagsArray.length; i++) {
+    displayTags = tagsArray[0] + " " + tagsArray[i];
+  }
+
   $("#display-user-choices").append(
-    $("<p>").addClass("displayUserSearchInfo").text(`Ingredients: ${tags}`)
+    $("<p>").addClass("displayUserSearchInfo").text(`Ingredients: ${tagsArray}`)
   );
 
-  if (meal) {
+  if (mealChoice) {
     $("#display-user-choices").append(
       $("<p>").addClass("displayUserSearchInfo").text(`Meal type: ${meal}`)
     );
@@ -264,11 +270,13 @@ $("#searchRecipes").on("click", function () {
 
   // builds on URL based on user preferences entered
   if (meal.length > 0) {
-    recipeSearchURL += `&mealType=${meal.toLowerCase()}`;
+    recipeSearchURL += `&mealType=${meal}`;
   }
 
+  console.log(usersDiet);
+
   if (usersDiet.length > 0) {
-    recipeSearchURL += `&health=${usersDiet.toLowerCase()}`;
+    recipeSearchURL += `&health=${usersDiet}`;
   }
 
   if (cuisineChoices.length > 0) {
