@@ -244,7 +244,7 @@ $("#searchRecipes").on("click", function () {
   }
   if (usersAllergies.length > 0) {
     $("#display-user-choices").append(
-      $("<p>").addClass("displayUserSearchInfo").text(`Allergies: ${usersAllergies}`)
+      $("<p>").addClass("displayUserSearchInfo").text(`Allergies: ${usersAllergies.toLowerCase()}`)
     );
   }
 
@@ -264,11 +264,11 @@ $("#searchRecipes").on("click", function () {
 
   // builds on URL based on user preferences entered
   if (meal.length > 0) {
-    recipeSearchURL += `&mealType=${meal}`;
+    recipeSearchURL += `&mealType=${meal.toLowerCase()}`;
   }
 
   if (usersDiet.length > 0) {
-    recipeSearchURL += `&health=${usersDiet}`;
+    recipeSearchURL += `&health=${usersDiet.toLowerCase()}`;
   }
 
   if (cuisineChoices.length > 0) {
