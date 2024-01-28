@@ -1,3 +1,5 @@
+// this file allows elements to hide/unhide depending on which page is selected
+
 // Event listener on nav link to show Recipe Sections
 $("#recipeNavigation").on("click", function () {
   $("#recipe-search-section").removeClass("d-none");
