@@ -119,6 +119,8 @@ function renderRecipeSearchIngredients() {
   }
 }
 
+
+
 // dynamically render allergy options
 // loop through allergiesArray and dynamically render allergy checkboxes
 for (let i = 0; i < allergiesArray.length; i++) {
@@ -185,7 +187,7 @@ $("#searchRecipes").on("click", function () {
 
   if (mealChoice) {
     meal = [mealChoice.toLowerCase()];
-  }
+  } 
 
   let dietChoice = $("input[name='dietary-req']:checked").attr("id");
 
@@ -220,6 +222,14 @@ $("#searchRecipes").on("click", function () {
   let usersDiet = dietaryReqArray.filter((element) => diet.includes(element));
   let usersAllergies = allergiesArray.filter((element) => allergieChoices.includes(element));
 
+  // create new array to display in lower case later
+  let usersAllergiesInLower = []
+
+  for (let i = 0; i < usersAllergies.length; i++) {
+    allergy = usersAllergies[i].toLowerCase();
+    usersAllergiesInLower.push(allergy)
+  }
+
   // console.log(usersDiet);
   // console.log(usersAllergies);
 
@@ -228,11 +238,17 @@ $("#searchRecipes").on("click", function () {
     .text("Searching recipes for:");
   $("#display-user-choices").append(displayUserChoicesHeader);
 
+
+  // adds space between array items for the ingredients
+  for (let i = 1; i < tagsArray.length; i++) {
+    displayTags = tagsArray[0] + " " + tagsArray[i];
+  }
+
   $("#display-user-choices").append(
-    $("<p>").addClass("displayUserSearchInfo").text(`Ingredients: ${tags}`)
+    $("<p>").addClass("displayUserSearchInfo").text(`Ingredients: ${tagsArray}`)
   );
 
-  if (meal) {
+  if (mealChoice) {
     $("#display-user-choices").append(
       $("<p>").addClass("displayUserSearchInfo").text(`Meal type: ${meal}`)
     );
@@ -244,7 +260,7 @@ $("#searchRecipes").on("click", function () {
   }
   if (usersAllergies.length > 0) {
     $("#display-user-choices").append(
-      $("<p>").addClass("displayUserSearchInfo").text(`Allergies: ${usersAllergies}`)
+      $("<p>").addClass("displayUserSearchInfo").text(`Allergies: ${usersAllergiesInLower}`)
     );
   }
 
@@ -266,6 +282,8 @@ $("#searchRecipes").on("click", function () {
   if (meal.length > 0) {
     recipeSearchURL += `&mealType=${meal}`;
   }
+
+  console.log(usersDiet);
 
   if (usersDiet.length > 0) {
     recipeSearchURL += `&health=${usersDiet}`;
