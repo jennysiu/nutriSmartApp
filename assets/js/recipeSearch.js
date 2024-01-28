@@ -283,7 +283,7 @@ $("#searchRecipes").on("click", function () {
     recipeSearchURL += `&mealType=${meal}`;
   }
 
-  console.log(usersDiet);
+  // console.log(usersDiet);
 
   if (usersDiet.length > 0) {
     recipeSearchURL += `&health=${usersDiet}`;
