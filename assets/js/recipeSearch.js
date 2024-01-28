@@ -337,6 +337,9 @@ $("#deleteAllFavourites").on("click", function () {
 
   // Empty the results
   $("#recipe-results").empty();
+
+  // Render the edit favourites modal so it is emptied too
+  renderFavouritesModal();
 });
 
 // Event listener for the favourites modal to update its contents before being displayed
