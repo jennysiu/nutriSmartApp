@@ -185,7 +185,7 @@ $("#searchRecipes").on("click", function () {
 
   if (mealChoice) {
     meal = [mealChoice.toLowerCase()];
-  } 
+  }
 
   let dietChoice = $("input[name='dietary-req']:checked").attr("id");
 
@@ -221,11 +221,11 @@ $("#searchRecipes").on("click", function () {
   let usersAllergies = allergiesArray.filter((element) => allergieChoices.includes(element));
 
   // create new array to display in lower case later
-  let usersAllergiesInLower = []
+  let usersAllergiesInLower = [];
 
   for (let i = 0; i < usersAllergies.length; i++) {
     allergy = usersAllergies[i].toLowerCase();
-    usersAllergiesInLower.push(allergy)
+    usersAllergiesInLower.push(allergy);
   }
 
   // console.log(usersDiet);
@@ -431,7 +431,9 @@ function renderFavourites() {
       // Handle any errors
       console.error("Error:", data.error);
     } else {
+      //Render recipes in results and the edit favourites modal list
       renderRecipes(data);
+      renderFavouritesModal();
     }
   });
 }
@@ -876,8 +878,6 @@ $("#favouriteRecipesEditModal").on("click", ".recipe-favourite", function (e) {
   const uri = $(this).attr("data-uri");
 
   removeFavouriteRecipe(uri);
-
-  renderFavouritesModal();
 
   renderFavourites();
 });
