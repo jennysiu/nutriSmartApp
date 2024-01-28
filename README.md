@@ -49,7 +49,9 @@ To view the code files, you can Git Clone by following the instructions below:
 No installation is required, you can access the live URL here: https://jennysiu.github.io/nutriSmartApp/
 
 Once the webpage link is opened, it should look something like this:
-![Screenshot of the first page](./assets/images/screenshot.png)
+
+![Demo image of how the webpage should look like upon opening.](./assets/images/nutriAppDemoImage.png)
+
 
 ## Technologies Used
 
@@ -85,6 +87,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - [Will Mowlam](https://github.com/willmowlam) as my contributing teamate.
 
 - The nutritional card table inspired by CodePen: [https://codepen.io/chriscoyier/pen/ApavyZ]
+
+- Background image from Unsplash. Creator's name Hermes Rivera: [https://unsplash.com/photos/vegetable-dish-in-white-ceramic-bowl-Ww8eQWjMJWk]
 
 - README template inspired by ChatGPT, an AI language model developed by OpenAI.
   (Note: portions of this README were generated with assistance from ChatGPT.)
