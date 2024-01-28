@@ -31,7 +31,7 @@ Welcome to nutriSmart, the innovative app designed to revolutionize your meal pl
 
 ### 3. Save Favourite Recipes
 
-- Personalized Cookbook: Easily save your favorite recipes for quick access. Whether it's a family classic or a new find, keep all your beloved recipes at your fingertips.
+- Personalized Cookbook: Easily save your favourite recipes for quick access. Whether it's a family classic or a new find, keep all your beloved recipes at your fingertips.
 - Customize Your Collection: Organize your saved recipes into categories, making meal planning and grocery shopping a breeze.
 
 ## Installation
@@ -49,7 +49,9 @@ To view the code files, you can Git Clone by following the instructions below:
 No installation is required, you can access the live URL here: https://jennysiu.github.io/nutriSmartApp/
 
 Once the webpage link is opened, it should look something like this:
+
 ![Demo image of how the webpage should look like upon opening.](./assets/images/nutriAppDemoImage.png)
+
 
 ## Technologies Used
 
