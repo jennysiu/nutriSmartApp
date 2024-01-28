@@ -119,6 +119,8 @@ function renderRecipeSearchIngredients() {
   }
 }
 
+
+
 // dynamically render allergy options
 // loop through allergiesArray and dynamically render allergy checkboxes
 for (let i = 0; i < allergiesArray.length; i++) {
@@ -220,6 +222,14 @@ $("#searchRecipes").on("click", function () {
   let usersDiet = dietaryReqArray.filter((element) => diet.includes(element));
   let usersAllergies = allergiesArray.filter((element) => allergieChoices.includes(element));
 
+  // create new array to display in lower case later
+  let usersAllergiesInLower = []
+
+  for (let i = 0; i < usersAllergies.length; i++) {
+    allergy = usersAllergies[i].toLowerCase();
+    usersAllergiesInLower.push(allergy)
+  }
+
   // console.log(usersDiet);
   // console.log(usersAllergies);
 
@@ -250,7 +260,7 @@ $("#searchRecipes").on("click", function () {
   }
   if (usersAllergies.length > 0) {
     $("#display-user-choices").append(
-      $("<p>").addClass("displayUserSearchInfo").text(`Allergies: ${usersAllergies.toLowerCase()}`)
+      $("<p>").addClass("displayUserSearchInfo").text(`Allergies: ${usersAllergiesInLower}`)
     );
   }
 
