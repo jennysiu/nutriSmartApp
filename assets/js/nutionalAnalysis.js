@@ -123,7 +123,7 @@ function customAnalysis(data) {
 
   $("#display-user-ingredients").append(userSearchedText);
     
-  console.log(data);
+  // console.log(data);
 
   // diet labels
   let dietLabels = data.dietLabels;
@@ -143,7 +143,7 @@ function customAnalysis(data) {
   let healthLabels = data.healthLabels;
   // new array with unwanted health lables filtered out
   let healthLabelsToKeep = healthLabels.filter(item => !unwantedHealthLabels.includes(item));
-  console.log(healthLabelsToKeep)
+  // console.log(healthLabelsToKeep)
 
   for (let i = 0; i < healthLabelsToKeep.length; i++) {
     const healthBadge = $("<span>")
@@ -156,7 +156,7 @@ function customAnalysis(data) {
   // calories
   
   let calories = data.calories;
-  console.log(calories);
+  // console.log(calories);
 
   $("#total-calories").text(calories);
 
@@ -183,7 +183,7 @@ function customAnalysis(data) {
 
   // *** gives you % of daily rec
   let totalDailyPercentage = data.totalDaily;
-  console.log(totalDailyPercentage);
+  // console.log(totalDailyPercentage);
   // total fat
   $("#total-fats .percentage").text(`${totalDailyPercentage.FAT.quantity.toFixed(1)}%`);
   // saturated fat

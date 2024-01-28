@@ -119,8 +119,6 @@ function renderRecipeSearchIngredients() {
   }
 }
 
-
-
 // dynamically render allergy options
 // loop through allergiesArray and dynamically render allergy checkboxes
 for (let i = 0; i < allergiesArray.length; i++) {
@@ -238,7 +236,6 @@ $("#searchRecipes").on("click", function () {
     .text("Searching recipes for:");
   $("#display-user-choices").append(displayUserChoicesHeader);
 
-
   // adds space between array items for the ingredients
   for (let i = 1; i < tagsArray.length; i++) {
     displayTags = tagsArray[0] + " " + tagsArray[i];
@@ -269,7 +266,6 @@ $("#searchRecipes").on("click", function () {
       $("<p>").addClass("displayUserSearchInfo").text(`Cuisine: ${cuisineChoices}`)
     );
   }
-  // }
 
   // API PARAMETERS
   // Get random results
@@ -283,7 +279,7 @@ $("#searchRecipes").on("click", function () {
     recipeSearchURL += `&mealType=${meal}`;
   }
 
-  console.log(usersDiet);
+  // console.log(usersDiet);
 
   if (usersDiet.length > 0) {
     recipeSearchURL += `&health=${usersDiet}`;
