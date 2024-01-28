@@ -403,6 +403,9 @@ function renderFavourites() {
   if (!uris) {
     // Empty the results
     $("#recipe-results").empty();
+
+    // Render the favourite recipes modal to prevent a single recipe being left over once the favourite array is empty
+    renderFavouritesModal();
     return false;
   }
 
