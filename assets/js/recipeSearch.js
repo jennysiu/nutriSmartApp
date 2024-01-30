@@ -438,6 +438,9 @@ function renderFavourites() {
 
 // Render recipes in results section
 function renderRecipes(data) {
+  // Flush the recipe results array before adding to it again (so they don't accumulate)
+  recipeResultData.length = 0;
+
   // Check there is data to work with
   if (!data) {
     console.error("Error: No recipe data to render");
@@ -833,7 +836,7 @@ function addFavouriteRecipe(recipe) {
       const uri = favouriteRecipes[i].recipe.uri;
 
       // Check if this uri exists in the array
-      if (recipe.uri === uri) {
+      if (recipe.recipe.uri === uri) {
         // Prevent adding more than one by exiting the function
         return true;
       }
