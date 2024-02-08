@@ -176,9 +176,13 @@ $("#searchRecipes").on("click", function () {
 
   // converts into an array of query tags
   let tagsArray = tags.split("+");
-  let qTags;
+  let qTags = "";
   for (let i = 0; i < tagsArray.length; i++) {
-    qTags = qTags + "&tag=" + tagsArray[i];
+    if (i === 0) {
+      qTags = tagsArray[i];
+    } else {
+      qTags = qTags + "&tag=" + tagsArray[i];
+    }
   }
 
   let mealChoice = $("input[name='meal-type']:checked").attr("id");
