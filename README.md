@@ -100,7 +100,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Feel free to reach out to me if you have any questions or feedback.
 
-Jenny Siu
-jenny.siu79@gmail.com
-https://www.linkedin.com/in/jenny-siu-534576156/
+Jenny Siu |
+[Email](jenny.siu79@gmail.com) |
+[Email](https://www.linkedin.com/in/jenny-siu-534576156/)
 
